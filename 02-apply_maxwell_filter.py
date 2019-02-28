@@ -20,7 +20,6 @@ import os.path as op
 
 import mne
 from mne.parallel import parallel_func
-from mne.preprocessing import maxwell_filter
 
 import config
 

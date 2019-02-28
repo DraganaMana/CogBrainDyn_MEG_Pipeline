@@ -73,7 +73,7 @@ base_fname = '{subject}_' + study_name + '{extension}.fif'
 # Use the simple dict if you don't have runs, and the dict(dict) if you have runs
 
 # bads = dict(sample=['MEG 2443', 'EEG 053'])
-bads = None
+bads = dict(sample=['MISC 001', 'MISC 002'])
 
 #bads = dict(sample=dict(run01=['MEG 2443', 'EEG 053'],
 #                         run02=['MEG 2443', 'EEG 053', 'EEG 013']))
