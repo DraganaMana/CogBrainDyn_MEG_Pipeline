@@ -47,22 +47,23 @@ def run_epochs(subject):
 
         # XXX mark bads from any run – is it a problem for ICA
         # if we just exclude the bads shared by all runs ?
-        if run:
-            bads = set(chain(*config.bads[subject].values()))
-        else:
-            bads = config.bads[subject]
-
-        raw.info['bads'] = bads
-        print("added bads: ", raw.info['bads'])
+#        if run:
+#            bads = set(chain(*config.bads[subject].values()))
+#        else:
+#            bads = config.bads[subject]
+#
+#        raw.info['bads'] = bads
+#        print("added bads: ", raw.info['bads'])
 
         raw_list.append(raw)
 
     print('  Concatenating runs')
     raw, events = mne.concatenate_raws(raw_list, events_list=events_list)
-    raw.set_eeg_reference(projection=True)
+#    raw.set_eeg_reference(projection=True)
     del raw_list
 
-    picks = mne.pick_types(raw.info, meg=True, eeg=True, stim=True,
+# changed from EEG = True to False
+    picks = mne.pick_types(raw.info, meg=True, eeg=False, stim=True,
                            eog=True, exclude=())
 
     # Construct metadata from the epochs

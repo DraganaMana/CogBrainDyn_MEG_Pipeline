@@ -2,7 +2,6 @@
 ===========
 Config file
 ===========
-
 Configuration parameters for the study. This should be in a folder called
 ``library/`` inside the ``processing/`` directory.
 """
@@ -16,14 +15,14 @@ from mne.datasets import sample
 # execute %matplotlib qt in your command line once to show the figures in
 # separate windows
 
-plot = False
+plot = True
 
 ###############################################################################
 # DIRECTORIES
 # -----------
 # Let's set the `study path`` where the data is stored on your system
 # study_path = '../MNE-sample-data/'
-study_path = sample.data_path()
+study_path = "C:/Users/Dragana/Desktop/Dynacomp_LocalizerData/"
 
 # The ``subjects_dir`` and ``meg_dir`` for reading anatomical and MEG files.
 subjects_dir = os.path.join(study_path, 'subjects')
@@ -37,13 +36,13 @@ meg_dir = os.path.join(study_path, 'MEG')
 # named my_study_path/MEG/my_subject/
 
 # This is the name of your experimnet
-study_name = 'audvis'
+study_name = 'Localizer'
 
 # To define the subjects, we use a list with all the subject names. Even if its
 # a single subject, it needs to be set up as a list with a single element,
 # as in the example
 
-subjects_list = ['sample']
+subjects_list = ['kr_080082']
 # subjects_list = ['subject_01', 'subject_02', 'subject_03', 'subject_05',
 #                  'subject_06', 'subject_08', 'subject_09', 'subject_10',
 #                  'subject_11', 'subject_12', 'subject_14']
@@ -73,9 +72,10 @@ base_fname = '{subject}_' + study_name + '{extension}.fif'
 # you either get them from your recording notes, or from visualizing the data
 # Use the simple dict if you don't have runs, and the dict(dict) if you have runs
 
-bads = dict(sample=['MEG 2443', 'EEG 053'])
+# bads = dict(sample=['MEG 2443', 'EEG 053'])
+bads = None
 
-# bads = dict(sample=dict(run01=['MEG 2443', 'EEG 053'],
+#bads = dict(sample=dict(run01=['MEG 2443', 'EEG 053'],
 #                         run02=['MEG 2443', 'EEG 053', 'EEG 013']))
 
 ###############################################################################
@@ -101,11 +101,11 @@ rename_channels = None
 
 # ``l_freq``  : the low-frequency cut-off in the highpass filtering step.
 # Keep it None if no highpass filtering should be applied.
-l_freq = None
+l_freq = 5
 
 # ``h_freq``  : the high-frequency cut-off in the lowpass filtering step.
 # Keep it None if no lowpass filtering should be applied.
-h_freq = None
+h_freq = 45
 
 
 ###############################################################################
@@ -151,13 +151,13 @@ decim = 1
 #  ``reject`` : the default rejection limits to make some epochs as bads.
 # This allows to remove strong transient artifacts.
 # If you want to reject and retrieve blinks later, e.g. with ICA, don't specify
-# a value for the eog channel (see examples below).
+# a value for the eog channel (see examples below). 
 # **Note**: these numbers tend to vary between subjects.
-# Examples:
+# Examples: 
 # reject = {'grad': 4000e-13, 'mag': 4e-12, 'eog': 150e-6}
 # reject = None
 
-reject = {'grad': 4000e-13, 'mag': 4e-12, 'eeg': 200e-6}
+reject = {'grad': 4000e-13, 'mag': 4e-12}
 
 ###############################################################################
 # EPOCHING
@@ -179,19 +179,15 @@ stim_channel = None  # 'STI014'# 'STI101'
 
 #  `event_id`` : python dictionary that maps events (trigger/marker values)
 # to conditions. E.g. `event_id = {'Auditory/Left': 1, 'Auditory/Right': 2}`
-event_id = {'Auditory/Left': 1, 'Auditory/Right': 2,
-            'Visual/Left': 3, 'Visual/Right': 4}
-conditions = ['Auditory', 'Visual', 'Right', 'Left']
+event_id = {'Condition1': 33, 'Condition2': 35,
+            'Condition3': 37, 'Condition4': 39}
+conditions = ['Condition1', 'Condition2', 'Condition3', 'Condition4']
 
 ###############################################################################
 # ICA PARAMETERS
 # --------------
 # ``runica`` : boolean that says if ICA should be used or not.
 runica = True
-
-rejcomps_man = dict(sample=dict(meg=[],
-                                eeg=[]))
-
 
 ###############################################################################
 # DECODING

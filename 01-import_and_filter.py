@@ -23,6 +23,7 @@ from warnings import warn
 import config
 
 
+
 def run_filter(subject):
     print("processing subject: %s" % subject)
 
@@ -31,11 +32,11 @@ def run_filter(subject):
     raws = []
     for run in config.runs:
 
-        # read bad channels for run from config
-        if run:
-            bads = config.bads[subject][run]
-        else:
-            bads = config.bads[subject]
+         # read bad channels for run from config
+#        if run:
+#            bads = config.bads[subject][run]
+#        else:
+#            bads = config.bads[subject]
 
         extension = run + '_raw'
         raw_fname_in = op.join(meg_subject_dir,
@@ -54,11 +55,11 @@ def run_filter(subject):
             continue
 
         raw = mne.io.read_raw_fif(raw_fname_in,
-                                  preload=True, verbose='error')
+                                  preload=True, verbose='error', allow_maxshield=True)
 
         # add bad channels
-        raw.info['bads'] = bads
-        print("added bads: ", raw.info['bads'])
+#        raw.info['bads'] = bads
+#        print("added bads: ", raw.info['bads'])
 
         if config.set_channel_types is not None:
             raw.set_channel_types(config.set_channel_types)
@@ -79,7 +80,7 @@ def run_filter(subject):
         if config.plot:
 
             # plot raw data
-            figure = raw.plot(n_channels=50, butterfly=True,
+            figure = raw.plot(n_channels=50, butterfly=False,
                               group_by='position')
             figure.show()
 
