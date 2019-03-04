@@ -22,7 +22,7 @@ plot = True
 # -----------
 # Let's set the `study path`` where the data is stored on your system
 # study_path = '../MNE-sample-data/'
-study_path = "C:/Users/Dragana/Desktop/Dynacomp_LocalizerData/"
+study_path = 'C:/Users/Dragana/Documents/Training/'
 
 # The ``subjects_dir`` and ``meg_dir`` for reading anatomical and MEG files.
 subjects_dir = os.path.join(study_path, 'subjects')
@@ -36,13 +36,13 @@ meg_dir = os.path.join(study_path, 'MEG')
 # named my_study_path/MEG/my_subject/
 
 # This is the name of your experimnet
-study_name = 'Localizer'
+study_name = 'Training'
 
 # To define the subjects, we use a list with all the subject names. Even if its
 # a single subject, it needs to be set up as a list with a single element,
 # as in the example
 
-subjects_list = ['kr_080082']
+subjects_list = ['s190301']
 # subjects_list = ['subject_01', 'subject_02', 'subject_03', 'subject_05',
 #                  'subject_06', 'subject_08', 'subject_09', 'subject_10',
 #                  'subject_11', 'subject_12', 'subject_14']
@@ -56,13 +56,14 @@ exclude_subjects = []  # ['subject_01']
 # put the number of runs you ideally expect to have per subject
 # the scripts will issue a warning if there are less
 # leave empty if there is just one file
-runs = [''] # ['run01', 'run02']
+runs = ['Run01', 'Run02', 'Run03'] # ['run01', 'run02']
 
 # This generates the name for all files
 # with the names specified above
 # normally you should not have to touch this
 
-base_fname = '{subject}_' + study_name + '{extension}.fif'
+base_fname = '{subject}_' + study_name + '_{extension}.fif'
+#base_fname = '{runs}' + '.fif'
 
 ###############################################################################
 # BAD CHANNELS
@@ -72,11 +73,12 @@ base_fname = '{subject}_' + study_name + '{extension}.fif'
 # you either get them from your recording notes, or from visualizing the data
 # Use the simple dict if you don't have runs, and the dict(dict) if you have runs
 
-# bads = dict(sample=['MEG 2443', 'EEG 053'])
-bads = dict(sample=['MISC 001', 'MISC 002'])
+#bads = dict(subject_190301=['MEG 1512', 'MEG 0131', 'MEG 0341', 'MEG 0213', 'MEG 0133'])
+# bads = dict(sample=['MISC 001', 'MISC 002'])
 
-#bads = dict(sample=dict(run01=['MEG 2443', 'EEG 053'],
-#                         run02=['MEG 2443', 'EEG 053', 'EEG 013']))
+bads = dict(s190301=dict(Run01=['MEG1512', 'MEG0131', 'MEG0341', 'MEG0213', 'MEG0133'],
+                         Run02=['MEG1512', 'MEG0131', 'MEG0341', 'MEG0213', 'MEG0133'],
+                         Run03=['MEG1512', 'MEG0131', 'MEG0341', 'MEG0213', 'MEG0133']))
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
@@ -101,7 +103,7 @@ rename_channels = None
 
 # ``l_freq``  : the low-frequency cut-off in the highpass filtering step.
 # Keep it None if no highpass filtering should be applied.
-l_freq = 5
+l_freq = 1
 
 # ``h_freq``  : the high-frequency cut-off in the lowpass filtering step.
 # Keep it None if no lowpass filtering should be applied.
