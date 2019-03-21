@@ -22,8 +22,6 @@ from warnings import warn
 
 import config
 
-
-
 def run_filter(subject):
     print("processing subject: %s" % subject)
 

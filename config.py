@@ -22,7 +22,7 @@ plot = True
 # -----------
 # Let's set the `study path`` where the data is stored on your system
 # study_path = '../MNE-sample-data/'
-study_path = 'C:/Users/Dragana/Documents/Training/'
+study_path = 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
 # The ``subjects_dir`` and ``meg_dir`` for reading anatomical and MEG files.
 subjects_dir = os.path.join(study_path, 'subjects')
@@ -36,13 +36,13 @@ meg_dir = os.path.join(study_path, 'MEG')
 # named my_study_path/MEG/my_subject/
 
 # This is the name of your experimnet
-study_name = 'Training'
+study_name = 'ScaledTime'
 
 # To define the subjects, we use a list with all the subject names. Even if its
 # a single subject, it needs to be set up as a list with a single element,
 # as in the example
 
-subjects_list = ['s190301']
+subjects_list = ['s190320']
 # subjects_list = ['subject_01', 'subject_02', 'subject_03', 'subject_05',
 #                  'subject_06', 'subject_08', 'subject_09', 'subject_10',
 #                  'subject_11', 'subject_12', 'subject_14']
@@ -56,7 +56,8 @@ exclude_subjects = []  # ['subject_01']
 # put the number of runs you ideally expect to have per subject
 # the scripts will issue a warning if there are less
 # leave empty if there is just one file
-runs = ['Run01', 'Run02', 'Run03'] # ['run01', 'run02']
+runs = ['Run01', 'Run02', 'Run03', 'Run04'] # ['run01', 'run02']
+#runs = ['Run01-1', 'Run02-1'] # ['run01', 'run02']
 
 # This generates the name for all files
 # with the names specified above
@@ -76,9 +77,9 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 #bads = dict(subject_190301=['MEG 1512', 'MEG 0131', 'MEG 0341', 'MEG 0213', 'MEG 0133'])
 # bads = dict(sample=['MISC 001', 'MISC 002'])
 
-bads = dict(s190301=dict(Run01=['MEG1512', 'MEG0131', 'MEG0341', 'MEG0213', 'MEG0133'],
-                         Run02=['MEG1512', 'MEG0131', 'MEG0341', 'MEG0213', 'MEG0133'],
-                         Run03=['MEG1512', 'MEG0131', 'MEG0341', 'MEG0213', 'MEG0133']))
+bads = dict(s190320=dict(Run01=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541'],
+                         Run02=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541'],
+                         Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541']))
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
@@ -103,11 +104,11 @@ rename_channels = None
 
 # ``l_freq``  : the low-frequency cut-off in the highpass filtering step.
 # Keep it None if no highpass filtering should be applied.
-l_freq = 1
+l_freq = 0.01
 
 # ``h_freq``  : the high-frequency cut-off in the lowpass filtering step.
 # Keep it None if no lowpass filtering should be applied.
-h_freq = 45
+h_freq = 100
 
 
 ###############################################################################
@@ -130,7 +131,7 @@ mf_head_origin = 'auto'
 # ``mf_st_duration `` : if None, no temporal-spatial filtering is applied during MaxFilter,
 # otherwise, put a float that speficifies the buffer duration in seconds,
 # Elekta default = 10s, meaning it acts like a 0.1 Hz highpass filter
-mf_st_duration = None
+mf_st_duration = 10
 
 ###############################################################################
 # RESAMPLING
