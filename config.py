@@ -56,8 +56,8 @@ exclude_subjects = []  # ['subject_01']
 # put the number of runs you ideally expect to have per subject
 # the scripts will issue a warning if there are less
 # leave empty if there is just one file
-runs = ['Run01', 'Run02', 'Run03', 'Run04'] # ['run01', 'run02']
-#runs = ['Run01-1', 'Run02-1'] # ['run01', 'run02']
+#runs = ['Run01', 'Run02', 'Run03', 'Run04'] # ['run01', 'run02']
+runs = ['Run01']
 
 # This generates the name for all files
 # with the names specified above
@@ -131,7 +131,7 @@ mf_head_origin = 'auto'
 # ``mf_st_duration `` : if None, no temporal-spatial filtering is applied during MaxFilter,
 # otherwise, put a float that speficifies the buffer duration in seconds,
 # Elekta default = 10s, meaning it acts like a 0.1 Hz highpass filter
-mf_st_duration = 10
+mf_st_duration = 0
 
 ###############################################################################
 # RESAMPLING
@@ -145,7 +145,7 @@ resample_sfreq = None
 # ``decim`` : integer that says how much to decimate data at the epochs level.
 # It is typically an alternative to the `resample_sfreq` parameter that
 # can be used for resampling raw data. 1 means no decimation.
-decim = 1
+decim = None
 
 ###############################################################################
 # AUTOMATIC REJECTION OF ARTIFACTS
@@ -167,10 +167,10 @@ reject = {'grad': 4000e-13, 'mag': 4e-12}
 # --------
 #
 # ``tmin``: float that gives the start time before event of an epoch.
-tmin = -0.2
+tmin = -1
 
 #  ``tmax`` : float that gives the end time after event of an epochs.
-tmax = 0.5
+tmax = 3
 
 # ``baseline`` : tuple that specifies how to baseline the epochs; if None,
 # no baseline is applied
