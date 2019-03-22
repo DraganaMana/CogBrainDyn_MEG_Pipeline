@@ -38,6 +38,8 @@ def run_events(subject):
 
         if config.plot:
             # plot events
+            # It would be good to have names on the figures, from which Run are
+            # the events plotted
             figure = mne.viz.plot_events(events)
             figure.show()
 

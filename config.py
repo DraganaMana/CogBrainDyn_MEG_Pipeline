@@ -57,7 +57,7 @@ exclude_subjects = []  # ['subject_01']
 # the scripts will issue a warning if there are less
 # leave empty if there is just one file
 #runs = ['Run01', 'Run02', 'Run03', 'Run04'] # ['run01', 'run02']
-runs = ['Run01']
+runs = ['Run03', 'Run04']
 
 # This generates the name for all files
 # with the names specified above
@@ -77,9 +77,8 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 #bads = dict(subject_190301=['MEG 1512', 'MEG 0131', 'MEG 0341', 'MEG 0213', 'MEG 0133'])
 # bads = dict(sample=['MISC 001', 'MISC 002'])
 
-bads = dict(s190320=dict(Run01=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541'],
-                         Run02=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541'],
-                         Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541']))
+bads = dict(s190320=dict(Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541'],
+                         Run04=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541']))
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
@@ -131,7 +130,7 @@ mf_head_origin = 'auto'
 # ``mf_st_duration `` : if None, no temporal-spatial filtering is applied during MaxFilter,
 # otherwise, put a float that speficifies the buffer duration in seconds,
 # Elekta default = 10s, meaning it acts like a 0.1 Hz highpass filter
-mf_st_duration = 0
+mf_st_duration = None
 
 ###############################################################################
 # RESAMPLING
@@ -178,13 +177,16 @@ tmax = 3
 baseline = (None, 0.)
 
 # stimulus channel, which contains the events
-stim_channel = None  # 'STI014'# 'STI101'
+stim_channel = 'STI101'  # 'STI014'# 'STI101'
 
 #  `event_id`` : python dictionary that maps events (trigger/marker values)
 # to conditions. E.g. `event_id = {'Auditory/Left': 1, 'Auditory/Right': 2}`
-event_id = {'Condition1': 33, 'Condition2': 35,
-            'Condition3': 37, 'Condition4': 39}
-conditions = ['Condition1', 'Condition2', 'Condition3', 'Condition4']
+#event_id = {'Interval1': 9, 'Interval2': 10,
+#            'Interval3': 12}
+#conditions = ['Interval1', 'Interval2', 'Interval3']
+#
+event_id = {'TrainPress': 140}
+conditions = ['TrainPress']
 
 ###############################################################################
 # ICA PARAMETERS
