@@ -53,11 +53,11 @@ def run_evoked(subject):
     # run ICA on MEG and EEG
     picks_meg = mne.pick_types(raw.info, meg=True, eeg=False,
                                eog=False, stim=False, exclude='bads')
-    picks_eeg = mne.pick_types(raw.info, meg=False, eeg=True,
+    picks_eeg = mne.pick_types(raw.info, meg=False, eeg=False,
                                eog=False, stim=False, exclude='bads')
-    all_picks = {'meg': picks_meg, 'eeg': picks_eeg}
+    all_picks = {'meg': picks_meg}
 
-    for ch_type in ['meg', 'eeg']:
+    for ch_type in ['meg']:
         print(ch_type)
         picks = all_picks[ch_type]
 

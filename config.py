@@ -57,7 +57,7 @@ exclude_subjects = []  # ['subject_01']
 # the scripts will issue a warning if there are less
 # leave empty if there is just one file
 #runs = ['Run01', 'Run02', 'Run03', 'Run04'] # ['run01', 'run02']
-runs = ['Run03', 'Run04']
+runs = ['Run03']
 
 # This generates the name for all files
 # with the names specified above
@@ -88,7 +88,11 @@ bads = dict(s190320=dict(Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG
 # ``set_channel_types`` defines types of channels
 # example :
 # set_channel_types = {'EEG061': 'eog', 'EEG062': 'eog', 'EEG063': 'ecg', 'EEG064': 'misc'}
-set_channel_types = None
+set_channel_types = {'EOG061': 'eog', 'EOG062': 'eog', 'ECG063': 'ecg', 
+                     'MISC201': 'misc', 'MISC202': 'misc', 'MISC203': 'misc',
+                     'MISC204': 'misc', 'MISC205': 'misc', 'MISC206': 'misc',
+                     'MISC301': 'misc', 'MISC302': 'misc', 'MISC303': 'misc',
+                     'MISC304': 'misc', 'MISC305': 'misc', 'MISC306': 'misc'}
 
 # ``rename_channels`` rename channels
 #
@@ -144,7 +148,7 @@ resample_sfreq = None
 # ``decim`` : integer that says how much to decimate data at the epochs level.
 # It is typically an alternative to the `resample_sfreq` parameter that
 # can be used for resampling raw data. 1 means no decimation.
-decim = None
+decim = 1
 
 ###############################################################################
 # AUTOMATIC REJECTION OF ARTIFACTS
@@ -158,8 +162,15 @@ decim = None
 # Examples: 
 # reject = {'grad': 4000e-13, 'mag': 4e-12, 'eog': 150e-6}
 # reject = None
+"""  reject = dict(grad=4000e-13, # T / m (gradiometers)
+                        mag=4e-12, # T (magnetometers)
+                        eeg=40e-6, # V (EEG channels)
+                        eog=250e-6 # V (EOG channels)
+                        ) """
+
 
 reject = {'grad': 4000e-13, 'mag': 4e-12}
+#reject = None 
 
 ###############################################################################
 # EPOCHING
@@ -201,8 +212,7 @@ runica = True
 # decoding_conditions should be a list of conditions to be classified.
 # For example 'Auditory' vs. 'Visual' as well as
 # 'Auditory/Left' vs 'Auditory/Right'
-decoding_conditions = [('Auditory/Left', 'Auditory/Right'),
-                       ('Auditory', 'Visual')]
+decoding_conditions = [('TrainPress')]
 decoding_metric = 'roc_auc'
 decoding_n_splits = 5
 
@@ -210,7 +220,7 @@ decoding_n_splits = 5
 # TIME-FREQUENCY
 # --------------
 #
-time_frequency_conditions = ['Auditory/Left']
+time_frequency_conditions = ['TrainPress']
 
 ###############################################################################
 # SOURCE SPACE PARAMETERS
