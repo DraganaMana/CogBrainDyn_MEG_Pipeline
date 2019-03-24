@@ -126,7 +126,7 @@ def run_evoked(subject):
         pick_eog = mne.pick_types(raw.info, meg=False, eeg=False,
                                   ecg=False, eog=True)
 
-        if pick_eog:
+        if pick_eog.any():
             print('using EOG channel')
             picks_eog = np.concatenate([picks, pick_eog])
             # Create eog epochs
