@@ -77,8 +77,7 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 #bads = dict(subject_190301=['MEG 1512', 'MEG 0131', 'MEG 0341', 'MEG 0213', 'MEG 0133'])
 # bads = dict(sample=['MISC 001', 'MISC 002'])
 
-bads = dict(s190320=dict(Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541'],
-                         Run04=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541']))
+bads = dict(s190320=dict(Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541']))
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
@@ -177,18 +176,19 @@ reject = {'grad': 4000e-13, 'mag': 4e-12}
 # --------
 #
 # ``tmin``: float that gives the start time before event of an epoch.
-tmin = -1
+tmin = -2
 
 #  ``tmax`` : float that gives the end time after event of an epochs.
-tmax = 3
+tmax = 25 # I get 7 epochs, 3 from Play, 3 from Replay
 
 # ``baseline`` : tuple that specifies how to baseline the epochs; if None,
 # no baseline is applied
 
-baseline = (None, 0.)
+baseline = (-0.1, 0.0)
 
 # stimulus channel, which contains the events
-stim_channel = 'STI101'  # 'STI014'# 'STI101'
+#stim_channel = ['STI001', 'STI002', 'STI003', 'STI004']  # 'STI014'# 'STI101'
+stim_channel = 'STI101'
 
 #  `event_id`` : python dictionary that maps events (trigger/marker values)
 # to conditions. E.g. `event_id = {'Auditory/Left': 1, 'Auditory/Right': 2}`
@@ -196,14 +196,17 @@ stim_channel = 'STI101'  # 'STI014'# 'STI101'
 #            'Interval3': 12}
 #conditions = ['Interval1', 'Interval2', 'Interval3']
 #
-event_id = {'TrainPress': 140}
-conditions = ['TrainPress']
+event_id = {'Int01': 9, 'Int02': 10, 'Int03': 12}
+conditions = ['Int01', 'Int02', 'Int03']
 
 ###############################################################################
 # ICA PARAMETERS
 # --------------
 # ``runica`` : boolean that says if ICA should be used or not.
 runica = True
+
+rejcomps_man = dict(s190320=dict(meg=[],
+                                eeg=[]))
 
 ###############################################################################
 # DECODING
@@ -212,16 +215,16 @@ runica = True
 # decoding_conditions should be a list of conditions to be classified.
 # For example 'Auditory' vs. 'Visual' as well as
 # 'Auditory/Left' vs 'Auditory/Right'
-decoding_conditions = [('TrainPress')]
+decoding_conditions = [('Int01','Int02'),('Int01','Int03')]
 decoding_metric = 'roc_auc'
-decoding_n_splits = 5
+decoding_n_splits = 2
 
 ###############################################################################
 # TIME-FREQUENCY
 # --------------
 #
-time_frequency_conditions = ['TrainPress']
-
+#time_frequency_conditions = ['Int01','Int02','Int03']
+time_frequency_conditions = ['Int01']
 ###############################################################################
 # SOURCE SPACE PARAMETERS
 # -----------------------

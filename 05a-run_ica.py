@@ -113,7 +113,7 @@ def run_ica(subject, tsss=config.mf_st_duration):
             for figure in ica.plot_properties(epochs_for_ica,
                                               picks=list(range(0,
                                                                ica.n_components_)),
-                                              psd_args={'fmax': 60},
+                                              psd_args={'fmax': 100},
                                               show=False):
 
                 report.add_figs_to_section(figure, section=subject,
