@@ -110,7 +110,7 @@ l_freq = 0.01
 
 # ``h_freq``  : the high-frequency cut-off in the lowpass filtering step.
 # Keep it None if no lowpass filtering should be applied.
-h_freq = 100
+h_freq = 40
 
 
 ###############################################################################
@@ -176,10 +176,10 @@ reject = {'grad': 4000e-13, 'mag': 4e-12}
 # --------
 #
 # ``tmin``: float that gives the start time before event of an epoch.
-tmin = -2
+tmin = -0.2
 
 #  ``tmax`` : float that gives the end time after event of an epochs.
-tmax = 25 # I get 7 epochs, 3 from Play, 3 from Replay
+tmax = 2 # I get 7 epochs, 3 from Play, 3 from Replay
 
 # ``baseline`` : tuple that specifies how to baseline the epochs; if None,
 # no baseline is applied
@@ -196,8 +196,10 @@ stim_channel = 'STI101'
 #            'Interval3': 12}
 #conditions = ['Interval1', 'Interval2', 'Interval3']
 #
-event_id = {'Int01': 9, 'Int02': 10, 'Int03': 12}
-conditions = ['Int01', 'Int02', 'Int03']
+#event_id = {'WhiteCross': 9, 'Int02': 10, 'Int03': 12}
+event_id = {'WhiteCross': 2}
+#conditions = ['Int01', 'Int02', 'Int03']
+conditions = ['WhiteCross']
 
 ###############################################################################
 # ICA PARAMETERS
@@ -215,7 +217,7 @@ rejcomps_man = dict(s190320=dict(meg=[],
 # decoding_conditions should be a list of conditions to be classified.
 # For example 'Auditory' vs. 'Visual' as well as
 # 'Auditory/Left' vs 'Auditory/Right'
-decoding_conditions = [('Int01','Int02'),('Int01','Int03')]
+decoding_conditions = [('WhiteCross'), ('WhiteCross')]
 decoding_metric = 'roc_auc'
 decoding_n_splits = 2
 
@@ -224,7 +226,7 @@ decoding_n_splits = 2
 # --------------
 #
 #time_frequency_conditions = ['Int01','Int02','Int03']
-time_frequency_conditions = ['Int01']
+time_frequency_conditions = ['WhiteCross']
 ###############################################################################
 # SOURCE SPACE PARAMETERS
 # -----------------------

@@ -32,7 +32,7 @@ def run_forward(subject):
     fname_trans = op.join(meg_subject_dir,
                           config.base_fname.format(**locals()))
 
-    src = mne.setup_source_space(subject, spacing=config.spacing,
+    src = mne.setup_source_space(subject, spacing=config.spacing, surface='white',
                                  subjects_dir=config.subjects_dir,
                                  add_dist=False)
 
