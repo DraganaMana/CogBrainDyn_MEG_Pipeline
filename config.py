@@ -8,7 +8,6 @@ Configuration parameters for the study. This should be in a folder called
 
 import os
 import numpy as np
-from mne.datasets import sample
 
 
 # let the scripts generate plots or not
@@ -77,7 +76,7 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 #bads = dict(subject_190301=['MEG 1512', 'MEG 0131', 'MEG 0341', 'MEG 0213', 'MEG 0133'])
 # bads = dict(sample=['MISC 001', 'MISC 002'])
 
-bads = dict(s190320=dict(Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541']))
+bads = dict(s190320=dict(Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
@@ -217,7 +216,7 @@ rejcomps_man = dict(s190320=dict(meg=[],
 # decoding_conditions should be a list of conditions to be classified.
 # For example 'Auditory' vs. 'Visual' as well as
 # 'Auditory/Left' vs 'Auditory/Right'
-decoding_conditions = [('WhiteCross'), ('WhiteCross')]
+decoding_conditions = ['WhiteCross']
 decoding_metric = 'roc_auc'
 decoding_n_splits = 2
 
