@@ -8,7 +8,7 @@ Created on Thu Mar 28 10:10:37 2019
 import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
-
+import config
 import mne
 
 data_path = 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
@@ -29,3 +29,4 @@ evoked_w_cross.plot_topomap(time_unit='s')
 # Plot the topomaps with predetermined times
 times = np.arange(0.05, 0.151, 0.05)
 evoked_w_cross.plot_topomap(times=times, ch_type='mag', time_unit='s')
+
