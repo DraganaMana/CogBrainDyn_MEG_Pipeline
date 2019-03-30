@@ -56,7 +56,6 @@ def run_time_frequency(subject):
                    title='Beta', show=False)
         mne.viz.tight_layout()
         figure1.show()
-        figure1.show()
 
 parallel, run_func, _ = parallel_func(run_time_frequency, n_jobs=config.N_JOBS)
 parallel(run_func(subject) for subject in config.subjects_list)

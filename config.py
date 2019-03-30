@@ -175,10 +175,10 @@ reject = {'grad': 4000e-13, 'mag': 4e-12}
 # --------
 #
 # ``tmin``: float that gives the start time before event of an epoch.
-tmin = -0.2
+tmin = -2
 
 #  ``tmax`` : float that gives the end time after event of an epochs.
-tmax = 2 # I get 7 epochs, 3 from Play, 3 from Replay
+tmax = 4 # I get 7 epochs, 3 from Play, 3 from Replay
 
 # ``baseline`` : tuple that specifies how to baseline the epochs; if None,
 # no baseline is applied
@@ -196,9 +196,9 @@ stim_channel = 'STI101'
 #conditions = ['Interval1', 'Interval2', 'Interval3']
 #
 #event_id = {'WhiteCross': 9, 'Int02': 10, 'Int03': 12}
-event_id = {'WhiteCross': 2}
+event_id = {'ButtonPress': 5}
 #conditions = ['Int01', 'Int02', 'Int03']
-conditions = ['WhiteCross']
+conditions = ['ButtonPress']
 
 ###############################################################################
 # ICA PARAMETERS
@@ -216,7 +216,7 @@ rejcomps_man = dict(s190320=dict(meg=[],
 # decoding_conditions should be a list of conditions to be classified.
 # For example 'Auditory' vs. 'Visual' as well as
 # 'Auditory/Left' vs 'Auditory/Right'
-decoding_conditions = ['WhiteCross']
+decoding_conditions = ['ButtonPress']
 decoding_metric = 'roc_auc'
 decoding_n_splits = 2
 
@@ -225,7 +225,7 @@ decoding_n_splits = 2
 # --------------
 #
 #time_frequency_conditions = ['Int01','Int02','Int03']
-time_frequency_conditions = ['WhiteCross']
+time_frequency_conditions = ['ButtonPress']
 ###############################################################################
 # SOURCE SPACE PARAMETERS
 # -----------------------

@@ -35,8 +35,6 @@ def run_evoked(subject):
         evokeds.append(epochs[condition].average())
 
     mne.evoked.write_evokeds(fname_out, evokeds)
-    
-    # look on MNE website how to plot the evoked. evoked.plot or similar 
 
 
 parallel, run_func, _ = parallel_func(run_evoked, n_jobs=config.N_JOBS)

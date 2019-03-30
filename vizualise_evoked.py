@@ -12,7 +12,7 @@ import config
 import mne
 
 data_path = 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
-fname = op.join(data_path, 'MEG', 's190320', 's190320_ScaledTime_cleaned_epo-ave.fif')
+fname = op.join(data_path, 'MEG', 's190320', 'ScaledTime_grand_average-ave.fif')
 evoked = mne.read_evokeds(fname, baseline=(None, 0), proj=True)
 print(evoked)
 # Pick evoked. In this case there is one condition so one evoked. 
