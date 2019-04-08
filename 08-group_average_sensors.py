@@ -22,7 +22,7 @@ for subject in config.subjects_list:
     else:
         print("processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
-    extension = '-ave'
+    extension = '-int123-ave'
     fname_in = op.join(meg_subject_dir,
                             config.base_fname.format(**locals()))
     
@@ -37,7 +37,7 @@ for subject in config.subjects_list:
 for idx, evokeds in enumerate(all_evokeds):
     all_evokeds[idx] = mne.combine_evoked(evokeds, 'equal')  # Combine subjects
 
-extension = 'grand_average-ave'
+extension = 'grand_average-int123-ave'
 fname_out = op.join(meg_subject_dir,
                             '{0}_{1}.fif'.format(config.study_name,
                                                         extension))    

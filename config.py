@@ -42,6 +42,7 @@ study_name = 'ScaledTime'
 # as in the example
 
 subjects_list = ['s190320']
+subject_pilot = 's190320'
 # subjects_list = ['subject_01', 'subject_02', 'subject_03', 'subject_05',
 #                  'subject_06', 'subject_08', 'subject_09', 'subject_10',
 #                  'subject_11', 'subject_12', 'subject_14']
@@ -55,8 +56,8 @@ exclude_subjects = []  # ['subject_01']
 # put the number of runs you ideally expect to have per subject
 # the scripts will issue a warning if there are less
 # leave empty if there is just one file
-#runs = ['Run01', 'Run02', 'Run03', 'Run04'] # ['run01', 'run02']
-runs = ['Run03']
+runs = ['Run02', 'Run03']
+#runs = ['Run02']
 
 # This generates the name for all files
 # with the names specified above
@@ -76,7 +77,9 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 #bads = dict(subject_190301=['MEG 1512', 'MEG 0131', 'MEG 0341', 'MEG 0213', 'MEG 0133'])
 # bads = dict(sample=['MISC 001', 'MISC 002'])
 
-bads = dict(s190320=dict(Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
+#bads = dict(s190320=dict(Run02=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
+bads = dict(s190320=dict(Run02=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921'],
+                         Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
@@ -105,11 +108,11 @@ rename_channels = None
 
 # ``l_freq``  : the low-frequency cut-off in the highpass filtering step.
 # Keep it None if no highpass filtering should be applied.
-l_freq = 0.01
+l_freq = 0.01 # should be none
 
 # ``h_freq``  : the high-frequency cut-off in the lowpass filtering step.
 # Keep it None if no lowpass filtering should be applied.
-h_freq = 40
+h_freq = 120
 
 
 ###############################################################################
@@ -140,7 +143,7 @@ mf_st_duration = None
 #
 # ``resample_sfreq``  : a float that specifies at which sampling frequency
 # the data should be resampled. If None then no resampling will be done.
-resample_sfreq = None
+resample_sfreq = 500.00
 
 
 # ``decim`` : integer that says how much to decimate data at the epochs level.
@@ -175,15 +178,15 @@ reject = {'grad': 4000e-13, 'mag': 4e-12}
 # --------
 #
 # ``tmin``: float that gives the start time before event of an epoch.
-tmin = -2
+tmin = -1.5
 
 #  ``tmax`` : float that gives the end time after event of an epochs.
-tmax = 4 # I get 7 epochs, 3 from Play, 3 from Replay
+tmax = 1.25 # I get 7 epochs, 3 from Play, 3 from Replay
 
 # ``baseline`` : tuple that specifies how to baseline the epochs; if None,
 # no baseline is applied
 
-baseline = (-0.1, 0.0)
+baseline = (-1.5, -1)
 
 # stimulus channel, which contains the events
 #stim_channel = ['STI001', 'STI002', 'STI003', 'STI004']  # 'STI014'# 'STI101'

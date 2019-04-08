@@ -30,12 +30,12 @@ def run_evoked(subject):
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     # load epochs to reject ICA components
-    extension = '-epo'
+    extension = '-int123-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
     epochs = mne.read_epochs(fname_in, preload=True)
 
-    extension = 'cleaned-epo'
+    extension = '-int123-cleaned-epo'
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
 
@@ -63,7 +63,7 @@ def run_evoked(subject):
 
         # Load ICA
         fname_ica = op.join(meg_subject_dir,
-                            '{0}_{1}_{2}-ica.fif'.format(subject, config.study_name,
+                            '{0}_{1}_{2}-int123-ica.fif'.format(subject, config.study_name,
                                                          ch_type))
         print('Reading ICA: ' + fname_ica)
         ica = read_ica(fname=fname_ica)
@@ -100,7 +100,7 @@ def run_evoked(subject):
             if config.plot:
 
                 report_name = op.join(meg_subject_dir,
-                                      '{0}_{1}_{2}-reject_ica.html'.format(subject, config.study_name,
+                                      '{0}_{1}_{2}-int123-reject_ica.html'.format(subject, config.study_name,
                                                                            ch_type))
                 report = Report(report_name, verbose=False)
 

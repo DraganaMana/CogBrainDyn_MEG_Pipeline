@@ -36,7 +36,7 @@ def run_ica(subject, tsss=config.mf_st_duration):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname = op.splitext(raw_fname_in)[0] + '-int02-eve.fif'
+        eve_fname = op.splitext(raw_fname_in)[0] + '-int123-eve.fif'
         print("Input: ", raw_fname_in, eve_fname)
 
         raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
@@ -98,15 +98,15 @@ def run_ica(subject, tsss=config.mf_st_duration):
               % (ica.n_components_, 100 * n_components[ch_type]))
 
         ica_name = op.join(meg_subject_dir,
-                           '{0}_{1}_{2}-ica.fif'.format(subject, config.study_name,
+                           '{0}_{1}_{2}-int123-ica.fif'.format(subject, config.study_name,
                                                         ch_type))
         ica.save(ica_name)
 
         if config.plot:
             # plot ICA components to html report
             from mne.report import Report
-            report_name = op.join(meg_subject_dir,
-                                  '{0}_{1}_{2}-ica.html'.format(subject, config.study_name,
+            report_name = op.join(meg_subject_dir, 
+                                  '{0}_{1}_{2}-int123-ica.html'.format(subject, config.study_name,
                                                                 ch_type))
             report = Report(report_name, verbose=False)
 
@@ -125,6 +125,6 @@ def run_ica(subject, tsss=config.mf_st_duration):
 
             report.save(report_name, overwrite=True, open_browser=False)
 
-
-parallel, run_func, _ = parallel_func(run_ica, n_jobs=config.N_JOBS)
-parallel(run_func(subject) for subject in config.subjects_list)
+run_ica(config.subject_pilot)
+#parallel, run_func, _ = parallel_func(run_ica, n_jobs=config.N_JOBS)
+#parallel(run_func(subject) for subject in config.subjects_list)

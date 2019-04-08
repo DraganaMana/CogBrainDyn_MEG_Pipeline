@@ -17,10 +17,10 @@ import config
 def run_evoked(subject):
     print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
-    extension = 'cleaned-epo'
+    extension = '-int123-cleaned-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
-    extension = 'cleaned_epo-ave'
+    extension = '-int123-cleaned_epo-ave'
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
 

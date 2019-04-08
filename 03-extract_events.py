@@ -29,7 +29,7 @@ def run_events(subject):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname_out = op.splitext(raw_fname_in)[0] + '-int02-eve.fif'
+        eve_fname_out = op.splitext(raw_fname_in)[0] + '-int123-eve.fif'
 
         raw = mne.io.read_raw_fif(raw_fname_in)
         events = mne.find_events(raw, stim_channel=config.stim_channel, consecutive=True, min_duration=0.002, shortest_event=1)
@@ -47,12 +47,22 @@ def run_events(subject):
                 i=i+1
         events_ints 
 #-----------------------------------
-        
-        eve_int02 = events_ints[0:15]
-        eve_int03 = events_ints[15:30]
-        eve_int01 = events_ints[30:45]
-        
-#-----------------------------------
+#        int01=1.45
+#        int02=2.9
+#        int03=5.8
+#        int_matrix = [[int01, int02, int03],
+#                      [int01, int03, int02],
+#                      [int02, int03, int01],
+#                      [int02, int01, int03],
+#                      [int03, int01, int02],
+#                      [int03, int02, int01]]
+##        if run == 'Run01':
+#            
+#        eve_int02 = events_ints[0:15]
+#        eve_int01 = events_ints[15:30]
+#        eve_int03 = events_ints[30:45]
+#        
+#----------------------------------------------------------
 #        # append and sort  
 ##        events_2 = events + events_1
 #        events_2 = np.vstack((events, events_1))
@@ -67,19 +77,21 @@ def run_events(subject):
 #        new_id = 14  # the new event id for a hit. If None, reference_id is used.
 #        events_1, lag = define_target_events(events, reference_id, target_id,
 #                                    sfreq, tmin, tmax, new_id)
-#-----------------------------------
+#-----------------------------------------------------------
+        # this can be commented, besides mne.write_events...
 
         print("Input: ", raw_fname_in)
         print("Output: ", eve_fname_out)
 
-        mne.write_events(eve_fname_out, eve_int02)
+        mne.write_events(eve_fname_out, events_ints)
 
         if config.plot:
             # plot events
             # It would be good to have names on the figures, from which Run are
             # the events plotted
-            figure = mne.viz.plot_events(eve_int02)
+            figure = mne.viz.plot_events(events_ints)
             figure.show()
+#--------------------------------------
 
 
 parallel, run_func, _ = parallel_func(run_events, n_jobs=config.N_JOBS)
