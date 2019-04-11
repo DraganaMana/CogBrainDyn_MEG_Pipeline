@@ -34,6 +34,8 @@ evoked_w_cross.plot_topomap(times=times, ch_type='mag', time_unit='s')
 
 ###
 mne.viz.plot_compare_evokeds(evoked, picks=None)
+#
+evoked_w_cross.plot_joint(title='All intervals, time locked - 1st button press', times=[0, .1, .2, .3, .35, .4, .45, 0.5, 0.75])
 
 
 
