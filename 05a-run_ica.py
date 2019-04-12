@@ -58,7 +58,10 @@ def run_ica(subject, tsss=config.mf_st_duration):
 
     print('  Concatenating runs')
     raw, events = mne.concatenate_raws(raw_list, events_list=events_list)
-    raw.set_eeg_reference(projection=False)
+
+    if config.eeg:
+        raw.set_eeg_reference(projection=True)
+        
     del raw_list
 
     # produce high-pass filtered version of the data for ICA
@@ -82,9 +85,15 @@ def run_ica(subject, tsss=config.mf_st_duration):
 
     n_components_meg = 0.999
 
-    n_components = {'meg': n_components_meg}
+    n_components = {'meg': n_components_meg, 'eeg': 0.999}
+    
+    if config.eeg:
+        ch_types = ['meg', 'eeg']
+    else:
+        ch_types = ['meg']
+    
+    for ch_type in ch_types:
 
-    for ch_type in ['meg']:
         print('Running ICA for ' + ch_type)
 
         ica = ICA(method='fastica', random_state=config.random_state,

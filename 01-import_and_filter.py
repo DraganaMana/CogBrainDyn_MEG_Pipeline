@@ -52,8 +52,8 @@ def run_filter(subject):
                  (raw_fname_in, subject))
             continue
 
-        raw = mne.io.read_raw_fif(raw_fname_in,
-                                  preload=True, verbose='error', allow_maxshield=True)
+        raw = mne.io.read_raw_fif(raw_fname_in,allow_maxshield=True,
+                                  preload=True, verbose='error')
 
         # add bad channels
         raw.info['bads'] = bads
@@ -71,7 +71,10 @@ def run_filter(subject):
             h_trans_bandwidth=config.h_trans_bandwidth,
             filter_length='auto', phase='zero', fir_window='hamming',
             fir_design='firwin')
-
+        
+        if config.resample_sfreq:
+            raw.resample(config.resample_sfreq, npad='auto')
+        
         raw.save(raw_fname_out, overwrite=True)
         raws.append(raw)
 
