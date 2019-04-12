@@ -75,24 +75,7 @@ Study Specific Parameters:
     # ICA PARAMETERS #
     runica : boolean that says if ICA should be used or not.
     
-    # DECODING #
-    decoding_conditions : list of tuples of strings that contain the conditions 
-            to compare. 
-            For example : [('Auditory/Left', 'Auditory/Right'), ('Auditory', 'Visual')]
-    decoding_metric : the scikit-learn scoring metric to use. 
-            For example : 'roc_auc' or 'accuracy'
-    decoding_n_splits : the number of splits to use in the cross-validation. 
-            For example 5 that will mean 5-folds cross-validation.
-            
-    # TIME-FREQUENCY #
-    time_frequency_conditions :
-        
-    # ADVANCED #
-    l_trans_bandwidth : float that specifies the transition bandwidth of the 
-            highpass filter. By default it's 'auto' and uses default mne parameters.
-    h_trans_bandwidth : float that specifies the transition bandwidth of the 
-            lowpass filter. By default it's 'auto' and uses default mne parameters.
-    N_JOBS : an integer that specifies how many subjects you want to run in parallel.
+
     
 
 """
@@ -181,7 +164,8 @@ bads = dict(SB01=['MEG1723','MEG1722'],
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
 # --------------------------
-#
+
+
 # Here you name or replace  extra channels that were recorded, for instance EOG, ECG
 # ``set_channel_types`` defines types of channels
 # example :
@@ -347,6 +331,16 @@ rejcomps_man = dict(SB01=dict(meg=[],
 ###############################################################################
 # DECODING
 # --------------
+
+
+    # DECODING #
+#    decoding_conditions : list of tuples of strings that contain the conditions 
+#            to compare. 
+#            For example : [('Auditory/Left', 'Auditory/Right'), ('Auditory', 'Visual')]
+#    decoding_metric : the scikit-learn scoring metric to use. 
+#            For example : 'roc_auc' or 'accuracy'
+#    decoding_n_splits : the number of splits to use in the cross-validation. 
+#            For example 5 that will mean 5-folds cross-validation.
 #
 # decoding_conditions should be a list of conditions to be classified.
 # For example 'Auditory' vs. 'Visual' as well as
@@ -359,7 +353,9 @@ decoding_n_splits = 5
 ###############################################################################
 # TIME-FREQUENCY
 # --------------
-#
+#    time_frequency_conditions :
+#        
+#    
 time_frequency_conditions = ['Auditory/Left']
 
 ###############################################################################
@@ -382,7 +378,15 @@ if not os.path.isdir(subjects_dir):
 ###############################################################################
 # ADVANCED
 # --------
-#
+#    # ADVANCED #
+#    l_trans_bandwidth : float that specifies the transition bandwidth of the 
+#            highpass filter. By default it's 'auto' and uses default mne parameters.
+#    h_trans_bandwidth : float that specifies the transition bandwidth of the 
+#            lowpass filter. By default it's 'auto' and uses default mne parameters.
+#    N_JOBS : an integer that specifies how many subjects you want to run in parallel.
+
+
+
 # ``l_trans_bandwidth`` : float that specifies the transition bandwidth of the
 # highpass filter. By default it's `'auto'` and uses default mne parameters.
 l_trans_bandwidth = 'auto'
