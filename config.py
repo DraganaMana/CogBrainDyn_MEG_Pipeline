@@ -140,11 +140,11 @@ rename_channels = None
 
 # ``l_freq``  : the low-frequency cut-off in the highpass filtering step.
 # Keep it None if no highpass filtering should be applied.
-l_freq = 1. # should be none
+l_freq = None # should be none
 
 # ``h_freq``  : the high-frequency cut-off in the lowpass filtering step.
 # Keep it None if no lowpass filtering should be applied.
-h_freq = 40.
+h_freq = 120.
 
 
 ###############################################################################
@@ -195,7 +195,7 @@ mf_st_duration = None
 # ``resample_sfreq``  : a float that specifies at which sampling frequency
 # the data should be resampled. If None then no resampling will be done.
 
-resample_sfreq =  500. # None
+resample_sfreq =  1000. # None
 
 
 # ``decim`` : integer that says how much to decimate data at the epochs level.
@@ -277,7 +277,7 @@ conditions = ['ButtonPress']
 # ``runica`` : boolean that says if ICA should be used or not.
 runica = True
 
-rejcomps_man = dict(s190320=dict(meg=[0,68,70],
+rejcomps_man = dict(s190320=dict(meg=[],
                                 eeg=[]))
 
 ###############################################################################
