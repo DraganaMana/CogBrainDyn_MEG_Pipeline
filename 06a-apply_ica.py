@@ -25,7 +25,7 @@ import numpy as np
 import config
 
 
-def run_evoked(subject):
+def apply_ica(subject):
     print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
 
@@ -35,7 +35,7 @@ def run_evoked(subject):
                        config.base_fname.format(**locals()))
     epochs = mne.read_epochs(fname_in, preload=True)
 
-    extension = 'cleaned-epo'
+    extension = '_cleaned-epo'
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
 
@@ -110,17 +110,17 @@ def run_evoked(subject):
             report = Report(report_name, verbose=False)
 
             # Plot r score
-            report.add_figs_to_section(ica.plot_scores(scores, exclude=ecg_inds),
+            report.add_figs_to_section(ica.plot_scores(scores, exclude=ecg_inds, show=config.plot),
                                        captions=ch_type.upper() + ' - ECG - '
                                        + 'R scores')
 
             # Plot source time course
-            report.add_figs_to_section(ica.plot_sources(ecg_average, exclude=ecg_inds),
+            report.add_figs_to_section(ica.plot_sources(ecg_average, exclude=ecg_inds, show=config.plot),
                                        captions=ch_type.upper() + ' - ECG - '
                                        + 'Sources time course')
 
             # Plot source time course
-            report.add_figs_to_section(ica.plot_overlay(ecg_average, exclude=ecg_inds),
+            report.add_figs_to_section(ica.plot_overlay(ecg_average, exclude=ecg_inds, show=config.plot),
                                        captions=ch_type.upper() + ' - ECG - '
                                        + 'Corrections')
 
@@ -140,22 +140,22 @@ def run_evoked(subject):
                                            tmax=0.5)
 
             eog_average = eog_epochs.average()
-            eog_inds, scores = ica.find_bads_eog(eog_epochs)
+            eog_inds, scores = ica.find_bads_eog(eog_epochs, threshold=3.0)
             del eog_epochs
 
             
             # Plot r score
-            report.add_figs_to_section(ica.plot_scores(scores, exclude=eog_inds),
+            report.add_figs_to_section(ica.plot_scores(scores, exclude=eog_inds, show=config.plot),
                                        captions=ch_type.upper() + ' - EOG - '
                                        + 'R scores')
 
             # Plot source time course
-            report.add_figs_to_section(ica.plot_sources(eog_average, exclude=eog_inds),
+            report.add_figs_to_section(ica.plot_sources(eog_average, exclude=eog_inds, show=config.plot),
                                        captions=ch_type.upper() + ' - EOG - '
                                        + 'Sources time course')
 
             # Plot source time course
-            report.add_figs_to_section(ica.plot_overlay(eog_average, exclude=eog_inds),
+            report.add_figs_to_section(ica.plot_overlay(eog_average, exclude=eog_inds, show=config.plot),
                                        captions=ch_type.upper() + ' - EOG - '
                                        + 'Corrections')
 
@@ -175,13 +175,13 @@ def run_evoked(subject):
         print('Saving epochs')
         epochs.save(fname_out)
         
-        report.add_figs_to_section(ica.plot_overlay(raw.copy(), exclude=ica_reject),
+        report.add_figs_to_section(ica.plot_overlay(raw.copy(), exclude=ica_reject, show=config.plot),
                                        captions=ch_type.upper() +
                                        ' - ALL(epochs) - ' + 'Corrections')
         
         if config.plot:
-                epochs.plot_image(combine='gfp', group_by='type', sigma=2., cmap="YlGnBu_r")
+                epochs.plot_image(combine='gfp', group_by='type', sigma=2., cmap="YlGnBu_r", show=config.plot)
 
 
-parallel, run_func, _ = parallel_func(run_evoked, n_jobs=config.N_JOBS)
+parallel, run_func, _ = parallel_func(apply_ica, n_jobs=config.N_JOBS)
 parallel(run_func(subject) for subject in config.subjects_list)
