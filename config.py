@@ -64,7 +64,8 @@ exclude_subjects = []  # ['subject_01']
 # [Good Practice / Advice] The naming should be consistent across participants.
 # List the number of runs you ideally expect to have per participant. The scripts will issue a warning 
 # if there are less runs than is expected. If there is only just one file, leave empty!
-runs = ['Run02', 'Run03']
+#runs = ['Run02', 'Run03']
+runs = ['Run02', 'Run03', 'Run04']
 
 
 # does the data have EEG?
@@ -91,9 +92,10 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 # Use the dict(dict) if you have many runs or if noisy sensors are changing across runs 
 # bads = dict(SB01=dict(run01=['MEG 2443', 'EEG 053'],
 
-#bads = dict(s190320=dict(Run02=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
+#bads = dict(s190320=dict(Run04=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
 bads = dict(s190320=dict(Run02=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921'],
-                         Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
+                         Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921'],
+                         Run04=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
@@ -236,28 +238,27 @@ reject = {'grad': 4000e-13, 'mag': 4e-12}
 # --------
 #
 # ``tmin``: float that gives the start time before event of an epoch.
-<<<<<<< HEAD
-tmin = -0.75
+tmin = -1
 
 #  ``tmax`` : float that gives the end time after event of an epochs.
 tmax = 1.25 # I get 7 epochs, 3 from Play, 3 from Replay
 
 # float specifying the offset for the trigger and the stimulus (in seconds)
 # you need to measure this value for your specific experiment/setup
-trigger_offset = -0.0416
+#trigger_offset = -0.0416
 # XXX forward/delay all triggers by this value
 
 # ``baseline`` : tuple that specifies how to baseline the epochs; if None,
 # no baseline is applied
 
-baseline = (-1.5, -1)
+baseline = (-1, -0.5)
 
 # stimulus channel, which contains the events
 #stim_channel = ['STI001', 'STI002', 'STI003', 'STI004']  # 'STI014'# 'STI101'
 stim_channel = 'STI101'
 
 # minimal duration of the events you want to extract
-min_event_duration = 0.002
+min_event_duration = 0.003
 
 #  `event_id`` : python dictionary that maps events (trigger/marker values)
 # to conditions. E.g. `event_id = {'Auditory/Left': 1, 'Auditory/Right': 2}`
@@ -276,7 +277,7 @@ conditions = ['ButtonPress']
 # ``runica`` : boolean that says if ICA should be used or not.
 runica = True
 
-rejcomps_man = dict(s190320=dict(meg=[],
+rejcomps_man = dict(s190320=dict(meg=[0,68,70],
                                 eeg=[]))
 
 ###############################################################################

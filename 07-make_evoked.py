@@ -50,7 +50,7 @@ def run_evoked(subject):
         
         for condition in config.conditions:
             evokeds[condition].plot_joint(title = condition,
-                   ts_args=ts_args, topomap_args=topomap_args)
+                   ts_args=ts_args, topomap_args=topomap_args, times=[0., 0.1, .2, .3, .4])
             # times=[.2, .4]
              
 

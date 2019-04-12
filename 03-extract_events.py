@@ -34,26 +34,25 @@ def run_events(subject):
 
         raw = mne.io.read_raw_fif(raw_fname_in)
 
-
         events = mne.find_events(raw, stim_channel=config.stim_channel, 
                                  consecutive=True, 
                                  min_duration=config.min_event_duration, 
                                  shortest_event=1)
         
         # XXX shift events by trigger
-        if config.trigger_offset:
-            events = mne.event.shift_time_events(
-                    events,
-                    np.unique(events[:,2]),
-                    config.trigger_offset,
-                    raw.info['sfreq'],
-                    )
+#        if config.trigger_offset:
+#            events = mne.event.shift_time_events(
+#                    events,
+#                    np.unique(events[:,2]),
+#                    config.trigger_offset,
+#                    raw.info['sfreq'],
+#                    )
 #-----------------------------------
         events_ints = np.array(np.ones((45,3)), np.int64)
         numrows = len(events)
         i=0
         for nrows in range(numrows):
-            if events[nrows][2]==2 and events[nrows+1][2]==2052:
+            if events[nrows][2]==2 and (events[nrows+1][2]==2052 or events[nrows+1][2]==2084):
                 events[nrows+1][2]=5  
                 events_ints[i][0]=events[nrows+1][0]
                 events_ints[i][1]=events[nrows+1][1]
@@ -104,6 +103,7 @@ def run_events(subject):
             # It would be good to have names on the figures, from which Run are
             # the events plotted
             figure = mne.viz.plot_events(events_ints)
+            figure = mne.viz.plot_events(events)
             figure.show()
 #--------------------------------------
 
