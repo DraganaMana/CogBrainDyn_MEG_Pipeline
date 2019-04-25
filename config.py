@@ -7,229 +7,323 @@ Configuration parameters for the study. This should be in a folder called
 """
 
 import os
+from collections import defaultdict
 import numpy as np
 
 
-# let the scripts generate plots or not
-# execute %matplotlib qt in your command line once to show the figures in
-# separate windows
+# ``plot``  : boolean
+#   If True, the scripts will generate plots.
+#   If running the scripts from a notebook or spyder
+#   run %matplotlib qt in the command line to get the plots in extra windows
 
 plot = True
 
-# execute %matplotlib qt 
-# in the command line to get the plots in extra windows
 ###############################################################################
 # DIRECTORIES
 # -----------
-# Let's set the `study path`` where the data is stored on your system
-# study_path = '../MNE-sample-data/'
+#
+# ``study_path`` : str
+#    Set the `study path`` where the data is stored on your system.
+#
+# Example
+# ~~~~~~~
+# >>> study_path = '../MNE-sample-data/'
+# or
+# >>> study_path = '/Users/sophie/repos/ExampleData/'
 
-study_path = 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
+study_path = 'D:/MEGdata/lk160274/' # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
+# ``subjects_dir`` : str
+#   The ``subjects_dir`` contains the MRI files for all subjects.
 
-# The ``subjects_dir`` and ``meg_dir`` for reading anatomical and MEG files.
 subjects_dir = os.path.join(study_path, 'subjects')
+
+# ``meg_dir`` : str
+#   The ``meg_dir`` contains the MEG data in subfolders
+#   named my_study_path/MEG/my_subject/
+
 meg_dir = os.path.join(study_path, 'MEG')
+
 
 ###############################################################################
 # SUBJECTS / RUNS
 # ---------------
 #
-# The MEG-data need to be stored in a folder
-# named my_study_path/MEG/my_subject/
-
-# This is the name of your experimnet
-
+# ``study_name`` : str
+#   This is the name of your experiment.
 study_name = 'ScaledTime'
 
+# ``subjects_list`` : list of str
+#   To define the list of participants, we use a list with all the anonymized
+#   participant names. Even if you plan on analyzing a single participant, it
+#   needs to be set up as a list with a single element, as in the 'example'
+#   subjects_list = ['SB01']
 
-# To define the list of participants, we use a list with all the anonymized participant names. Even if 
-# you plan on analyzing a single participant, it needs to be set up as a list with a single element,
-# as in the 'example'
+# To use all subjects use
+#subjects_list = ['s190320']
+subjects_list = ['lk160274'] # 'fm180074',
+cur_subj = 'lk160274'
+#subject_pilot = 's190320'
+# else for speed and fast test you can use:
 
-subjects_list = ['s190320']
-subject_pilot = 's190320'
+#subjects_list = ['SB01']
 
-# subjects_list = ['subject_01', 'subject_02', 'subject_03', 'subject_05',
-#                  'subject_06', 'subject_08', 'subject_09', 'subject_10',
-#                  'subject_11', 'subject_12', 'subject_14']
+# ``exclude_subjects`` : list of str
+#   Now you can specify subjects to exclude from the group study:
+#
+# Good Practice / Advice
+# ~~~~~~~~~~~~~~~~~~~~~~
+# Keep track of the criteria leading you to exclude
+# a participant (e.g. too many movements, missing blocks, aborted experiment,
+# did not understand the instructions, etc, ...)
 
-# ``bad subjects`` that should not be excluded from the above
-# [Good Practice / Advice] keep track of the criteria leading you to exclude a participant (e.g. too many movements, 
-# missing blocks, aborted experiment, did not understand the instructions, etc, ...) 
-exclude_subjects = []  # ['subject_01']
+exclude_subjects = []
 
-# Define the names of your ``runs``
+# ``runs`` : list of str
+#   Define the names of your ``runs``
+#
+# Good Practice / Advice
+# ~~~~~~~~~~~~~~~~~~~~~~
+# The naming should be consistent across participants. List the number of runs
+# you ideally expect to have per participant. The scripts will issue a warning
+# if there are less runs than is expected. If there is only just one file,
+# leave empty!
 
-# [Good Practice / Advice] The naming should be consistent across participants.
-# List the number of runs you ideally expect to have per participant. The scripts will issue a warning 
-# if there are less runs than is expected. If there is only just one file, leave empty!
-#runs = ['Run02', 'Run03']
-runs = ['Run02', 'Run03', 'Run04']
+#runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
+runs = ['Run03']
 
 
-# does the data have EEG?
-eeg = False # True
 
-# This generates the name for all files
-# with the names specified above
-# normally you should not have to touch this
+# ``eeg``  : bool
+#    If true use the EEG channels
+
+eeg = False  # True
+
+# ``base_fname`` : str
+#    This automatically generates the name for all files
+#    with the variables specified above.
+#    Normally you should not have to touch this
 
 base_fname = '{subject}_' + study_name + '_{extension}.fif'
-#base_fname = '{runs}' + '.fif'
+
 
 ###############################################################################
 # BAD CHANNELS
 # ------------
+# needed for 01-import_and_filter.py
+
+# ``bads`` : dict of list | dict of dict
+#    Bad channels are noisy sensors that *must* to be listed
+#    *before* maxfilter is applied. You can use the dict of list structure
+#    of you have bad channels that are the same for all runs.
+#    Use the dict(dict) if you have many runs or if noisy sensors are changing
+#    across runs.
 #
-# ``bad channels``, bad channels are noisy sensors that *must* to be listed *before* maxfilter is applied
-# [Good Practice / Advice] during the acquisition of your MEG / EEG data, systematically list and keep track of the noisy sensors.
-# Here, put the number of runs you ideally expect to have per participant.
-# Use the simple dict if you don't have runs or if the same sensors are noisy across all runs
+# Example
+# ~~~~~~~
+#
+# >>> def default_bads():
+# >>>     return dict(run01=[], run02=[])
+# >>>
+# >>> bads = defaultdict(default_bads)
+#
+#   and to populate this, do:
+#
+# >>> bads['subject01'] = dict(run01=[12], run02=[7])
+#
+# Good Practice / Advice
+# ~~~~~~~~~~~~~~~~~~~~~~
+# During the acquisition of your MEG / EEG data, systematically list and keep
+# track of the noisy sensors. Here, put the number of runs you ideally expect
+# to have per participant. Use the simple dict if you don't have runs or if
+# the same sensors are noisy across all runs.
 
-#bads = dict(subject_190301=['MEG 1512', 'MEG 0131', 'MEG 0341', 'MEG 0213', 'MEG 0133'])
-# bads = dict(sample=['MISC 001', 'MISC 002'])
-# Use the dict(dict) if you have many runs or if noisy sensors are changing across runs 
-# bads = dict(SB01=dict(run01=['MEG 2443', 'EEG 053'],
+def default_bads():
+     return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[])
 
-#bads = dict(s190320=dict(Run04=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
-bads = dict(s190320=dict(Run02=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921'],
-                         Run03=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921'],
-                         Run04=['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']))
+bads = defaultdict(list)
+#bads['s190320'] = ['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']
+#bads = dict(fm180074 = ['MEG1732', 'MEG1722', 'MEG0213', 'MEG1512'])
+#bads['fm180074'] = ['MEG1732', 'MEG1722', 'MEG0213', 'MEG1512']
+
+bads['lk160274'] = dict(Run01=['MEG1732', 'MEG1722', 'MEG1723', 'MEG0213', 'MEG0133','MEG1133', 'MEG0642'], 
+    Run02=['MEG1732', 'MEG1722', 'MEG1723', 'MEG0213', 'MEG0133','MEG1133', 'MEG0642'], 
+    Run03=['MEG1732', 'MEG1722', 'MEG1723', 'MEG0213', 'MEG0133','MEG1133', 'MEG0642'], 
+    Run04=['MEG1732', 'MEG1722', 'MEG1723', 'MEG0213', 'MEG0133','MEG1133', 'MEG0642'], 
+    Run05=['MEG1732', 'MEG1722', 'MEG1723', 'MEG0213', 'MEG0133','MEG1133', 'MEG0642'])
+
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
 # --------------------------
+
+# ``rename_channels`` : dict rename channels
+#    Here you name or replace extra channels that were recorded, for instance
+#    EOG, ECG.
 #
-# Here you name or replace  extra channels that were recorded, for instance EOG, ECG
-# ``set_channel_types`` defines types of channels
-# example :
-# set_channel_types = {'EEG061': 'eog', 'EEG062': 'eog', 'EEG063': 'ecg', 'EEG064': 'misc'}
+# Example
+# ~~~~~~~
+# >>> rename_channels = {'EEG061': 'EOG061', 'EEG062': 'EOG062',
+#                        'EEG063': 'ECG063'}
+
+rename_channels = None
+
+# ``set_channel_types``: dict
+#   Here you defines types of channels to pick later.
+#
+# Example
+# ~~~~~~~
+# >>> set_channel_types = {'EEG061': 'eog', 'EEG062': 'eog',
+#                          'EEG063': 'ecg', 'EEG064': 'misc'}
+
 set_channel_types = {'EOG061': 'eog', 'EOG062': 'eog', 'ECG063': 'ecg', 
                      'MISC201': 'misc', 'MISC202': 'misc', 'MISC203': 'misc',
                      'MISC204': 'misc', 'MISC205': 'misc', 'MISC206': 'misc',
                      'MISC301': 'misc', 'MISC302': 'misc', 'MISC303': 'misc',
                      'MISC304': 'misc', 'MISC305': 'misc', 'MISC306': 'misc'}
 
-# ``rename_channels`` rename channels
-#
-# example :
-# rename_channels = {'EEG061': 'EOG061', 'EEG062': 'EOG062', 'EEG063': 'ECG063'}
-rename_channels = None
-
 ###############################################################################
 # FREQUENCY FILTERING
 # -------------------
-#
+# done in 01-import_and_filter.py
+
 # [Good Practice / Advice]
-# It is typically better to set your filtering properties on the raw data so as to avoid
-# what we call border effects 
+# It is typically better to set your filtering properties on the raw data so
+# as to avoid what we call border effects
 #
-# If you use this pipeline for evoked responses, a default filtering would be 
+# If you use this pipeline for evoked responses, a default filtering would be
 # a high-pass filter cut-off of l_freq = 1 Hz
 # a low-pass filter cut-off of h_freq = 40 Hz
 # so you would preserve only the power in the 1Hz to 40 Hz band
 #
-# If you use this pipeline for time-frequency analysis, a default filtering would be 
-# a high-pass filter cut-off of l_freq = 1 Hz
+# If you use this pipeline for time-frequency analysis, a default filtering
+# would be a high-pass filter cut-off of l_freq = 1 Hz
 # a low-pass filter cut-off of h_freq = 120 Hz
 # so you would preserve only the power in the 1Hz to 120 Hz band
 #
-# If you use are interested in the lowest frequencies, do not use a high-pass filter cut-off of l_freq = None
-# If you need more fancy analysis, you are already likely past this kinD of tips! :)
+# If you use are interested in the lowest frequencies, do not use a high-pass
+# filter cut-off of l_freq = None
+# If you need more fancy analysis, you are already likely past this kind
+# of tips! :)
 
-# ``l_freq``  : the low-frequency cut-off in the highpass filtering step.
-# Keep it None if no highpass filtering should be applied.
-l_freq = 1. # should be none
 
-# ``h_freq``  : the high-frequency cut-off in the lowpass filtering step.
-# Keep it None if no lowpass filtering should be applied.
-h_freq = 40.
+# ``l_freq`` : the low-frequency cut-off in the highpass filtering step.
+#   Keep it None if no highpass filtering should be applied.
+
+l_freq = 0.3
+
+# ``h_freq`` : the high-frequency cut-off in the lowpass filtering step.
+#   Keep it None if no lowpass filtering should be applied.
+
+h_freq = 50.
 
 
 ###############################################################################
 # MAXFILTER PARAMETERS
-# -------------------
+# --------------------
 #
 
-# Download the ``cross talk`` and ``calibration`` files. Warning: these are site and machine specific files
-# that provide information about the environmental noise.
+# Download the ``cross talk`` and ``calibration`` files. Warning: these are
+# site and machine specific files that provide information about the
+# environmental noise.
 # For practical purposes, place them in your study folder.
 # At NeuroSpin: ct_sparse and sss_call are on the meg_tmp server
-# You can also download them from osf.io/m9nwz/ 'ct_sparse_nspn.fif' & 'sss_cal_nspn.dat')
-mf_ctc_fname = os.path.join(study_path, 'system_calibration_files', 'ct_sparse_nsp_2017.fif')
-mf_cal_fname = os.path.join(study_path, 'system_calibration_files', 'sss_cal_nsp_2017.dat')
+
+cal_files_path = os.path.join(study_path, 'system_calibration_files')
+mf_ctc_fname = os.path.join(cal_files_path, 'ct_sparse_nsp_2017.fif')
+mf_cal_fname = os.path.join(cal_files_path, 'sss_cal_nsp_2017.dat')
 
 # [Good Practice / Advice]
-# Despite all possible care to avoid movements in the MEG, the participant will likely
-# slowly drift down from the Dewar or slightly shift the head around in the course of the 
-# recording session. Hence, to take this into account, we are realigning all data to a single
-# position. For this, you need to define a reference run (typically the one in the middle of 
-# the recording session). 
-mf_reference_run = 0  # here, take 1st run as reference for head position
+# Despite all possible care to avoid movements in the MEG, the participant
+# will likely slowly drift down from the Dewar or slightly shift the head
+# around in the course of the recording session. Hence, to take this into
+# account, we are realigning all data to a single position. For this, you need
+# to define a reference run (typically the one in the middle of
+# the recording session).
+
+# ``mf_reference_run``  : integer
+#   Which run to take as the reference for adjusting the head position of all
+#   runs.
+
+mf_reference_run = 0
 
 # Set the origin for the head position
+
 mf_head_origin = 'auto'
 
 # [Good Practice / Advice]
-# There are two kinds of maxfiltering: sss and tsss 
+# There are two kinds of maxfiltering: sss and tsss
 # [sss = signal space separation ; tsss = temporal signal space separation]
 # (Taulu et al, 2004): http://cds.cern.ch/record/709081/files/0401166.pdf
-# If you are interested in low frequency activity (<0.1Hz), avoid using tsss and set mf_st_duration = None
-# If you are interested in low frequency above 0.1 Hz, you can use the default mf_st_duration = 10 s
+# If you are interested in low frequency activity (<0.1Hz), avoid using tsss
+# and set mf_st_duration = None
+# If you are interested in low frequency above 0.1 Hz, you can use the
+# default mf_st_duration = 10 s
 # Elekta default = 10s, meaning it acts like a 0.1 Hz highpass filter
-# ``mf_st_duration `` : if None, no temporal-spatial filtering is applied during MaxFilter,
-# otherwise, put a float that speficifies the buffer duration in seconds
+# ``mf_st_duration `` : if None, no temporal-spatial filtering is applied
+# during MaxFilter, otherwise, put a float that speficifies the buffer
+# duration in seconds
+
 mf_st_duration = None
 
 ###############################################################################
 # RESAMPLING
 # ----------
-# 
+#
 # [Good Practice / Advice]
 # If you have acquired data with a very high sampling frequency (e.g. 2 kHz)
-# you will likely want to downsample to lighten up the size of the files you are working with (pragmatics)
-# If you are interested in typical analysis (up to 120 Hz) you can typically resample your data down to 500 Hz 
-# without preventing reliable time-frequency exploration of your data 
+# you will likely want to downsample to lighten up the size of the files you
+# are working with (pragmatics)
+# If you are interested in typical analysis (up to 120 Hz) you can typically
+# resample your data down to 500 Hz without preventing reliable time-frequency
+# exploration of your data
 #
 # ``resample_sfreq``  : a float that specifies at which sampling frequency
 # the data should be resampled. If None then no resampling will be done.
 
-resample_sfreq =  500. # None
-
+resample_sfreq = 500.  # None
 
 # ``decim`` : integer that says how much to decimate data at the epochs level.
 # It is typically an alternative to the `resample_sfreq` parameter that
 # can be used for resampling raw data. 1 means no decimation.
+
 decim = 1
 
 ###############################################################################
 # AUTOMATIC REJECTION OF ARTIFACTS
 # --------------------------------
 #
-# [Good Practice / Advice]
-# Have a look at your raw data and train yourself to detect a blink, a heart beat and an eye movement.
-# You can do a quick average of blink data and check what the amplitude looks like.
+# Good Practice / Advice
+# ~~~~~~~~~~~~~~~~~~~~~~
+# Have a look at your raw data and train yourself to detect a blink, a heart
+# beat and an eye movement.
+# You can do a quick average of blink data and check what the amplitude looks
+# like.
 #
-#  ``reject`` : the default rejection limits to make some epochs as bads.
-# This allows to remove strong transient artifacts.
-# If you want to reject and retrieve blinks later, e.g. with ICA, don't specify
+#  ``reject`` : dict | None
+#    The rejection limits to make some epochs as bads.
+#    This allows to remove strong transient artifacts.
+#    If you want to reject and retrieve blinks later, e.g. with ICA,
+#    don't specify a value for the eog channel (see examples below).
+#    Make sure to include values for eeg if you have EEG data
+#
+# Note
+# ~~~~
+# These numbers tend to vary between subjects.. You might want to consider
+# using the autoreject method by Jas et al. 2018.
+# See https://autoreject.github.io
+#
+# Example
+# ~~~~~~~
+# >>> reject = {'grad': 4000e-13, 'mag': 4e-12, 'eog': 150e-6}
+# >>> reject = {'grad': 4000e-13, 'mag': 4e-12, 'eeg': 200e-6}
+# >>> reject = None
 
-# a value for the eog channel (see examples below).
-# Make sure to include values for eeg if you have eeg data
-
-
-# **Note**: these numbers tend to vary between subjects.
-# Examples: 
-# reject = {'grad': 4000e-13, 'mag': 4e-12, 'eog': 150e-6}
-# reject = {'grad': 4000e-13, 'mag': 4e-12, 'eeg': 200e-6}
-# reject = None
 """  reject = dict(grad=4000e-13, # T / m (gradiometers)
                         mag=4e-12, # T (magnetometers)
                         eeg=40e-6, # V (EEG channels)
                         eog=250e-6 # V (EOG channels)
                         ) """
-
 
 reject = {'grad': 4000e-13, 'mag': 4e-12}
 
@@ -237,74 +331,186 @@ reject = {'grad': 4000e-13, 'mag': 4e-12}
 # EPOCHING
 # --------
 #
-# ``tmin``: float that gives the start time before event of an epoch.
-tmin = -1
+# ``tmin``: float
+#    A float in seconds that gives the start time before event of an epoch.
 
-#  ``tmax`` : float that gives the end time after event of an epochs.
-tmax = 1.25 # I get 7 epochs, 3 from Play, 3 from Replay
+tmin = -1.
 
-# float specifying the offset for the trigger and the stimulus (in seconds)
-# you need to measure this value for your specific experiment/setup
-#trigger_offset = -0.0416
-# XXX forward/delay all triggers by this value
+# ``tmax``: float
+#    A float in seconds that gives the end time before event of an epoch.
 
-# ``baseline`` : tuple that specifies how to baseline the epochs; if None,
-# no baseline is applied
+tmax = 1.25
 
-baseline = (-1, -0.5)
+# ``trigger_time_shift`` : float | None
+#    If float it specifies the offset for the trigger and the stimulus
+#    (in seconds). You need to measure this value for your specific
+#    experiment/setup.
 
-# stimulus channel, which contains the events
-#stim_channel = ['STI001', 'STI002', 'STI003', 'STI004']  # 'STI014'# 'STI101'
-stim_channel = 'STI101'
+#trigger_time_shift = -0.0416
+trigger_time_shift = 0
 
-# minimal duration of the events you want to extract
-min_event_duration = 0.003
+# ``baseline`` : tuple
+#    It specifies how to baseline the epochs; if None, no baseline is applied.
 
-#  `event_id`` : python dictionary that maps events (trigger/marker values)
-# to conditions. E.g. `event_id = {'Auditory/Left': 1, 'Auditory/Right': 2}`
-#event_id = {'Interval1': 9, 'Interval2': 10,
-#            'Interval3': 12}
-#conditions = ['Interval1', 'Interval2', 'Interval3']
+baseline = (-1., -0.5) # (None, 0.)
+
+# ``stim_channel`` : str
+#    The name of the stimulus channel, which contains the events.
+
+stim_channel = 'STI101'  # 'STI014'# None
+
+# ``min_event_duration`` : float
+#    The minimal duration of the events you want to extract (in seconds).
+
+min_event_duration = 0.005
+
+#  `event_id`` : dict
+#    Dictionary that maps events (trigger/marker values)
+#    to conditions.
 #
-#event_id = {'WhiteCross': 9, 'Int02': 10, 'Int03': 12}
-event_id = {'ButtonPress': 5}
-#conditions = ['Int01', 'Int02', 'Int03']
-conditions = ['ButtonPress']
+# Example
+# ~~~~~~~
+# >>> event_id = {'Auditory/Left': 1, 'Auditory/Right': 2}`
+# or
+# >>> event_id = {'Onset': 4} with conditions = ['Onset']
+
+#event_id = {'incoherent/1': 33, 'incoherent/2': 35,
+#            'coherent/down': 37, 'coherent/up': 39}
+#conditions = ['incoherent', 'coherent']
+
+event_id = {'GOint01': 14, 'GOint02': 34, 'GOint03':54}
+conditions = ['GOint01', 'GOint02', 'GOint02']
 
 ###############################################################################
-# ICA PARAMETERS
-# --------------
-# ``runica`` : boolean that says if ICA should be used or not.
+# ARTIFACT REMOVAL
+# ----------------
+#
+# You can choose between ICA and SSP to remove eye and heart artifacts.
+# SSP: https://mne-tools.github.io/stable/auto_tutorials/plot_artifacts_correction_ssp.html?highlight=ssp # noqa
+# ICA: https://mne-tools.github.io/stable/auto_tutorials/plot_artifacts_correction_ica.html?highlight=ica # noqa
+# if you choose ICA, run scripts 5a and 6a
+# if you choose SSP, run scripts 5b and 6b
+# if you running both, your cleaned epochs will be the ones cleaned with the
+# methods you run last (they overwrite each other)
+#
+#
+# ``runica`` : bool
+#    If True ICA should be used or not.
+
 runica = True
 
-rejcomps_man = dict(s190320=dict(meg=[0,68,70],
-                                eeg=[]))
+# ``ica_decim`` : int
+#    The decimation parameter to compute ICA. If 5 it means
+#    that 1 every 5 sample is used by ICA solver. The higher the faster
+#    it is to run but the less data you have to compute a good ICA.
+
+ica_decim = 11
+
+
+# ``default_reject_comps`` : dict
+#    A dictionary that specifies the indices of the ICA components to reject
+#    for each subject. For example you can use:
+#    rejcomps_man['subject01'] = dict(eeg=[12], meg=[7])
+
+def default_reject_comps():
+    return dict(meg=[], eeg=[])
+
+#rejcomps_man = defaultdict(default_reject_comps)
+rejcomps_man = dict(s190320=dict(meg=[0,68,70], eeg=[]))
+
+# ``ica_ctps_ecg_threshold``: float
+#    The threshold parameter passed to `find_bads_ecg` method.
+
+ica_ctps_ecg_threshold = 0.1
 
 ###############################################################################
 # DECODING
-# --------------
+# --------
 #
-# decoding_conditions should be a list of conditions to be classified.
-# For example 'Auditory' vs. 'Visual' as well as
-# 'Auditory/Left' vs 'Auditory/Right'
+# ``decoding_conditions`` : list
+#    List of conditions to be classified.
+#
+# Example
+# ~~~~~~~
+#
+# >>> decoding_conditions = [('Auditory', 'Visual'), ('Left', 'Right')]
+
+#decoding_conditions = [('incoherent', 'coherent')]
 decoding_conditions = ['ButtonPress']
+
+# ``decoding_metric`` : str
+#    The metric to use for cross-validation. It can be 'roc_auc' or 'accuracy'
+#    or any metric supported by scikit-learn.
+
 decoding_metric = 'roc_auc'
-decoding_n_splits = 2
+
+# ``decoding_n_splits`` : int
+#    The number of folds (a.k.a. splits) to use in the cross-validation.
+
+decoding_n_splits = 5
 
 ###############################################################################
 # TIME-FREQUENCY
 # --------------
 #
-#time_frequency_conditions = ['Int01','Int02','Int03']
+# ``time_frequency_conditions`` : list
+#    The conditions to compute time-frequency decomposition on.
+
 time_frequency_conditions = ['ButtonPress']
+
 ###############################################################################
 # SOURCE SPACE PARAMETERS
 # -----------------------
 #
 
+# ``spacing`` : str
+#    The spacing to use. Can be ``'ico#'`` for a recursively subdivided
+#    icosahedron, ``'oct#'`` for a recursively subdivided octahedron,
+#    ``'all'`` for all points, or an integer to use appoximate
+#    distance-based spacing (in mm).
+
 spacing = 'oct6'
+
+# ``mindist`` : float
+#    Exclude points closer than this distance (mm) to the bounding surface.
+
 mindist = 5
+
+# ``loose`` : float in [0, 1] | 'auto'
+#    Value that weights the source variances of the dipole components
+#    that are parallel (tangential) to the cortical surface. If loose
+#    is 0 then the solution is computed with fixed orientation,
+#    and fixed must be True or "auto".
+#    If loose is 1, it corresponds to free orientations.
+#    The default value ('auto') is set to 0.2 for surface-oriented source
+#    space and set to 1.0 for volumetric, discrete, or mixed source spaces,
+#    unless ``fixed is True`` in which case the value 0. is used.
+
+loose = 0.2
+
+# ``depth`` : None | float | dict
+#    If float (default 0.8), it acts as the depth weighting exponent (``exp``)
+#    to use (must be between 0 and 1). None is equivalent to 0, meaning no
+#    depth weighting is performed. Can also be a `dict` containing additional
+#    keyword arguments to pass to :func:`mne.forward.compute_depth_prior`
+#    (see docstring for details and defaults).
+
+depth = 0.8
+
+# method : "MNE" | "dSPM" | "sLORETA" | "eLORETA"
+#    Use minimum norm, dSPM (default), sLORETA, or eLORETA.
+
+method = 'dSPM'
+
+# smooth : int | None
+#    Number of iterations for the smoothing of the surface data.
+#    If None, smooth is automatically defined to fill the surface
+#    with non-zero values. The default is spacing=None.
+
 smooth = 10
+
+# base_fname_trans = '{subject}_' + study_name + '_raw-trans.fif'
+base_fname_trans = '{subject}-trans.fif'
 
 fsaverage_vertices = [np.arange(10242), np.arange(10242)]
 
@@ -318,15 +524,40 @@ if not os.path.isdir(subjects_dir):
 # ADVANCED
 # --------
 #
-# ``l_trans_bandwidth`` : float that specifies the transition bandwidth of the
-# highpass filter. By default it's `'auto'` and uses default mne parameters.
+# ``l_trans_bandwidth`` : float | 'auto'
+#    A float that specifies the transition bandwidth of the
+#    highpass filter. By default it's `'auto'` and uses default mne
+#    parameters.
+
 l_trans_bandwidth = 'auto'
 
-#  ``h_trans_bandwidth`` : float that specifies the transition bandwidth of the
-# lowpass filter. By default it's `'auto'` and uses default mne parameters.
+#  ``h_trans_bandwidth`` : float | 'auto'
+#    A float that specifies the transition bandwidth of the
+#    lowpass filter. By default it's `'auto'` and uses default mne
+#    parameters.
+
 h_trans_bandwidth = 'auto'
 
-#  ``N_JOBS`` : an integer that specifies how many subjects you want to run in parallel.
+#  ``N_JOBS`` : int
+#    An integer that specifies how many subjects you want to run in parallel.
+
 N_JOBS = 1
 
+# ``random_state`` : None | int | np.random.RandomState
+#    To specify the random generator state. This allows to have
+#    the results more reproducible between machines and systems.
+#    Some methods like ICA need random values for initialisation.
+
 random_state = 42
+
+# ``shortest_event`` : int
+#    Minimum number of samples an event must last. If the
+#    duration is less than this an exception will be raised.
+
+shortest_event = 1
+
+# ``allow_maxshield``  : bool
+#    To import data that was recorded with Maxshield on before running
+#    maxfilter set this to True.
+
+allow_maxshield = True

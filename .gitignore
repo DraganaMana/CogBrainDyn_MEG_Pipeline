@@ -3,4 +3,8 @@
 *.html
 *.pdf
 .DS_Store
+<<<<<<< HEAD
 /pandas_example.py
+=======
+data
+>>>>>>> master

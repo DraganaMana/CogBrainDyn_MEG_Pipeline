@@ -3,11 +3,11 @@
 03. Extract events from the stimulus channel
 ============================================
 
-Here, all events present in the stimulus channel indicated in config.stim_channel
-are extracted. 
+Here, all events present in the stimulus channel indicated in
+config.stim_channel are extracted.
 The events are saved to the subject's MEG directory.
-This is done early in the pipeline to avoid distorting event-time, for instance
-by resampling.  
+This is done early in the pipeline to avoid distorting event-time,
+for instance by resampling.
 """
 
 import os.path as op
@@ -23,7 +23,7 @@ import config
 
 
 def run_events(subject):
-    print("processing subject: %s" % subject)
+    print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     for run in config.runs:
@@ -33,11 +33,16 @@ def run_events(subject):
         eve_fname_out = op.splitext(raw_fname_in)[0] + '-int123-eve.fif'
 
         raw = mne.io.read_raw_fif(raw_fname_in)
-
-        events = mne.find_events(raw, stim_channel=config.stim_channel, 
-                                 consecutive=True, 
-                                 min_duration=config.min_event_duration, 
-                                 shortest_event=1)
+        
+        events = mne.find_events(raw, stim_channel=config.stim_channel,
+                                 consecutive=True,
+                                 min_duration=config.min_event_duration,
+                                 shortest_event=config.shortest_event)
+        if config.trigger_time_shift:
+            events = mne.event.shift_time_events(events,
+                                                 np.unique(events[:, 2]),
+                                                 config.trigger_time_shift,
+                                                 raw.info['sfreq'])
         
         # XXX shift events by trigger
 #        if config.trigger_offset:
@@ -48,6 +53,7 @@ def run_events(subject):
 #                    raw.info['sfreq'],
 #                    )
 #-----------------------------------
+        """
         events_ints = np.array(np.ones((45,3)), np.int64)
         numrows = len(events)
         i=0
@@ -59,6 +65,7 @@ def run_events(subject):
                 events_ints[i][2]=events[nrows+1][2]
                 i=i+1
         events_ints 
+        """
 #-----------------------------------
 #        int01=1.45
 #        int02=2.9
@@ -93,17 +100,21 @@ def run_events(subject):
 #-----------------------------------------------------------
 
 
+
         print("Input: ", raw_fname_in)
         print("Output: ", eve_fname_out)
 
-        mne.write_events(eve_fname_out, events_ints)
+#        mne.write_events(eve_fname_out, events_ints)
+        mne.write_events(eve_fname_out, events)
 
         if config.plot:
             # plot events
             # It would be good to have names on the figures, from which Run are
             # the events plotted
-            figure = mne.viz.plot_events(events_ints)
+#            figure = mne.viz.plot_events(events_ints)
             figure = mne.viz.plot_events(events)
+            figure = mne.viz.plot_events(events, sfreq=raw.info['sfreq'],
+                                         first_samp=raw.first_samp)
             figure.show()
 #--------------------------------------
 

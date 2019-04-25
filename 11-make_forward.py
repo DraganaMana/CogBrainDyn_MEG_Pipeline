@@ -15,7 +15,7 @@ import config
 
 
 def run_forward(subject):
-    print("processing subject: %s" % subject)
+    print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     extension = '-ave'
@@ -28,9 +28,8 @@ def run_forward(subject):
                         config.base_fname.format(**locals()))
     print("Output: ", fname_fwd)
 
-    extension = '_raw-trans'
     fname_trans = op.join(meg_subject_dir,
-                          config.base_fname.format(**locals()))
+                          config.base_fname_trans.format(**locals()))
 
     src = mne.setup_source_space(subject, spacing=config.spacing, surface='white',
                                  subjects_dir=config.subjects_dir,
