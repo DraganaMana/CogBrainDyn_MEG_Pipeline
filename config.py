@@ -16,7 +16,7 @@ import numpy as np
 #   If running the scripts from a notebook or spyder
 #   run %matplotlib qt in the command line to get the plots in extra windows
 
-plot = False
+plot = True
 
 ###############################################################################
 # DIRECTORIES
@@ -336,7 +336,7 @@ reject = {'grad': 4000e-13, 'mag': 4e-12}
 # ``tmin``: float
 #    A float in seconds that gives the start time before event of an epoch.
 
-tmin = -1.
+tmin = -1.5
 
 # ``tmax``: float
 #    A float in seconds that gives the end time before event of an epoch.
@@ -354,7 +354,7 @@ trigger_time_shift = 0
 # ``baseline`` : tuple
 #    It specifies how to baseline the epochs; if None, no baseline is applied.
 
-baseline = (-1., -0.5) # (None, 0.)
+baseline = (-1.5, -0.8) # (None, 0.)
 
 # ``stim_channel`` : str
 #    The name of the stimulus channel, which contains the events.
@@ -418,7 +418,7 @@ def default_reject_comps():
     return dict(meg=[], eeg=[])
 
 #rejcomps_man = defaultdict(default_reject_comps)
-rejcomps_man = dict(s190320=dict(meg=[0,68,70], eeg=[]))
+rejcomps_man = dict(lk160274=dict(meg=[], eeg=[]))
 
 # ``ica_ctps_ecg_threshold``: float
 #    The threshold parameter passed to `find_bads_ecg` method.
