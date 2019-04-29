@@ -21,7 +21,7 @@ def apply_ssp(subject):
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     # load epochs to reject ICA components
-    extension = '-epo'
+    extension = '-int123-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
     epochs = mne.read_epochs(fname_in, preload=True)

@@ -25,7 +25,7 @@ n_cycles = freqs / 3.
 def run_time_frequency(subject):
     print("processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
-    extension = '-int123-cleaned-epo'
+    extension = '_int123_cleaned-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
     print("Input: ", fname_in)
@@ -49,17 +49,17 @@ def run_time_frequency(subject):
     if config.plot:
         fig, axis = plt.subplots(1, 2, figsize=(7, 4))
         figure1 = power.plot_topomap(ch_type='grad', tmin= 0.3, tmax=0.6, fmin=8, fmax=12,
-                   baseline=(-1, -0.5), mode='logratio', axes=axis[0],
+                   baseline=(-1.5, -0.8), mode='logratio', axes=axis[0],
                    title='Alpha', show=False)
         figure1 = power.plot_topomap(ch_type='grad', tmin= 0.3, tmax=0.6, fmin=13, fmax=25,
-                   baseline=(-1, -0.5), mode='logratio', axes=axis[1],
+                   baseline=(-1.5, -0.8), mode='logratio', axes=axis[1],
                    title='Beta', show=False)
         mne.viz.tight_layout()
         figure1.show()
         
         power.plot_topo(baseline=(-0.5, 0), mode='logratio', title='Average power')
         power.plot([150], baseline=(-0.5, 0), mode='logratio')
-        power.plot_joint(baseline=(-1., -.5), mode='mean', timefreqs=[(.5, 10), (0.5, 0.5)])
+#        power.plot_joint(baseline=(-1., -.5), mode='mean', timefreqs=[(.5, 10), (0.5, 0.5)])
         
         
 

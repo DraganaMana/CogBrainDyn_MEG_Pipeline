@@ -12,7 +12,7 @@ import mne
 import config
 
 subject = 'lk160274'
-runs = ['Run05']
+runs = ['Run01']
 meg_subject_dir = op.join(config.meg_dir, subject)
 
 
@@ -54,8 +54,9 @@ for run in runs:
     extension = run + '_sss_raw'
     raw_sss = op.join(meg_subject_dir,
                                 config.base_fname.format(**locals()))
+    raw = mne.io.read_raw_fif(raw_sss, allow_maxshield=True)
     #  plot maxfiltered data
-    raw_sss.plot(n_channels=50, butterfly=True, group_by='position')
+    raw.plot(n_channels=50, butterfly=True, group_by='position')
     
 # Read files (events) after 03-extract_events.py
     

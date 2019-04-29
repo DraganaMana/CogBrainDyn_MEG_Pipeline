@@ -136,6 +136,6 @@ def run_ica(subject, tsss=config.mf_st_duration):
 
             report.save(report_fname, overwrite=True, open_browser=False)
 
-run_ica(config.cur_subj)
-#parallel, run_func, _ = parallel_func(run_ica, n_jobs=config.N_JOBS)
-#parallel(run_func(subject) for subject in config.subjects_list)
+#run_ica(config.cur_subj)
+parallel, run_func, _ = parallel_func(run_ica, n_jobs=config.N_JOBS)
+parallel(run_func(subject) for subject in config.subjects_list)

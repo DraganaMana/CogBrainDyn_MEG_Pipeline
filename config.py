@@ -16,7 +16,7 @@ import numpy as np
 #   If running the scripts from a notebook or spyder
 #   run %matplotlib qt in the command line to get the plots in extra windows
 
-plot = False
+plot = True
 
 ###############################################################################
 # DIRECTORIES
@@ -33,8 +33,9 @@ plot = False
 
 #study_path = '/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/'
 
-#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
-study_path = 'D:/ScaledTime/MEGdata/'
+study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
+#study_path = 'D:/ScaledTime/MEGdata/'
+
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
 
@@ -64,7 +65,7 @@ study_name = 'ScaledTime'
 # To use all subjects use
 #subjects_list = ['s190320']
 subjects_list = ['fm180074'] # 'fm180074', lk160274, empty_room
-cur_subj = 'lk160274'
+#cur_subj = 'lk160274'
 #subject_pilot = 's190320'
 # else for speed and fast test you can use:
 
@@ -92,7 +93,7 @@ exclude_subjects = []
 # leave empty!
 
 runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
-#runs = ['Run02']
+#runs = ['Run03']
 
 
 
@@ -152,18 +153,18 @@ bads = defaultdict(list)
 #bads['fm180074'] = ['MEG1732', 'MEG1722', 'MEG0213', 'MEG1512']
 
 """
-bads['lk160274'] = dict(Run01=['MEG0213', 'MEG0133', 'MEG2441', 'MEG1831', 'MEG2031', 'MEG2231', 'MEG2311', 'MEG2341', 'MEG2011', 'MEG2111', 'MEG2021', 'MEG2241', 'MEG1133', 'MEG2321', 'MEG0311', 'MEG1111', 'MEG1141', 'MEG0731', 'MEG1341', 'MEG2141', 'MEG2211', 'MEG2511', 'MEG2541', 'MEG0511', 'MEG2321', 'MEG2041'], 
-    Run02=['MEG0213', 'MEG0133', 'MEG2031', 'MEG2441', 'MEG2311', 'MEG2021', 'MEG2231', 'MEG2241', 'MEG2111', 'MEG2221', 'MEG1831', 'MEG2211', 'MEG2341', 'MEG2321', 'MEG2331', 'MEG2041', 'MEG2431', 'MEG0521', 'MEG0731', 'MEG2521', 'MEG2541', 'MEG2511', 'MEG2532', 'MEG2131', 'MEG2121', 'MEG1921', 'MEG2411', 'MEG0311', 'MEG1133', 'MEG2631'], 
-    Run03=['MEG0213', 'MEG0133', 'MEG1911', 'MEG1631', 'MEG1841', 'MEG2011', 'MEG2041', 'MEG1811', 'MEG1831', 'MEG2241', 'MEG1921', 'MEG2021', 'MEG0911', 'MEG1941', 'MEG1821', 'MEG2141', 'MEG1711', 'MEG0921', 'MEG0311', 'MEG2021', 'MEG2031', 'MEG2311', 'MEG2321', 'MEG1741', 'MEG2121', 'MEG1641', 'MEG0741', 'MEG1931', 'MEG2111', 'MEG1221'], 
-    Run04=['MEG0213', 'MEG0133', 'MEG2041', 'MEG1911', 'MEG2011', 'MEG1741', 'MEG1831', 'MEG0311', 'MEG1841', 'MEG1921', 'MEG2111', 'MEG1931', 'MEG1941', 'MEG1933', 'MEG1631', 'MEG1821', 'MEG2121', 'MEG2031', 'MEG2311', 'MEG0642', 'MEG2231', 'MEG2241', 'MEG2341', 'MEG2321', 'MEG2241'], 
-    Run05=['MEG0213', 'MEG2041', 'MEG1911', 'MEG1631', 'MEG2011', 'MEG0311', 'MEG1841', 'MEG1921', 'MEG1941', 'MEG1811', 'MEG0642', 'MEG2121', 'MEG1731', 'MEG2021', 'MEG2031', 'MEG2111',  'MEG1931', 'MEG1831', 'MEG2231', 'MEG1933', 'MEG2241', 'MEG2311', 'MEG2321', 'MEG2441', 'MEG2211', 'MEG2221', 'MEG2341', 'MEG2531', 'MEG2411', 'MEG2431', 'MEG2631', 'MEG2131'])
+bads['lk160274'] = dict(Run01=['MEG1411', 'MEG0111','MEG0213', 'MEG0133', 'MEG2441', 'MEG1831', 'MEG2031', 'MEG2231', 'MEG2311', 'MEG2341', 'MEG2011', 'MEG2111', 'MEG2021', 'MEG2241', 'MEG1133', 'MEG2321', 'MEG0311', 'MEG1111', 'MEG1141', 'MEG0731', 'MEG1341', 'MEG2141', 'MEG2211', 'MEG2511', 'MEG2541', 'MEG0511', 'MEG2321', 'MEG2041'], 
+    Run02=['MEG1411', 'MEG0111','MEG0213', 'MEG0133', 'MEG2031', 'MEG2441', 'MEG2311', 'MEG2021', 'MEG2231', 'MEG2241', 'MEG2111', 'MEG2221', 'MEG1831', 'MEG2211', 'MEG2341', 'MEG2321', 'MEG2331', 'MEG2041', 'MEG2431', 'MEG0521', 'MEG0731', 'MEG2521', 'MEG2541', 'MEG2511', 'MEG2532', 'MEG2131', 'MEG2121', 'MEG1921', 'MEG2411', 'MEG0311', 'MEG1133', 'MEG2631'], 
+    Run03=['MEG1411', 'MEG0111','MEG0213', 'MEG0133', 'MEG1911', 'MEG1631', 'MEG1841', 'MEG2011', 'MEG2041', 'MEG1811', 'MEG1831', 'MEG2241', 'MEG1921', 'MEG2021', 'MEG0911', 'MEG1941', 'MEG1821', 'MEG2141', 'MEG1711', 'MEG0921', 'MEG0311', 'MEG2021', 'MEG2031', 'MEG2311', 'MEG2321', 'MEG1741', 'MEG2121', 'MEG1641', 'MEG0741', 'MEG1931', 'MEG2111', 'MEG1221'], 
+    Run04=['MEG1411', 'MEG0111','MEG0213', 'MEG0133', 'MEG2041', 'MEG1911', 'MEG2011', 'MEG1741', 'MEG1831', 'MEG0311', 'MEG1841', 'MEG1921', 'MEG2111', 'MEG1931', 'MEG1941', 'MEG1933', 'MEG1631', 'MEG1821', 'MEG2121', 'MEG2031', 'MEG2311', 'MEG0642', 'MEG2231', 'MEG2241', 'MEG2341', 'MEG2321', 'MEG2241'], 
+    Run05=['MEG1411', 'MEG0111','MEG0213', 'MEG2041', 'MEG1911', 'MEG1631', 'MEG2011', 'MEG0311', 'MEG1841', 'MEG1921', 'MEG1941', 'MEG1811', 'MEG0642', 'MEG2121', 'MEG1731', 'MEG2021', 'MEG2031', 'MEG2111',  'MEG1931', 'MEG1831', 'MEG2231', 'MEG1933', 'MEG2241', 'MEG2311', 'MEG2321', 'MEG2441', 'MEG2211', 'MEG2221', 'MEG2341', 'MEG2531', 'MEG2411', 'MEG2431', 'MEG2631', 'MEG2131'])
 """
-bads['fm180074'] = dict(Run01=[],
-    Run02=[],
-    Run03=[],
-    Run04=[],
-    Run05=[],
-    Run06=[])
+bads['fm180074'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'])
 
 
 ###############################################################################
@@ -277,7 +278,7 @@ mf_head_origin = 'auto'
 # during MaxFilter, otherwise, put a float that speficifies the buffer
 # duration in seconds
 
-mf_st_duration = None
+mf_st_duration = 10
 
 ###############################################################################
 # RESAMPLING
@@ -287,7 +288,7 @@ mf_st_duration = None
 # If you have acquired data with a very high sampling frequency (e.g. 2 kHz)
 # you will likely want to downsample to lighten up the size of the files you
 # are working with (pragmatics)
-# If you are interested in typical analysis (up to 120 Hz) you can typically
+# If you are interested in typical analysis ('MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'up to 120 Hz) you can typically
 # resample your data down to 500 Hz without preventing reliable time-frequency
 # exploration of your data
 #
@@ -391,9 +392,13 @@ min_event_duration = 0.005
 #            'coherent/down': 37, 'coherent/up': 39}
 #conditions = ['incoherent', 'coherent']
 
-event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
-conditions = ['BPint01', 'BPint02', 'BPint02']
+# For the 3 different intervals
+#event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
+#conditions = ['BPint01', 'BPint02', 'BPint03']
 
+# For all intervals together
+event_id = {'BPint123': 5}
+conditions = ['BPint123']
 ###############################################################################
 # ARTIFACT REMOVAL
 # ----------------
@@ -429,7 +434,7 @@ def default_reject_comps():
     return dict(meg=[], eeg=[])
 
 #rejcomps_man = defaultdict(default_reject_comps)
-rejcomps_man = dict(fm180074=dict(meg=[], eeg=[]))
+rejcomps_man = dict(fm180074=dict(meg=[0], eeg=[]))
 
 # ``ica_ctps_ecg_threshold``: float
 #    The threshold parameter passed to `find_bads_ecg` method.
@@ -449,7 +454,7 @@ ica_ctps_ecg_threshold = 0.1
 # >>> decoding_conditions = [('Auditory', 'Visual'), ('Left', 'Right')]
 
 #decoding_conditions = [('incoherent', 'coherent')]
-decoding_conditions = ['ButtonPress']
+decoding_conditions = ['BPint123']
 
 # ``decoding_metric`` : str
 #    The metric to use for cross-validation. It can be 'roc_auc' or 'accuracy'
@@ -469,7 +474,7 @@ decoding_n_splits = 5
 # ``time_frequency_conditions`` : list
 #    The conditions to compute time-frequency decomposition on.
 
-time_frequency_conditions = ['ButtonPress']
+time_frequency_conditions = ['BPint123']
 
 ###############################################################################
 # SOURCE SPACE PARAMETERS

@@ -35,7 +35,7 @@ def apply_ica(subject):
                        config.base_fname.format(**locals()))
     epochs = mne.read_epochs(fname_in, preload=True)
 
-    extension = '_cleaned-epo'
+    extension = '_int123_cleaned-epo'
     
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
@@ -149,7 +149,7 @@ def apply_ica(subject):
 
             eog_average = eog_epochs.average()
 
-            eog_inds, scores = ica.find_bads_eog(eog_epochs, threshold=2.5)
+            eog_inds, scores = ica.find_bads_eog(eog_epochs, threshold=2.5) # threshold = 2.5
 
             del eog_epochs
 
