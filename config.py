@@ -16,7 +16,7 @@ import numpy as np
 #   If running the scripts from a notebook or spyder
 #   run %matplotlib qt in the command line to get the plots in extra windows
 
-plot = True
+plot = False
 
 ###############################################################################
 # DIRECTORIES
@@ -33,8 +33,8 @@ plot = True
 
 #study_path = '/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/'
 
-study_path = '/media/dm258725/VERBATIM/MEGdata/lk160274/' # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
-
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
+study_path = 'D:/ScaledTime/MEGdata/'
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
 
@@ -63,7 +63,7 @@ study_name = 'ScaledTime'
 
 # To use all subjects use
 #subjects_list = ['s190320']
-subjects_list = ['lk160274'] # 'fm180074',
+subjects_list = ['fm180074'] # 'fm180074', lk160274, empty_room
 cur_subj = 'lk160274'
 #subject_pilot = 's190320'
 # else for speed and fast test you can use:
@@ -91,8 +91,8 @@ exclude_subjects = []
 # if there are less runs than is expected. If there is only just one file,
 # leave empty!
 
-runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
-#runs = ['Run03']
+runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
+#runs = ['Run02']
 
 
 
@@ -140,19 +140,30 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 # to have per participant. Use the simple dict if you don't have runs or if
 # the same sensors are noisy across all runs.
 
+#def default_bads():
+#     return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[])
+
 def default_bads():
-     return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[])
+    return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[], Run06=[])
 
 bads = defaultdict(list)
 #bads['s190320'] = ['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']
 #bads = dict(fm180074 = ['MEG1732', 'MEG1722', 'MEG0213', 'MEG1512'])
 #bads['fm180074'] = ['MEG1732', 'MEG1722', 'MEG0213', 'MEG1512']
 
+"""
 bads['lk160274'] = dict(Run01=['MEG0213', 'MEG0133', 'MEG2441', 'MEG1831', 'MEG2031', 'MEG2231', 'MEG2311', 'MEG2341', 'MEG2011', 'MEG2111', 'MEG2021', 'MEG2241', 'MEG1133', 'MEG2321', 'MEG0311', 'MEG1111', 'MEG1141', 'MEG0731', 'MEG1341', 'MEG2141', 'MEG2211', 'MEG2511', 'MEG2541', 'MEG0511', 'MEG2321', 'MEG2041'], 
     Run02=['MEG0213', 'MEG0133', 'MEG2031', 'MEG2441', 'MEG2311', 'MEG2021', 'MEG2231', 'MEG2241', 'MEG2111', 'MEG2221', 'MEG1831', 'MEG2211', 'MEG2341', 'MEG2321', 'MEG2331', 'MEG2041', 'MEG2431', 'MEG0521', 'MEG0731', 'MEG2521', 'MEG2541', 'MEG2511', 'MEG2532', 'MEG2131', 'MEG2121', 'MEG1921', 'MEG2411', 'MEG0311', 'MEG1133', 'MEG2631'], 
     Run03=['MEG0213', 'MEG0133', 'MEG1911', 'MEG1631', 'MEG1841', 'MEG2011', 'MEG2041', 'MEG1811', 'MEG1831', 'MEG2241', 'MEG1921', 'MEG2021', 'MEG0911', 'MEG1941', 'MEG1821', 'MEG2141', 'MEG1711', 'MEG0921', 'MEG0311', 'MEG2021', 'MEG2031', 'MEG2311', 'MEG2321', 'MEG1741', 'MEG2121', 'MEG1641', 'MEG0741', 'MEG1931', 'MEG2111', 'MEG1221'], 
     Run04=['MEG0213', 'MEG0133', 'MEG2041', 'MEG1911', 'MEG2011', 'MEG1741', 'MEG1831', 'MEG0311', 'MEG1841', 'MEG1921', 'MEG2111', 'MEG1931', 'MEG1941', 'MEG1933', 'MEG1631', 'MEG1821', 'MEG2121', 'MEG2031', 'MEG2311', 'MEG0642', 'MEG2231', 'MEG2241', 'MEG2341', 'MEG2321', 'MEG2241'], 
     Run05=['MEG0213', 'MEG2041', 'MEG1911', 'MEG1631', 'MEG2011', 'MEG0311', 'MEG1841', 'MEG1921', 'MEG1941', 'MEG1811', 'MEG0642', 'MEG2121', 'MEG1731', 'MEG2021', 'MEG2031', 'MEG2111',  'MEG1931', 'MEG1831', 'MEG2231', 'MEG1933', 'MEG2241', 'MEG2311', 'MEG2321', 'MEG2441', 'MEG2211', 'MEG2221', 'MEG2341', 'MEG2531', 'MEG2411', 'MEG2431', 'MEG2631', 'MEG2131'])
+"""
+bads['fm180074'] = dict(Run01=[],
+    Run02=[],
+    Run03=[],
+    Run04=[],
+    Run05=[],
+    Run06=[])
 
 
 ###############################################################################
@@ -380,8 +391,8 @@ min_event_duration = 0.005
 #            'coherent/down': 37, 'coherent/up': 39}
 #conditions = ['incoherent', 'coherent']
 
-event_id = {'GOint01': 14, 'GOint02': 34, 'GOint03':54}
-conditions = ['GOint01', 'GOint02', 'GOint02']
+event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
+conditions = ['BPint01', 'BPint02', 'BPint02']
 
 ###############################################################################
 # ARTIFACT REMOVAL
@@ -418,7 +429,7 @@ def default_reject_comps():
     return dict(meg=[], eeg=[])
 
 #rejcomps_man = defaultdict(default_reject_comps)
-rejcomps_man = dict(lk160274=dict(meg=[], eeg=[]))
+rejcomps_man = dict(fm180074=dict(meg=[], eeg=[]))
 
 # ``ica_ctps_ecg_threshold``: float
 #    The threshold parameter passed to `find_bads_ecg` method.
