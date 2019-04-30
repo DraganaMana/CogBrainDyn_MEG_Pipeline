@@ -53,16 +53,30 @@ def run_events(subject):
 #                    raw.info['sfreq'],
 #                    )
 #-----------------------------------
+        # First button press
+#        events_ints = np.array(np.zeros((45,3)), np.int64)
+#        numrows = len(events)
+#        i=0
+#        for nrows in range(numrows):
+#            if (events[nrows][2]==15 and events[nrows+1][2]==2048) or (events[nrows][2]==35 and events[nrows+1][2]==2048) or (events[nrows][2]==55 and events[nrows+1][2]==2048):
+#                events_ints[i][0]=events[nrows+1][0]
+#                events_ints[i][1]=events[nrows+1][1]
+#                events_ints[i][2]=5
+#                i=i+1
+#        events_ints 
+#-----------------------------------
+        # Seconds button press
         events_ints = np.array(np.zeros((45,3)), np.int64)
         numrows = len(events)
         i=0
-        for nrows in range(numrows):
-            if (events[nrows][2]==15 and events[nrows+1][2]==2048) or (events[nrows][2]==35 and events[nrows+1][2]==2048) or (events[nrows][2]==55 and events[nrows+1][2]==2048):
-                events_ints[i][0]=events[nrows+1][0]
-                events_ints[i][1]=events[nrows+1][1]
+        for nrows in range(numrows-2):
+            if (events[nrows][2]==15 and events[nrows+2][2]==2048) or (events[nrows][2]==35 and events[nrows+2][2]==2048) or (events[nrows][2]==55 and events[nrows+2][2]==2048):
+                events_ints[i][0]=events[nrows+2][0]
+                events_ints[i][1]=events[nrows+2][1]
                 events_ints[i][2]=5
                 i=i+1
         events_ints 
+        
 #-----------------------------------
         """
         events_ints = np.array(np.ones((45,3)), np.int64)
