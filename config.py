@@ -64,7 +64,7 @@ study_name = 'ScaledTime'
 
 # To use all subjects use
 #subjects_list = ['s190320']
-subjects_list = ['fm180074'] # 'fm180074', lk160274, empty_room
+subjects_list = ['hm070076'] # 'fm180074', lk160274, empty_room, hm070076
 #cur_subj = 'lk160274'
 #subject_pilot = 's190320'
 # else for speed and fast test you can use:
@@ -158,13 +158,22 @@ bads['lk160274'] = dict(Run01=['MEG1411', 'MEG0111','MEG0213', 'MEG0133', 'MEG24
     Run03=['MEG1411', 'MEG0111','MEG0213', 'MEG0133', 'MEG1911', 'MEG1631', 'MEG1841', 'MEG2011', 'MEG2041', 'MEG1811', 'MEG1831', 'MEG2241', 'MEG1921', 'MEG2021', 'MEG0911', 'MEG1941', 'MEG1821', 'MEG2141', 'MEG1711', 'MEG0921', 'MEG0311', 'MEG2021', 'MEG2031', 'MEG2311', 'MEG2321', 'MEG1741', 'MEG2121', 'MEG1641', 'MEG0741', 'MEG1931', 'MEG2111', 'MEG1221'], 
     Run04=['MEG1411', 'MEG0111','MEG0213', 'MEG0133', 'MEG2041', 'MEG1911', 'MEG2011', 'MEG1741', 'MEG1831', 'MEG0311', 'MEG1841', 'MEG1921', 'MEG2111', 'MEG1931', 'MEG1941', 'MEG1933', 'MEG1631', 'MEG1821', 'MEG2121', 'MEG2031', 'MEG2311', 'MEG0642', 'MEG2231', 'MEG2241', 'MEG2341', 'MEG2321', 'MEG2241'], 
     Run05=['MEG1411', 'MEG0111','MEG0213', 'MEG2041', 'MEG1911', 'MEG1631', 'MEG2011', 'MEG0311', 'MEG1841', 'MEG1921', 'MEG1941', 'MEG1811', 'MEG0642', 'MEG2121', 'MEG1731', 'MEG2021', 'MEG2031', 'MEG2111',  'MEG1931', 'MEG1831', 'MEG2231', 'MEG1933', 'MEG2241', 'MEG2311', 'MEG2321', 'MEG2441', 'MEG2211', 'MEG2221', 'MEG2341', 'MEG2531', 'MEG2411', 'MEG2431', 'MEG2631', 'MEG2131'])
-"""
+
 bads['fm180074'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'])
+"""
+
+bads['hm070076'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933'])
+
 
 
 ###############################################################################
@@ -278,7 +287,7 @@ mf_head_origin = 'auto'
 # during MaxFilter, otherwise, put a float that speficifies the buffer
 # duration in seconds
 
-mf_st_duration = 10
+mf_st_duration = None # 10 for the noisy data
 
 ###############################################################################
 # RESAMPLING
@@ -434,7 +443,7 @@ def default_reject_comps():
     return dict(meg=[], eeg=[])
 
 #rejcomps_man = defaultdict(default_reject_comps)
-rejcomps_man = dict(fm180074=dict(meg=[0], eeg=[]))
+rejcomps_man = dict(hm070076=dict(meg=[], eeg=[]))
 
 # ``ica_ctps_ecg_threshold``: float
 #    The threshold parameter passed to `find_bads_ecg` method.
