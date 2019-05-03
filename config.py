@@ -16,7 +16,7 @@ import numpy as np
 #   If running the scripts from a notebook or spyder
 #   run %matplotlib qt in the command line to get the plots in extra windows
 
-plot = True
+plot = False
 
 ###############################################################################
 # DIRECTORIES
@@ -33,8 +33,8 @@ plot = True
 
 #study_path = '/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -385,7 +385,7 @@ stim_channel = 'STI101'  # 'STI014'# None
 # ``min_event_duration`` : float
 #    The minimal duration of the events you want to extract (in seconds).
 
-min_event_duration = 0.005
+min_event_duration = 0.003
 
 #  `event_id`` : dict
 #    Dictionary that maps events (trigger/marker values)
