@@ -91,42 +91,26 @@ for run in runs:
         if (events[nrows][2]==15 and events[nrows+1][2]==2048 and events[nrows+2][2]==2048):
             events_ints.append([events[nrows+1][0], events[nrows+1][1], 1])
             events_ints.append([events[nrows+2][0], events[nrows+2][1], 2])
-            
-            
-#            events_ints[i][0]=events[nrows+1][0]
-#            events_ints[i][1]=events[nrows+1][1]
-#            events_ints[i][2]=5
-#            events_ints[i+1][0]=events[nrows+2][0]
-#            events_ints[i+1][1]=events[nrows+2][1]
-#            events_ints[i+1][2]=10
-#            i=i+2
         # For int 2.9
         elif (events[nrows][2]==35 and events[nrows+1][2]==2048 and events[nrows+2][2]==2048):
             events_ints.append([events[nrows+1][0], events[nrows+1][1], 3])
             events_ints.append([events[nrows+2][0], events[nrows+2][1], 4])
-            
-#            events_ints[i][0]=events[nrows+1][0]
-#            events_ints[i][1]=events[nrows+1][1]
-#            events_ints[i][2]=5
-#            events_ints[i+1][0]=events[nrows+2][0]
-#            events_ints[i+1][1]=events[nrows+2][1]
-#            events_ints[i+1][2]=10
-#            i=i+2
         # For int 5.8
         elif (events[nrows][2]==55 and events[nrows+1][2]==2048 and events[nrows+2][2]==2048):
             events_ints.append([events[nrows+1][0], events[nrows+1][1], 5])
             events_ints.append([events[nrows+2][0], events[nrows+2][1], 6])
             
-#            events_ints[i][0]=events[nrows+1][0]
-#            events_ints[i][1]=events[nrows+1][1]
-#            events_ints[i][2]=5
-#            events_ints[i+1][0]=events[nrows+2][0]
-#            events_ints[i+1][1]=events[nrows+2][1]
-#            events_ints[i+1][2]=10
-#            i=i+2
-    
-    
-    
+    # Count the number of a given interval production
+    int1 = 0
+    int2 = 0
+    int3 = 0
+    for i in range(len(events_ints)):
+        if events_ints[i][2]==1:
+            int1 += 1
+        elif events_ints[i][2]==3:
+            int2 += 1
+        elif events_ints[i][2]==5:
+            int3 += 1
     
     # int_dur is a list containing the interval lengths
     int_dur = []
@@ -139,14 +123,15 @@ for run in runs:
     
     figure = mne.viz.plot_events(events_ints)
     figure.show()
-        
+
+"""
 # Read files after 04-make_epochs.py
 #        
 #    for run in runs:
 #        extension = '-int123-epo'
 #        epochs_fname = op.join(meg_subject_dir,
 #                           config.base_fname.format(**locals()))
-        
+"""
         
         
         
