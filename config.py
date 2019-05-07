@@ -64,7 +64,7 @@ study_name = 'ScaledTime'
 
 # To use all subjects use
 #subjects_list = ['s190320']
-subjects_list = ['hm070076'] # 'fm180074', lk160274, empty_room, hm070076
+subjects_list = ['fr190151'] # 'fm180074', lk160274, empty_room, hm070076, fr190151
 #cur_subj = 'lk160274'
 #subject_pilot = 's190320'
 # else for speed and fast test you can use:
@@ -165,7 +165,6 @@ bads['fm180074'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'])
-"""
 
 bads['hm070076'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
@@ -173,6 +172,15 @@ bads['hm070076'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933'])
+
+"""
+
+bads['fr190151'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'])
 
 
 
@@ -385,7 +393,7 @@ stim_channel = 'STI101'  # 'STI014'# None
 # ``min_event_duration`` : float
 #    The minimal duration of the events you want to extract (in seconds).
 
-min_event_duration = 0.005
+min_event_duration = 0.007
 
 #  `event_id`` : dict
 #    Dictionary that maps events (trigger/marker values)
@@ -443,7 +451,7 @@ def default_reject_comps():
     return dict(meg=[], eeg=[])
 
 #rejcomps_man = defaultdict(default_reject_comps)
-rejcomps_man = dict(hm070076=dict(meg=[], eeg=[]))
+rejcomps_man = dict(fr190151=dict(meg=[], eeg=[]))
 
 # ``ica_ctps_ecg_threshold``: float
 #    The threshold parameter passed to `find_bads_ecg` method.

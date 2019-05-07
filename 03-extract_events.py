@@ -76,6 +76,7 @@ def run_events(subject):
                 events_ints[i][2]=5
                 i=i+1
         events_ints 
+        print(events_ints)
         
 #-----------------------------------
         """
@@ -160,7 +161,9 @@ def run_events(subject):
             # the events plotted
 #            figure = mne.viz.plot_events(events_ints)
 #            figure = mne.viz.plot_events(events_ints)
-            figure = mne.viz.plot_events(events_ints, sfreq=raw.info['sfreq'],
+#            figure = mne.viz.plot_events(events_ints, sfreq=raw.info['sfreq'],
+#                                         first_samp=raw.first_samp)
+            figure = mne.viz.plot_events(events, sfreq=raw.info['sfreq'],
                                          first_samp=raw.first_samp)
             figure.show()
 #--------------------------------------
