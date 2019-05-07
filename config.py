@@ -210,7 +210,7 @@ rename_channels = None
 set_channel_types = {'EOG061': 'eog', 'EOG062': 'eog', 'ECG063': 'ecg', 
                      'MISC201': 'misc', 'MISC202': 'misc', 'MISC203': 'misc',
                      'MISC204': 'misc', 'MISC205': 'misc', 'MISC206': 'misc',
-                     'MISC301': 'misc', 'MISC302': 'misc', 'MISC303': 'misc',
+                     'MISC301': 'misc', 'MISC302'<<<<<<< HEAD: 'misc', 'MISC303': 'misc',
                      'MISC304': 'misc', 'MISC305': 'misc', 'MISC306': 'misc'}
 
 ###############################################################################
