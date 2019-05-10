@@ -33,8 +33,8 @@ plot = True
 
 #study_path = '/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -210,7 +210,7 @@ rename_channels = None
 set_channel_types = {'EOG061': 'eog', 'EOG062': 'eog', 'ECG063': 'ecg', 
                      'MISC201': 'misc', 'MISC202': 'misc', 'MISC203': 'misc',
                      'MISC204': 'misc', 'MISC205': 'misc', 'MISC206': 'misc',
-                     'MISC301': 'misc', 'MISC302'<<<<<<< HEAD: 'misc', 'MISC303': 'misc',
+                     'MISC301': 'misc', 'MISC302': 'misc', 'MISC303': 'misc',
                      'MISC304': 'misc', 'MISC305': 'misc', 'MISC306': 'misc'}
 
 ###############################################################################
