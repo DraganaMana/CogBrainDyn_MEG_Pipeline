@@ -89,7 +89,9 @@ for run in runs:
     for nrows in range(numrows-2):
         # For int 1.45
         if (events[nrows][2]==15 and events[nrows+1][2]==2048 and events[nrows+2][2]==2048):
+            # First button press to start the interval
             events_int1.append([events[nrows+1][0], events[nrows+1][1], 1])
+            # Second button press to end the interval
             events_int1.append([events[nrows+2][0], events[nrows+2][1], 2])
         # For int 2.9
         elif (events[nrows][2]==35 and events[nrows+1][2]==2048 and events[nrows+2][2]==2048):
@@ -170,7 +172,22 @@ events_int1 = np.array(events_int1)
 events_int2 = np.array(events_int2)
 events_int3 = np.array(events_int3)
 events_ints= np.concatenate((events_int1, events_int2, events_int3))
-    
+
+# Divide the events to short, correct and long 
+# int1
+eve_int1_short = events_int1[0:(len(events_int1//3))]
+eve_int1_correct = events_int1[len(events_int1//3):((2*len(events_int1//3))+(len(events_int1)%3))]
+eve_int1_long = events_int1[2*len(events_int1//3):]
+# int2
+eve_int2_short = events_int2[0:(len(events_int2//3))]
+eve_int2_correct = events_int2[len(events_int2//3):((2*len(events_int2//3))+(len(events_int2)%3))]
+eve_int2_long = events_int2[2*len(events_int2//3):]
+# int3
+eve_int3_short = events_int3[0:(len(events_int3//3))]
+eve_int3_correct = events_int3[len(events_int3//3):((2*len(events_int3//3))+(len(events_int3)%3))]
+eve_int3_long = events_int3[2*len(events_int3//3):]
+
+# Plot the events
 figure = mne.viz.plot_events(events_ints)
 figure.show()
 
