@@ -14,7 +14,7 @@ import itertools
 
 import config
 
-subject = 'fr190151'
+subject = 'ih190084'
 #runs = ['Run01']
 runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
 meg_subject_dir = op.join(config.meg_dir, subject)
@@ -35,7 +35,7 @@ for run in runs:
     # plot raw data
     raw.plot(n_channels=50, butterfly=False, group_by='original')
     # plot power spectral densitiy
-    raw.plot_psd(area_mode='range', tmin=10.0, tmax=100.0,
+    raw.plot_psd(area_mode='range', tmin=10.0, tmax=100.0,ih190084
                          fmin=0.3, fmax=100., average=True)
             
 # Read files after 01-import_and_filter.py - filtered files
@@ -188,20 +188,30 @@ events_ints= np.concatenate((events_int1, events_int2, events_int3))
 
 # Divide the events to short, correct and long 
 # int1
-eve_int1_short = events_int1[0:(len(events_int1//3))]
-eve_int1_correct = events_int1[len(events_int1//3):((2*len(events_int1//3))+(len(events_int1)%3))]
-eve_int1_long = events_int1[2*len(events_int1//3):]
+num_int1 = int(len(events_int1)/2)
+eve_int1_short = events_int1[0:((num_int1//3)*2)]
+eve_int1_correct = events_int1[(num_int1//3)*2:((2*(num_int1//3)*2)+((num_int1%3)*2))]
+eve_int1_long = events_int1[2*(num_int1//3)*2:]
+
 # int2
-eve_int2_short = events_int2[0:(len(events_int2//3))]
-eve_int2_correct = events_int2[len(events_int2//3):((2*len(events_int2//3))+(len(events_int2)%3))]
-eve_int2_long = events_int2[2*len(events_int2//3):]
+num_int2 = int(len(events_int2)/2)
+eve_int2_short = events_int2[0:((num_int2//3)*2)]
+eve_int2_correct = events_int2[(num_int2//3)*2:((2*(num_int2//3)*2)+((num_int2%3)*2))]
+eve_int2_long = events_int2[2*(num_int2//3)*2:]
+
 # int3
-eve_int3_short = events_int3[0:(len(events_int3//3))]
-eve_int3_correct = events_int3[len(events_int3//3):((2*len(events_int3//3))+(len(events_int3)%3))]
-eve_int3_long = events_int3[2*len(events_int3//3):]
+num_int3 = int(len(events_int3)/2)
+eve_int3_short = events_int3[0:((num_int3//3)*2)]
+eve_int3_correct = events_int3[(num_int3//3)*2:((2*(num_int3//3)*2)+((num_int3%3)*2))]
+eve_int3_long = events_int3[2*(num_int3//3)*2:]
+
+#eve_int1_short = np.array(eve_int1_short)
+#eve_int2_short = np.array(eve_int2_short)
+#eve_int3_short = np.array(eve_int3_short)
+#events_ints_short= np.concatenate((eve_int1_short, eve_int2_short, eve_int3_short))
 
 # Plot the events
-figure = mne.viz.plot_events(events_ints)
+figure = mne.viz.plot_events(events_ints_short)
 figure.show()
 
 """

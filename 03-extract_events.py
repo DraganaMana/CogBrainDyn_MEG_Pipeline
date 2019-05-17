@@ -30,7 +30,7 @@ def run_events(subject):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname_out = op.splitext(raw_fname_in)[0] + '-int123-eve.fif'
+        eve_fname_out = op.splitext(raw_fname_in)[0] + '-eve.fif'
 
         raw = mne.io.read_raw_fif(raw_fname_in)
         
@@ -54,16 +54,16 @@ def run_events(subject):
 #                    )
 #-----------------------------------
         # First button press
-        events_ints = np.array(np.zeros((45,3)), np.int64)
-        numrows = len(events)
-        i=0
-        for nrows in range(numrows):
-            if (events[nrows][2]==15 and events[nrows+1][2]==2048) or (events[nrows][2]==35 and events[nrows+1][2]==2048) or (events[nrows][2]==55 and events[nrows+1][2]==2048):
-                events_ints[i][0]=events[nrows+1][0]
-                events_ints[i][1]=events[nrows+1][1]
-                events_ints[i][2]=5
-                i=i+1
-        events_ints 
+#        events_ints = np.array(np.zeros((45,3)), np.int64)
+#        numrows = len(events)
+#        i=0
+#        for nrows in range(numrows):
+#            if (events[nrows][2]==15 and events[nrows+1][2]==2048) or (events[nrows][2]==35 and events[nrows+1][2]==2048) or (events[nrows][2]==55 and events[nrows+1][2]==2048):
+#                events_ints[i][0]=events[nrows+1][0]
+#                events_ints[i][1]=events[nrows+1][1]
+#                events_ints[i][2]=5
+#                i=i+1
+#        events_ints 
 #-----------------------------------
         # Seconds button press
 #        events_ints = np.array(np.zeros((45,3)), np.int64)
@@ -153,14 +153,14 @@ def run_events(subject):
         print("Input: ", raw_fname_in)
         print("Output: ", eve_fname_out)
 
-#        mne.write_events(eve_fname_out, events_ints)
         mne.write_events(eve_fname_out, events)
+#        mne.write_events(eve_fname_out, events)
 
         if config.plot:
             # plot events
             # It would be good to have names on the figures, from which Run are
             # the events plotted
-            figure = mne.viz.plot_events(events_ints, sfreq=raw.info['sfreq'],
+            figure = mne.viz.plot_events(events, sfreq=raw.info['sfreq'],
                                          first_samp=raw.first_samp)
 #            figure = mne.viz.plot_events(events, sfreq=raw.info['sfreq'],
 #                                         first_samp=raw.first_samp)

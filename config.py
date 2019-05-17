@@ -64,7 +64,7 @@ study_name = 'ScaledTime'
 
 # To use all subjects use
 #subjects_list = ['s190320']
-subjects_list = ['at140305'] # 'fm180074', lk160274, empty_room, hm070076, fr190151, at140305
+subjects_list = ['ih190084'] # 'fm180074', lk160274, empty_room, hm070076, fr190151, at140305
 #cur_subj = 'lk160274'
 #subject_pilot = 's190320'
 # else for speed and fast test you can use:
@@ -93,7 +93,7 @@ exclude_subjects = []
 # if there are less runs than is expected. If there is only just one file,
 # leave empty!
 
-runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
+runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
 #runs = ['Run03']
 
 
@@ -163,11 +163,11 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 # the same sensors are noisy across all runs.
 
 
-def default_bads():
-     return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[])
-
 #def default_bads():
-#    return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[], Run06=[])
+#     return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[])
+
+def default_bads():
+    return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[], Run06=[])
 
 bads = defaultdict(list)
 #bads['s190320'] = ['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']
@@ -201,14 +201,20 @@ bads['fr190151'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG19
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'])
-"""
 
 bads['at140305'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG0342'],
     Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2512'],
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2512', 'MEG0311', 'MEG1111', 'MEG1112', 'MEG1113'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2512', 'MEG0613'])
+"""
 
+bads['ih190084'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633', 'MEG0131'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633', 'MEG1921'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'])
 
 
 ###############################################################################
@@ -484,7 +490,7 @@ min_event_duration = 0.007
 # or
 # >>> event_id = {'Onset': 4} with conditions = ['Onset']
 
-#event_id = {'incoherent/1': 33, 'incoherent/2': 35,
+#event_id = {'incoherent/1': 33, 'incoherent/2': 35,ih190084
 #            'coherent/down': 37, 'coherent/up': 39}
 #conditions = ['incoherent', 'coherent']
 
