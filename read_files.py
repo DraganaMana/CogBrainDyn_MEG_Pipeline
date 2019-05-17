@@ -61,9 +61,22 @@ for run in runs:
     #  plot maxfiltered data
     raw.plot(n_channels=50, butterfly=True, group_by='position')
     
-"""
+
     
 # Read files (events) after 03-extract_events.py
+for run in runs:
+    extension = run + '_sss_raw'
+    raw_fname_in = op.join(meg_subject_dir, config.base_fname.format(**locals()))
+    eve_fname = op.splitext(raw_fname_in)[0] + '-eve.fif'
+    events = mne.read_events(eve_fname)
+
+figure = mne.viz.plot_events(events)
+figure.show()
+"""
+
+## Read the events files, change the events values, calculate the durations, 
+    ## exclude the outliers, divide the events in short, correct and long.
+    ## All is done for each of the 3 different intervals. 
 events_int1 = []
 events_int2 = []
 events_int3 = []
