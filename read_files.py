@@ -14,9 +14,9 @@ import itertools
 
 import config
 
-subject = 'ih190084'
+subject = 'at140305'
 #runs = ['Run01']
-runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
+runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
 meg_subject_dir = op.join(config.meg_dir, subject)
 
 ###############################################################################
@@ -95,7 +95,7 @@ for run in runs:
             events[nrows][2] = events[nrows][2] - 2048
             i=i+1
 
-
+    print(run)
     int_start=0
     int_end=0
     numrows = len(events)
@@ -103,17 +103,17 @@ for run in runs:
         # For int 1.45
         if (events[nrows][2]==15 and events[nrows+1][2]==2048 and events[nrows+2][2]==2048):
             # First button press to start the interval
-            events_int1.append([events[nrows+1][0], events[nrows+1][1], 1])
+            events_int1.append([events[nrows+1][0], events[nrows+1][1], 1, run])
             # Second button press to end the interval
-            events_int1.append([events[nrows+2][0], events[nrows+2][1], 2])
+            events_int1.append([events[nrows+2][0], events[nrows+2][1], 2, run])
         # For int 2.9
         elif (events[nrows][2]==35 and events[nrows+1][2]==2048 and events[nrows+2][2]==2048):
-            events_int2.append([events[nrows+1][0], events[nrows+1][1], 3])
-            events_int2.append([events[nrows+2][0], events[nrows+2][1], 4])
+            events_int2.append([events[nrows+1][0], events[nrows+1][1], 3, run])
+            events_int2.append([events[nrows+2][0], events[nrows+2][1], 4, run])
         # For int 5.8
         elif (events[nrows][2]==55 and events[nrows+1][2]==2048 and events[nrows+2][2]==2048):
-            events_int3.append([events[nrows+1][0], events[nrows+1][1], 5])
-            events_int3.append([events[nrows+2][0], events[nrows+2][1], 6])
+            events_int3.append([events[nrows+1][0], events[nrows+1][1], 5, run])
+            events_int3.append([events[nrows+2][0], events[nrows+2][1], 6, run])
   
 # int_dur is a list containing the interval lengths
 int1_dur = []
@@ -181,6 +181,8 @@ int3_outliers_events.sort(reverse=True)
 for i in range(len(int3_outliers_events)):
     del events_int3[int3_outliers_events[i]]
 
+
+# Create arrays from the lists
 events_int1 = np.array(events_int1)
 events_int2 = np.array(events_int2)
 events_int3 = np.array(events_int3)
@@ -191,20 +193,91 @@ events_ints= np.concatenate((events_int1, events_int2, events_int3))
 num_int1 = int(len(events_int1)/2)
 eve_int1_short = events_int1[0:((num_int1//3)*2)]
 eve_int1_correct = events_int1[(num_int1//3)*2:((2*(num_int1//3)*2)+((num_int1%3)*2))]
-eve_int1_long = events_int1[2*(num_int1//3)*2:]
+eve_int1_long = events_int1[((2*(num_int1//3)*2)+((num_int1%3)*2)):]
 
 # int2
 num_int2 = int(len(events_int2)/2)
 eve_int2_short = events_int2[0:((num_int2//3)*2)]
 eve_int2_correct = events_int2[(num_int2//3)*2:((2*(num_int2//3)*2)+((num_int2%3)*2))]
-eve_int2_long = events_int2[2*(num_int2//3)*2:]
+eve_int2_long = events_int2[((2*(num_int2//3)*2)+((num_int2%3)*2)):]
 
 # int3
 num_int3 = int(len(events_int3)/2)
 eve_int3_short = events_int3[0:((num_int3//3)*2)]
 eve_int3_correct = events_int3[(num_int3//3)*2:((2*(num_int3//3)*2)+((num_int3%3)*2))]
-eve_int3_long = events_int3[2*(num_int3//3)*2:]
+eve_int3_long = events_int3[((2*(num_int3//3)*2)+((num_int3%3)*2)):]
 
+#############################################
+# Change the trigger values for the events 
+# int 1 - 11 & 12
+# int 1 - short - 13 & 14
+# int 1 - correct - 15 & 16 
+# int 1 - long - 17 & 18
+#
+# int 2 - 21 & 22
+# int 2 - short - 23 & 24
+# int 2 - correct - 25 & 26 
+# int 2 - long - 27 & 28
+#
+# int 3 - 31 & 32
+# int 3 - short - 33 & 34
+# int 3 - correct - 35 & 36 
+# int 3 - long - 37 & 38
+#
+#
+#intervals = [eve_int1_short, eve_int1_correct, eve_int1_long] 
+#triggers = [13, 14, 15, 16, 17, 18]
+#for (x, y) in zip(intervals, (range(0, len(triggers)-1, 2))):
+#    for i in range(len(x)):
+#        if x[i,2] == 1:
+#            x[i,2] = triggers[y]
+#        elif x[i,2] == 2:
+#            x[i,2] = triggers[y+1]
+
+# Interval 1
+for i in len(eve_int1_short):
+    if eve_int1_short[i,2] == 1:
+        eve_int1_short[i,2] = 13
+    if eve_int1_short[i,2] == 2:
+        eve_int1_short[i,2] = 14
+for i in len(eve_int1_correct):
+    if eve_int1_correct[i,2] == 1:
+        eve_int1_correct[i,2] = 15
+    if eve_int1_correct[i,2] == 2:
+        eve_int1_correct[i,2] = 16
+for i in len(eve_int1_long):
+    if eve_int1_long[i,2] == 1:
+        eve_int1_long[i,2] = 17
+    if eve_int1_long[i,2] == 2:
+        eve_int1_long[i,2] = 18
+# Interval 2
+for i in len(eve_int2_short):
+    if eve_int2_short[i,2] == 1:
+        eve_int2_short[i,2] = 23
+    if eve_int2_short[i,2] == 2:
+        eve_int2_short[i,2] = 24
+for i in len(eve_int2_correct):
+    if eve_int2_correct[i,2] == 1:
+        eve_int2_correct[i,2] = 25
+    if eve_int2_correct[i,2] == 2:
+        eve_int2_correct[i,2] = 26
+for i in len(eve_int2_long):
+    if eve_int2_long[i,2] == 1:
+        eve_int2_long[i,2] = 27
+    if eve_int2_long[i,2] == 2:
+        eve_int2_long[i,2] = 28
+    
+
+# Save the short, correct and long events in the separate Run0x files
+#short_events_int1_run01 = np.array(np.zeros((45,3)), np.int64)
+for k in runs:
+    count = 0
+    for i in len(eve_int3_short):
+        if eve_int3_short[i,3] == k:
+            count += 1
+        events = np.array(np.zeros((count,3)), np.int64)
+        
+        
 #eve_int1_short = np.array(eve_int1_short)
 #eve_int2_short = np.array(eve_int2_short)
 #eve_int3_short = np.array(eve_int3_short)

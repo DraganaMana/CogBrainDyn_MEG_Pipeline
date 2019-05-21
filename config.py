@@ -33,8 +33,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -64,7 +64,7 @@ study_name = 'ScaledTime'
 
 # To use all subjects use
 #subjects_list = ['s190320']
-subjects_list = ['ih190084'] # 'fm180074', lk160274, empty_room, hm070076, fr190151, at140305
+subjects_list = ['at140305'] # 'fm180074', lk160274, empty_room, hm070076, fr190151, at140305
 #cur_subj = 'lk160274'
 #subject_pilot = 's190320'
 # else for speed and fast test you can use:
@@ -201,7 +201,7 @@ bads['fr190151'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG19
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'])
-
+"""
 bads['at140305'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG0342'],
     Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2512'],
@@ -215,7 +215,7 @@ bads['ih190084'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
     Run04=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
     Run05=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
     Run06=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'])
-
+"""
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
