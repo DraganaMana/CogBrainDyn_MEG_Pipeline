@@ -183,10 +183,10 @@ for i in range(len(int3_outliers_events)):
 
 
 # Create arrays from the lists
-events_int1 = np.array(events_int1)
-events_int2 = np.array(events_int2)
-events_int3 = np.array(events_int3)
-events_ints= np.concatenate((events_int1, events_int2, events_int3))
+#events_int1 = np.array(events_int1)
+#events_int2 = np.array(events_int2)
+#events_int3 = np.array(events_int3)
+#events_ints= np.concatenate((events_int1, events_int2, events_int3))
 
 # Divide the events to short, correct and long 
 # int1
@@ -235,37 +235,53 @@ eve_int3_long = events_int3[((2*(num_int3//3)*2)+((num_int3%3)*2)):]
 #            x[i,2] = triggers[y+1]
 
 # Interval 1
-for i in len(eve_int1_short):
+for i in range(len(eve_int1_short)):
     if eve_int1_short[i,2] == 1:
         eve_int1_short[i,2] = 13
     if eve_int1_short[i,2] == 2:
         eve_int1_short[i,2] = 14
-for i in len(eve_int1_correct):
-    if eve_int1_correct[i,2] == 1:
-        eve_int1_correct[i,2] = 15
-    if eve_int1_correct[i,2] == 2:
-        eve_int1_correct[i,2] = 16
-for i in len(eve_int1_long):
-    if eve_int1_long[i,2] == 1:
-        eve_int1_long[i,2] = 17
-    if eve_int1_long[i,2] == 2:
-        eve_int1_long[i,2] = 18
-# Interval 2
-for i in len(eve_int2_short):
-    if eve_int2_short[i,2] == 1:
-        eve_int2_short[i,2] = 23
-    if eve_int2_short[i,2] == 2:
-        eve_int2_short[i,2] = 24
-for i in len(eve_int2_correct):
-    if eve_int2_correct[i,2] == 1:
-        eve_int2_correct[i,2] = 25
-    if eve_int2_correct[i,2] == 2:
-        eve_int2_correct[i,2] = 26
-for i in len(eve_int2_long):
-    if eve_int2_long[i,2] == 1:
-        eve_int2_long[i,2] = 27
-    if eve_int2_long[i,2] == 2:
-        eve_int2_long[i,2] = 28
+#for i in len(eve_int1_correct):
+#    if eve_int1_correct[i,2] == 1:
+#        eve_int1_correct[i,2] = 15
+#    if eve_int1_correct[i,2] == 2:
+#        eve_int1_correct[i,2] = 16
+#for i in len(eve_int1_long):
+#    if eve_int1_long[i,2] == 1:
+#        eve_int1_long[i,2] = 17
+#    if eve_int1_long[i,2] == 2:
+#        eve_int1_long[i,2] = 18
+## Interval 2
+#for i in len(eve_int2_short):
+#    if eve_int2_short[i,2] == 1:
+#        eve_int2_short[i,2] = 23
+#    if eve_int2_short[i,2] == 2:
+#        eve_int2_short[i,2] = 24
+#for i in len(eve_int2_correct):
+#    if eve_int2_correct[i,2] == 1:
+#        eve_int2_correct[i,2] = 25
+#    if eve_int2_correct[i,2] == 2:
+#        eve_int2_correct[i,2] = 26
+#for i in len(eve_int2_long):
+#    if eve_int2_long[i,2] == 1:
+#        eve_int2_long[i,2] = 27
+#    if eve_int2_long[i,2] == 2:
+#        eve_int2_long[i,2] = 28
+## Interval 3
+#for i in len(eve_int3_short):
+#    if eve_int3_short[i,2] == 1:
+#        eve_int3_short[i,2] = 33
+#    if eve_int3_short[i,2] == 2:
+#        eve_int3_short[i,2] = 34
+#for i in len(eve_int3_correct):
+#    if eve_int3_correct[i,2] == 1:
+#        eve_int3_correct[i,2] = 35
+#    if eve_int3_correct[i,2] == 2:
+#        eve_int3_correct[i,2] = 36
+#for i in len(eve_int3_long):
+#    if eve_int3_long[i,2] == 1:
+#        eve_int3_long[i,2] = 37
+#    if eve_int3_long[i,2] == 2:
+#        eve_int3_long[i,2] = 38
     
 
 # Save the short, correct and long events in the separate Run0x files
@@ -282,6 +298,17 @@ for k in runs:
 #eve_int2_short = np.array(eve_int2_short)
 #eve_int3_short = np.array(eve_int3_short)
 #events_ints_short= np.concatenate((eve_int1_short, eve_int2_short, eve_int3_short))
+        
+"""
+To be done:
+    - Turn the list of lists or whatever into arrays at the end.
+    - Take the number of rows and columns of the lists
+    and create np.arrays with these dimensions.
+    - Iterate throug the list of lists or whatever and add the proper values
+    to the np.arrays. 
+    - Save the np.arrays as separate event files in the case of short, correct
+    and long produced intervals. 
+"""
 
 # Plot the events
 figure = mne.viz.plot_events(events_ints_short)
@@ -295,3 +322,6 @@ figure.show()
 #        epochs_fname = op.join(meg_subject_dir,
 #                           config.base_fname.format(**locals()))
 """ 
+
+
+
