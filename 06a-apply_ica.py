@@ -30,12 +30,12 @@ def apply_ica(subject):
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     # load epochs to reject ICA components
-    extension = '-int123-epo'
+    extension = '-int-1-2-3-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
     epochs = mne.read_epochs(fname_in, preload=True)
 
-    extension = '_int123_cleaned-epo'
+    extension = '-int-1-2-3_cleaned-epo'
     
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))

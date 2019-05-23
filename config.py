@@ -33,8 +33,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-study_path = 'D:/ScaledTime/MEGdata/'
+study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+#study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -64,7 +64,7 @@ study_name = 'ScaledTime'
 
 # To use all subjects use
 #subjects_list = ['s190320']
-subjects_list = ['at140305'] # 'fm180074', lk160274, empty_room, hm070076, fr190151, at140305
+subjects_list = ['hm070076', 'fr190151'] # 'fm180074', lk160274, empty_room, hm070076, fr190151, at140305
 #cur_subj = 'lk160274'
 #subject_pilot = 's190320'
 # else for speed and fast test you can use:
@@ -169,7 +169,7 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 def default_bads():
     return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[], Run06=[])
 
-bads = defaultdict(list)
+bads = defaultdict(default_bads)
 #bads['s190320'] = ['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']
 #bads = dict(fm180074 = ['MEG1732', 'MEG1722', 'MEG0213', 'MEG1512'])
 #bads['fm180074'] = ['MEG1732', 'MEG1722', 'MEG0213', 'MEG1512']
@@ -187,27 +187,28 @@ bads['fm180074'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'])
+"""
 
-bads['hm070076'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
-    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
-    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
-    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633'],
-    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933'],
-    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933'])
+bads['hm070076'] = dict(Run01=[213, 1732, 1722, 1933, 633, 2522],
+    Run02=[213, 1732, 1722, 1933, 633, 2522],
+    Run03=[213, 1732, 1722, 1933, 633, 2522],
+    Run04=[213, 1732, 1722, 1933, 633],
+    Run05=[213, 1732, 1722, 1933],
+    Run06=[213, 1732, 1722, 1933])
 
-bads['fr190151'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613'],
-    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
-    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
-    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
-    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'],
-    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0613'])
+bads['fr190151'] = dict(Run01=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
+    Run02=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
+    Run03=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
+    Run04=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
+    Run05=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
+    Run06=[213, 1732, 1722, 1723, 1933, 633, 321, 613])
 """
 bads['at140305'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG0342'],
     Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2512'],
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2512', 'MEG0311', 'MEG1111', 'MEG1112', 'MEG1113'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2512', 'MEG0613'])
-"""
+
 
 bads['ih190084'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
     Run02=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633', 'MEG0131'],
@@ -495,13 +496,13 @@ min_event_duration = 0.007
 #conditions = ['incoherent', 'coherent']
 
 # For the 3 different intervals
-#event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
-#conditions = ['BPint01', 'BPint02', 'BPint03']
+event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
+conditions = ['BPint01', 'BPint02', 'BPint03']
 
 
 # For all intervals together
-event_id = {'BPint123': 5}
-conditions = ['BPint123']
+#event_id = {'BPint123': 5}
+#conditions = ['BPint123']
 
 
 # Good Practice / Advice
@@ -567,8 +568,7 @@ ica_decim = 11
 def default_reject_comps():
     return dict(meg=[], eeg=[])
 
-#rejcomps_man = defaultdict(default_reject_comps)
-rejcomps_man = dict(at140305=dict(meg=[], eeg=[]))
+rejcomps_man = defaultdict(default_reject_comps)
 
 # ``ica_ctps_ecg_threshold``: float
 #    The threshold parameter passed to `find_bads_ecg` method.

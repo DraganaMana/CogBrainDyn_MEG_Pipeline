@@ -32,7 +32,7 @@ def run_ica(subject, tsss=config.mf_st_duration):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname = op.splitext(raw_fname_in)[0] + '-int123-eve.fif'
+        eve_fname = op.splitext(raw_fname_in)[0] + '-int-1-2-3-eve.fif'
         print("Input: ", raw_fname_in, eve_fname)
 
         raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
