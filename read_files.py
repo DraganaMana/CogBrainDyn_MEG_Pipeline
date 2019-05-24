@@ -9,12 +9,10 @@ import os.path as op
 
 import mne
 import numpy as np
-from itertools import *
-import itertools
 
 import config
 
-subject = 'at140305'
+subject = 'hm070076' #'at140305','hm070076', 'fr190151'
 #runs = ['Run01']
 runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
 meg_subject_dir = op.join(config.meg_dir, subject)
@@ -84,6 +82,9 @@ events_int3 = []
 for run in runs:
     extension = run + '_sss_raw'
     raw_fname_in = op.join(meg_subject_dir, config.base_fname.format(**locals()))
+    # This is the file of the original events file, 
+    # in other words, this code doesn't find the events,
+    # but only reads the events file and alters it. 
     eve_fname = op.splitext(raw_fname_in)[0] + '-eve.fif'
     events = mne.read_events(eve_fname)
         
@@ -363,24 +364,29 @@ for i in range(len(events_int3_long)):
 
 
 # Save the short, correct and long events in the separate Run0x files
-#short_events_int1_run01 = np.array(np.zeros((45,3)), np.int64)
+diff_eve = [events_int1_short, events_int1_correct, events_int1_long, 
+            events_int2_short, events_int2_correct, events_int2_long,
+            events_int3_short, events_int3_correct, events_int3_long]
+diff_eve_str = ['events_int1_short', 'events_int1_correct', 'events_int1_long',
+                'events_int2_short', 'events_int2_correct', 'events_int2_long',
+                'events_int3_short', 'events_int3_correct', 'events_int3_long']
 for k in runs:
-    for j in [events_int1_short, events_int1_correct, events_int1_long]:
-#        count = 0
-#        for i in range(len(j)):
-#            if events_int1_short[i,3] == k:
-#                count += 1
-#            events = np.array(np.zeros((count,3)), np.int64)
+    for (eve,m) in zip(diff_eve, diff_eve_str):
         events = []
         for i in range(len(j)):
-            if events_int1_short[i,3] == k:
-                events.append([events_int1_short[i,0],events_int1_short[i,1],events_int1_short[i,2]])
+            if eve[i,3] == k:
+                events.append([eve[i,0], eve[i,1], eve[i,2]])
+            # Turn events from list of lists in an array
+            events = np.asarray(events, dtype=np.float32)
+            # Set filename for the events
+            eve_fname_out = op.splitext(raw_fname_in)[0] + diff_eve_str[m]
+            # Save the events in a file
+            mne.write_events(eve_fname_out, events)
+            # Plot the events
+            figure = mne.viz.plot_events(events)
+            figure.show()
         
         
-#eve_int1_short = np.array(eve_int1_short)
-#eve_int2_short = np.array(eve_int2_short)
-#eve_int3_short = np.array(eve_int3_short)
-#events_ints_short= np.concatenate((eve_int1_short, eve_int2_short, eve_int3_short))
         
 """
 To be done:
@@ -393,18 +399,25 @@ To be done:
     and long produced intervals. 
 """
 
-# Plot the events
-figure = mne.viz.plot_events(events_ints_short)
-figure.show()
 
-"""
+
+
 # Read files after 04-make_epochs.py
-#        
-#    for run in runs:
-#        extension = '-int123-epo'
-#        epochs_fname = op.join(meg_subject_dir,
-#                           config.base_fname.format(**locals()))
-""" 
+extension = '-int-1-2-3_cleaned-epo'
+fname_in = op.join(meg_subject_dir,
+               config.base_fname.format(**locals()))
+epochs = mne.read_epochs(fname_in, preload=True)
+epochs.plot_psd(fmin=2., fmax=40.)
 
+
+# Read files from 10-TF
+for condition in config.time_frequency_conditions:
+    power_name = op.join(meg_subject_dir, '%s_%s_power_%s-tfr.h5'
+                    % (config.study_name, subject,
+                       condition.replace(op.sep, '')))
+    power = mne.time_frequency.read_tfrs(power_name)
+    power[0].plot_joint(baseline=(-1.5, -0.8), mode='mean', tmin=-1.5, tmax=1.25,
+                 timefreqs=[(.15, 10), (0.6, 20)])
+        
 
 

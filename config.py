@@ -33,8 +33,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -607,7 +607,7 @@ ica_ctps_ecg_threshold = 0.1
 # >>> decoding_conditions = [('Auditory', 'Visual'), ('Left', 'Right')]
 
 #decoding_conditions = [('incoherent', 'coherent')]
-decoding_conditions = ['BPint123']
+decoding_conditions = ['BPint01', 'BPint02', 'BPint03']
 
 # ``decoding_metric`` : str
 #    The metric to use for cross-validation. It can be 'roc_auc' or 'accuracy'
@@ -628,7 +628,7 @@ decoding_n_splits = 5
 # ``time_frequency_conditions`` : list
 #    The conditions to compute time-frequency decomposition on.
 
-time_frequency_conditions = ['BPint123']
+time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
 
 ###############################################################################
 # SOURCE SPACE PARAMETERS
