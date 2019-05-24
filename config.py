@@ -33,8 +33,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-study_path = 'D:/ScaledTime/MEGdata/'
+study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+#study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -495,13 +495,13 @@ min_event_duration = 0.007
 #            'coherent/down': 37, 'coherent/up': 39}
 #conditions = ['incoherent', 'coherent']
 
-## For the 3 different intervals in Play
-#event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
-#conditions = ['BPint01', 'BPint02', 'BPint03']
+# For the 3 different intervals in Play
+event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
+conditions = ['BPint01', 'BPint02', 'BPint03']
 
-# For the 3 different intervals in Replay
-event_id = {'BPRint01': 4, 'BPRint02': 5, 'BPRint03':6} # BP-ButtonPress
-conditions = ['BPRint01', 'BPRint02', 'BPRint03']
+## For the 3 different intervals in Replay
+#event_id = {'BPRint01': 4, 'BPRint02': 5, 'BPRint03':6} # BP-ButtonPress
+#conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 
 
 # For all intervals together
@@ -611,8 +611,8 @@ ica_ctps_ecg_threshold = 0.1
 # >>> decoding_conditions = [('Auditory', 'Visual'), ('Left', 'Right')]
 
 #decoding_conditions = [('incoherent', 'coherent')]
-#decoding_conditions = ['BPint01', 'BPint02', 'BPint03']
-decoding_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
+decoding_conditions = ['BPint01', 'BPint02', 'BPint03']
+#decoding_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 
 # ``decoding_metric`` : str
 #    The metric to use for cross-validation. It can be 'roc_auc' or 'accuracy'

@@ -126,7 +126,7 @@ def run_events(subject):
                 events_Rints[i][1]=events[nrows+1][1]
                 events_Rints[i][2]=4
                 i=i+1
-            elif ((events[nrows][2]==39 or events[nrows][2]==39) and events[nrows+1][2]==2048):
+            elif ((events[nrows][2]==39 or events[nrows][2]==40) and events[nrows+1][2]==2048):
                 events_Rints[i][0]=events[nrows+1][0]
                 events_Rints[i][1]=events[nrows+1][1]
                 events_Rints[i][2]=5  

@@ -412,7 +412,7 @@ epochs.plot_psd(fmin=2., fmax=40.)
 
 # Read files from 10-TF
 for condition in config.time_frequency_conditions:
-    power_name = op.join(meg_subject_dir, '%s_%s_power_%s-tfr.h5'
+    power_name = op.join(meg_subject_dir, '%s_%s_power_%s-R-tfr.h5'
                     % (config.study_name, subject,
                        condition.replace(op.sep, '')))
     power = mne.time_frequency.read_tfrs(power_name)
