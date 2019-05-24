@@ -37,7 +37,7 @@ def run_epochs(subject):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname = op.splitext(raw_fname_in)[0] + '-int-1-2-3-eve.fif'
+        eve_fname = op.splitext(raw_fname_in)[0] + '-int-R-1-2-3-eve.fif'
         print("Input: ", raw_fname_in, eve_fname)
 
         raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
@@ -72,7 +72,7 @@ def run_epochs(subject):
                         reject=config.reject)
 
     print('  Writing epochs to disk')
-    extension = '-int-1-2-3-epo'
+    extension = '-int-R-1-2-3-epo'
     epochs_fname = op.join(meg_subject_dir,
                            config.base_fname.format(**locals()))
     print("Output: ", epochs_fname)
