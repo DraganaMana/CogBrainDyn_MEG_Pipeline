@@ -30,12 +30,6 @@ def run_filter(subject):
     n_raws = 0
     for run in config.runs:
 
-        # read bad channels for run from config
-        if run:
-            bads = config.bads[subject][run]
-        else:
-            bads = config.bads[subject]
-
         extension = run + '_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
@@ -51,11 +45,18 @@ def run_filter(subject):
             warn('Run %s not found for subject %s ' %
                  (raw_fname_in, subject))
             continue
+        
+        # read bad channels for run from config
+        if run:
+            bads = config.bads[subject][run]
+        else:
+            bads = config.bads[subject]
+            
 
         raw = mne.io.read_raw_fif(raw_fname_in,
                                   allow_maxshield=config.allow_maxshield,
                                   preload=True, verbose='error')
-
+        
         # add bad channels
         raw.info['bads'] = bads
         print("added bads: ", raw.info['bads'])

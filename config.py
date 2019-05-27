@@ -33,8 +33,8 @@ plot = False
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -64,7 +64,7 @@ study_name = 'ScaledTime'
 
 # To use all subjects use
 #subjects_list = ['s190320']
-subjects_list = ['cc150418', 'eb180237'] 
+subjects_list = ['eb180237'] 
 # ALL PAX: 'fm180074', lk160274, empty_room, 'hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237'
 #cur_subj = 'lk160274'
 #subject_pilot = 's190320'
@@ -95,7 +95,7 @@ exclude_subjects = []
 # leave empty!
 
 runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
-#runs = ['Run03']
+#runs = ['Run05']
 
 
 
@@ -248,11 +248,11 @@ bads['cc150418'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG19
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG2432'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG2632'])
 
-bads['eb180237'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG613', 'MEG623', 'MEG2511'],
-    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG613', 'MEG623', 'MEG2511'],
-    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG613', 'MEG623', 'MEG2511', 'MEG1512'],
-    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG613', 'MEG623', 'MEG2511'],
-    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG613', 'MEG623', 'MEG2542'])
+bads['eb180237'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511', 'MEG1512'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2542'])
 
 """
 bads['ih190084'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
@@ -505,7 +505,7 @@ tmax = 1.25
 #    experiment/setup.
 
 #trigger_time_shift = -0.0416
-trigger_time_shift = 0
+trigger_time_shift = -0.05
 
 # ``baseline`` : tuple
 #    It specifies how to baseline the epochs; if None, no baseline is applied.

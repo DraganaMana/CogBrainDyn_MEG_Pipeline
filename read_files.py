@@ -20,7 +20,7 @@ meg_subject_dir = op.join(config.meg_dir, subject)
 ###############################################################################
 
 # Read raw files from MEG room
-
+""" 
 for run in runs:
     extension = run + '_raw'
     raw_MEG = op.join(meg_subject_dir,
@@ -35,8 +35,13 @@ for run in runs:
     # plot power spectral densitiy
     raw.plot_psd(area_mode='range', tmin=10.0, tmax=100.0,
                          fmin=0.3, fmax=100., average=True)
-         
-"""    
+    
+# Read delay files
+#raw_MEG = op.join('D:/ScaledTime/Delay_check/', 'ScaledTime_delayCheck_vis_pointCross2.fif')
+raw_MEG = op.join('D:/ScaledTime/Delay_check/', 'ScaledTime_delayCheck_vis_pointPoint.fif')
+raw = mne.io.read_raw_fif(raw_MEG, allow_maxshield=True, preload=True, verbose='error')
+raw.plot(n_channels=50, butterfly=False, group_by='original')
+   
 # Read files after 01-import_and_filter.py - filtered files
 
 for run in runs:
@@ -87,6 +92,7 @@ for run in runs:
     # in other words, this code doesn't find the events,
     # but only reads the events file and alters it. 
     eve_fname = op.splitext(raw_fname_in)[0] + '-eve.fif'
+    raw = mne.io.read_raw_fif(raw_fname_in)
     events = mne.read_events(eve_fname)
         
     # Change the escaped triggers
@@ -371,21 +377,23 @@ diff_eve = [events_int1_short, events_int1_correct, events_int1_long,
 diff_eve_str = ['events_int1_short', 'events_int1_correct', 'events_int1_long',
                 'events_int2_short', 'events_int2_correct', 'events_int2_long',
                 'events_int3_short', 'events_int3_correct', 'events_int3_long']
-for k in runs:
-    for (eve,m) in zip(diff_eve, diff_eve_str):
+
+for k, run in enumerate(runs):
+    for (eve,eve_name) in zip(diff_eve, diff_eve_str):
         events = []
-        for i in range(len(j)):
-            if eve[i,3] == k:
+        for i in range(len(eve)):
+            if eve[i,3] == (k+1):
                 events.append([eve[i,0], eve[i,1], eve[i,2]])
-            # Turn events from list of lists in an array
-            events = np.asarray(events, dtype=np.float32)
-            # Set filename for the events
-            eve_fname_out = op.splitext(raw_fname_in)[0] + diff_eve_str[m]
-            # Save the events in a file
-            mne.write_events(eve_fname_out, events)
-            # Plot the events
-            figure = mne.viz.plot_events(events)
-            figure.show()
+        # Turn events from list of lists in an array
+        events = np.asarray(events, dtype=np.int)
+        # Set filename for the events
+        eve_fname_out = op.splitext(raw_fname_in)[0] + eve_name + '-eve.fif'
+        # Save the events in a file
+        print("writing events: %s" % eve_name)
+        mne.write_events(eve_fname_out, events)
+        # Plot the events
+        figure = mne.viz.plot_events(events)
+        figure.show()
         
         
         
@@ -402,7 +410,7 @@ To be done:
 
 
 
-
+"""
 # Read files after 04-make_epochs.py
 extension = '-int-1-2-3_cleaned-epo'
 fname_in = op.join(meg_subject_dir,
@@ -413,7 +421,7 @@ epochs.plot_psd(fmin=2., fmax=40.)
 
 # Read files from 10-TF
 for condition in config.time_frequency_conditions:
-    power_name = op.join(meg_subject_dir, '%s_%s_power_%s-R-tfr.h5'
+    power_name = op.join(meg_subject_dir, '%s_%s_power_%s-tfr.h5'
                     % (config.study_name, subject,
                        condition.replace(op.sep, '')))
     power = mne.time_frequency.read_tfrs(power_name)
@@ -421,4 +429,4 @@ for condition in config.time_frequency_conditions:
                  timefreqs=[(.15, 10), (0.6, 20)])
         
 
-
+"""
