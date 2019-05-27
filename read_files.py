@@ -13,8 +13,8 @@ import numpy as np
 import config
 
 subject = 'hm070076' #'at140305','hm070076', 'fr190151'
-runs = ['Run01']
-#runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
+#runs = ['Run01']
+runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
 meg_subject_dir = op.join(config.meg_dir, subject)
 
 ###############################################################################
@@ -92,7 +92,7 @@ for run in runs:
     # in other words, this code doesn't find the events,
     # but only reads the events file and alters it. 
     eve_fname = op.splitext(raw_fname_in)[0] + '-eve.fif'
-    raw = mne.io.read_raw_fif(raw_fname_in)
+#    raw = mne.io.read_raw_fif(raw_fname_in)
     events = mne.read_events(eve_fname)
         
     # Change the escaped triggers
@@ -386,14 +386,18 @@ for k, run in enumerate(runs):
                 events.append([eve[i,0], eve[i,1], eve[i,2]])
         # Turn events from list of lists in an array
         events = np.asarray(events, dtype=np.int)
+        # Set directory where events are saved
+        eve_dir = op.join(config.meg_dir, subject, '3-3-events/')
         # Set filename for the events
-        eve_fname_out = op.splitext(raw_fname_in)[0] + eve_name + '-eve.fif'
+#        eve_fname_out = op.splitext(raw_fname_in)[0] + '_' + eve_name + '-eve.fif'
+        eve_fname_out = eve_dir + subject + '_' + 'ScaledTime' + '_' + run + '_' + eve_name + '-eve.fif'
         # Save the events in a file
-        print("writing events: %s" % eve_name)
+        print("%s, writing events: %s" % (run, eve_name))
         mne.write_events(eve_fname_out, events)
         # Plot the events
-        figure = mne.viz.plot_events(events)
-        figure.show()
+        if config.plot:
+            figure = mne.viz.plot_events(events)
+            figure.show()
         
         
         
