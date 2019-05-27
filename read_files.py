@@ -13,12 +13,12 @@ import numpy as np
 import config
 
 subject = 'hm070076' #'at140305','hm070076', 'fr190151'
-#runs = ['Run01']
-runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
+runs = ['Run01']
+#runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
 meg_subject_dir = op.join(config.meg_dir, subject)
 
 ###############################################################################
-"""
+
 # Read raw files from MEG room
 
 for run in runs:
@@ -33,9 +33,10 @@ for run in runs:
     # plot raw data
     raw.plot(n_channels=50, butterfly=False, group_by='original')
     # plot power spectral densitiy
-    raw.plot_psd(area_mode='range', tmin=10.0, tmax=100.0,ih190084
+    raw.plot_psd(area_mode='range', tmin=10.0, tmax=100.0,
                          fmin=0.3, fmax=100., average=True)
-            
+         
+"""    
 # Read files after 01-import_and_filter.py - filtered files
 
 for run in runs:

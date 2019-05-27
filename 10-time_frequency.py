@@ -18,7 +18,7 @@ from mne.parallel import parallel_func
 
 import config
 
-freqs = np.arange(10, 40)
+freqs = np.arange(3, 40)
 n_cycles = freqs / 3.
 
 
