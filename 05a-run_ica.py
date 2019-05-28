@@ -34,7 +34,7 @@ def run_ica(subject, tsss=config.mf_st_duration):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname = op.splitext(raw_fname_in)[0] + '-int-R-1-2-3-eve.fif'
+        eve_fname = op.splitext(raw_fname_in)[0] + '-int-P-1-2-3-eve.fif'
         print("Input: ", raw_fname_in, eve_fname)
         
         if not op.exists(raw_fname_in):
@@ -112,14 +112,14 @@ def run_ica(subject, tsss=config.mf_st_duration):
               ' variance)' % (ica.n_components_, 100 * n_components[ch_type]))
 
         ica_fname = \
-            '{0}_{1}_{2}-R-ica.fif'.format(subject, config.study_name, ch_type)
+            '{0}_{1}_{2}-P-ica.fif'.format(subject, config.study_name, ch_type)
         ica_fname = op.join(meg_subject_dir, ica_fname)
         ica.save(ica_fname)
 
         if config.plot:
             # plot ICA components to html report
             report_fname = \
-                '{0}_{1}_{2}-R-ica.html'.format(subject, config.study_name,
+                '{0}_{1}_{2}-P-ica.html'.format(subject, config.study_name,
                                               ch_type)
             report_fname = op.join(meg_subject_dir, report_fname)
             report = Report(report_fname, verbose=False)

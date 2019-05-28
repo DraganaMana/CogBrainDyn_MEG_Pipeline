@@ -25,7 +25,7 @@ n_cycles = freqs / 3.
 def run_time_frequency(subject):
     print("processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
-    extension = '-int-R-1-2-3_cleaned-epo'
+    extension = '-int-P-1-2-3_cleaned-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
     print("Input: ", fname_in)
@@ -47,6 +47,13 @@ def run_time_frequency(subject):
                        condition.replace(op.sep, ''))), overwrite=True)
 
         if config.plot:
+            power.plot_joint(baseline=(-0.3, -0.1), mode='logratio', tmin=-0.5, tmax=1.25,
+                             timefreqs=[(.15, 10), (0.6, 20)])
+#            plt.savefig('%s_%s_%s.pdf' %(config.study_name, subject,
+#                                         condition.replace(op.sep, '')))
+            
+            
+            
 #        fig, axis = plt.subplots(1, 2, figsize=(7, 4))
 #        figure1 = power.plot_topomap(ch_type='grad', tmin= 0.3, tmax=0.6, fmin=8, fmax=12,
 #                   baseline=(-1.5, -0.8), mode='logratio', axes=axis[0],
@@ -60,12 +67,7 @@ def run_time_frequency(subject):
         
 #        power.plot_topo(baseline=(-0.5, 0), mode='logratio', title='Average power')
 #        power.plot([150], baseline=(-0.5, 0), mode='logratio')
-        
-            power.plot_joint(baseline=(-1.5, -0.8), mode='logratio', tmin=-1.5, tmax=1.25,
-                             timefreqs=[(.15, 10), (0.6, 20)])
-        
-        
-
+    
 
 
 parallel, run_func, _ = parallel_func(run_time_frequency, n_jobs=config.N_JOBS)
