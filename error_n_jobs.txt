@@ -1,0 +1,35 @@
+runfile('/home/dm258725/CogBrainDyn_MEG_Pipeline/02-apply_maxwell_filter.py', wdir='/home/dm258725/CogBrainDyn_MEG_Pipeline')
+Reloaded modules: config
+[Parallel(n_jobs=2)]: Using backend LokyBackend with 2 concurrent workers.
+[Parallel(n_jobs=2)]: Done   2 out of   4 | elapsed:    1.5s remaining:    1.5s
+[Parallel(n_jobs=2)]: Done   4 out of   4 | elapsed:    1.5s remaining:    0.0s
+Traceback (most recent call last):
+
+  File "<ipython-input-3-6f452e37383a>", line 1, in <module>
+    runfile('/home/dm258725/CogBrainDyn_MEG_Pipeline/02-apply_maxwell_filter.py', wdir='/home/dm258725/CogBrainDyn_MEG_Pipeline')
+
+  File "/home/dm258725/anaconda3/envs/mne/lib/python3.6/site-packages/spyder_kernels/customize/spydercustomize.py", line 827, in runfile
+    execfile(filename, namespace)
+
+  File "/home/dm258725/anaconda3/envs/mne/lib/python3.6/site-packages/spyder_kernels/customize/spydercustomize.py", line 110, in execfile
+    exec(compile(f.read(), filename, 'exec'), namespace)
+
+  File "/home/dm258725/CogBrainDyn_MEG_Pipeline/02-apply_maxwell_filter.py", line 81, in <module>
+    parallel(run_func(subject) for subject in config.subjects_list)
+
+  File "/home/dm258725/anaconda3/envs/mne/lib/python3.6/site-packages/joblib/parallel.py", line 934, in __call__
+    self.retrieve()
+
+  File "/home/dm258725/anaconda3/envs/mne/lib/python3.6/site-packages/joblib/parallel.py", line 833, in retrieve
+    self._output.extend(job.get(timeout=self.timeout))
+
+  File "/home/dm258725/anaconda3/envs/mne/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 521, in wrap_future_result
+    return future.result(timeout=timeout)
+
+  File "/home/dm258725/anaconda3/envs/mne/lib/python3.6/concurrent/futures/_base.py", line 432, in result
+    return self.__get_result()
+
+  File "/home/dm258725/anaconda3/envs/mne/lib/python3.6/concurrent/futures/_base.py", line 384, in __get_result
+    raise self._exception
+
+BrokenProcessPool: A task has failed to un-serialize. Please ensure that the arguments of the function are all picklable.

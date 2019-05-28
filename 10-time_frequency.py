@@ -18,14 +18,14 @@ from mne.parallel import parallel_func
 
 import config
 
-freqs = np.arange(3, 40)
+freqs = np.arange(3, 30)
 n_cycles = freqs / 3.
 
 
 def run_time_frequency(subject):
     print("processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
-    extension = '-int-1-2-3_cleaned-epo'
+    extension = '-int-R-1-2-3_cleaned-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
     print("Input: ", fname_in)
@@ -35,7 +35,7 @@ def run_time_frequency(subject):
     for condition in config.time_frequency_conditions:
         this_epochs = epochs[condition]
         power, itc = mne.time_frequency.tfr_morlet(
-            this_epochs, freqs=freqs, return_itc=True, n_cycles=n_cycles)
+            this_epochs, freqs=freqs, return_itc=True, n_cycles=n_cycles, n_jobs=5)
 
         power.save(
             op.join(meg_subject_dir, '%s_%s_power_%s-tfr.h5'
@@ -46,7 +46,7 @@ def run_time_frequency(subject):
                     % (config.study_name, subject,
                        condition.replace(op.sep, ''))), overwrite=True)
 
-    if config.plot:
+        if config.plot:
 #        fig, axis = plt.subplots(1, 2, figsize=(7, 4))
 #        figure1 = power.plot_topomap(ch_type='grad', tmin= 0.3, tmax=0.6, fmin=8, fmax=12,
 #                   baseline=(-1.5, -0.8), mode='logratio', axes=axis[0],
@@ -61,8 +61,8 @@ def run_time_frequency(subject):
 #        power.plot_topo(baseline=(-0.5, 0), mode='logratio', title='Average power')
 #        power.plot([150], baseline=(-0.5, 0), mode='logratio')
         
-        power.plot_joint(baseline=(-1.5, -0.8), mode='mean', tmin=-1.5, tmax=1.25,
-                 timefreqs=[(.15, 10), (0.6, 20)])
+            power.plot_joint(baseline=(-1.5, -0.8), mode='logratio', tmin=-1.5, tmax=1.25,
+                             timefreqs=[(.15, 10), (0.6, 20)])
         
         
 

@@ -414,9 +414,9 @@ To be done:
 
 
 
-"""
+
 # Read files after 04-make_epochs.py
-extension = '-int-1-2-3_cleaned-epo'
+extension = '-int-P-1-2-3_cleaned-epo'
 fname_in = op.join(meg_subject_dir,
                config.base_fname.format(**locals()))
 epochs = mne.read_epochs(fname_in, preload=True)
@@ -433,4 +433,4 @@ for condition in config.time_frequency_conditions:
                  timefreqs=[(.15, 10), (0.6, 20)])
         
 
-"""
+
