@@ -16,7 +16,7 @@ import numpy as np
 #   If running the scripts from a notebook or spyder
 #   run %matplotlib qt in the command line to get the plots in extra windows
 
-plot = False
+plot = True
 
 ###############################################################################
 # DIRECTORIES
@@ -64,7 +64,7 @@ study_name = 'ScaledTime'
 
 # To use all subjects use
 #subjects_list = ['s190320']
-subjects_list = ['eb180237'] 
+subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237'] 
 # ALL PAX: 'fm180074', lk160274, empty_room, 'hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237'
 #cur_subj = 'lk160274'
 #subject_pilot = 's190320'
