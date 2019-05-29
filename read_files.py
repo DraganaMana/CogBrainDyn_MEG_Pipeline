@@ -101,48 +101,33 @@ figure.show()
 
 #%% Plot average PSD
 
-## Read files after 04-make_epochs.py
-#extension = '-int-P-1-2-3_cleaned-epo'
-#fname_in = op.join(meg_subject_dir,
-#               config.base_fname.format(**locals()))
-#epochs = mne.read_epochs(fname_in, preload=True)
-#epochs.plot_psd(fmin=2., fmax=40.)
-
-
-##########################
-
-#PSD = np.zeros((len(config.subjects_list),6,2)) # subjects * blocks* freq (alpha,beta)
+PSD = np.zeros((len(config.subjects_list),3), dtype='object') # subjects * blocks* freq (alpha,beta)
 for s,subj in enumerate(subjects_list): 
     meg_subject_dir = op.join(config.meg_dir, subj)
     fname_in = op.join(meg_subject_dir, subj + '_ScaledTime_-int-P-1-2-3_cleaned-epo.fif')
     epochs = mne.read_epochs(fname_in, preload=True)
-#        ep = mne.read_epochs(sensors_dir + subj + '_' + epSplit + '_' + locked + '_ShCoLg' + block + '_equalTrialsAcrossBlk-epo.fif' )
     epochs.pick_types('mag')
-#        epochs.crop(config.tmin,config.tmax)
         
     # Compute PSD
     psds, freqs = mne.time_frequency.psd_welch(epochs, fmin=3, fmax = 45, n_fft=450, n_jobs = 3) # to do colormap PSD
     
     psds = 10. * np.log10(psds)
-    psds_mean = psds.mean(0).mean(0)
-    psds_std = psds.mean(0).std(0)
-        
-        # Average across the 10 selected sensors and epochs
-#        psds = np.mean(psds.mean(0),0)
-       
-        # Retrieve alpha and beta PSD
-#        PSD[s,b,0] = psds[(freqs > f_alpha[s]-0.6) & (freqs < f_alpha[s]+0.6)].max()# alpha
-#        PSD[s,b,1] = psds[(freqs > f_beta[s]-0.61) & (freqs < f_beta[s]+0.61)].max()# beta 
+    psds_mean = psds.mean(0).mean(0) # average over n_epochs and then over n_channels
+    psds_std = psds.mean(0).std(0)  # average over n_epochs and then std over n_channels
+    
+    PSD[s,0] = psds_mean
+    PSD[s,1] = psds_std
+    PSD[s,2] = freqs
+
+
+PSD_mean = PSD[:,0].mean()
+PSD_std = PSD[:,1].mean()
 
 f, ax = plt.subplots()
-psds, freqs = mne.time_frequency.psd_multitaper(epochs, fmin=2, fmax=60, n_jobs=1)
-psds = 10. * np.log10(psds)
-psds_mean = psds.mean(0).mean(0)
-psds_std = psds.mean(0).std(0)
-
-ax.plot(freqs, psds_mean, color='k')
-ax.fill_between(freqs, psds_mean - psds_std, psds_mean + psds_std,
+ax.plot(freqs, PSD_mean, color='k')
+ax.fill_between(freqs, PSD_mean - PSD_std, PSD_mean + PSD_std,
                 color='k', alpha=.5)
-ax.set(title='Multitaper PSD (gradiometers)', xlabel='Frequency',
+ax.set(title='Welch PSD (mag)', xlabel='Frequency',
        ylabel='Power Spectral Density (dB)')
 plt.show()
+
