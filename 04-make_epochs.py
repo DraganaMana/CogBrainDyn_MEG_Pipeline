@@ -33,21 +33,29 @@ def run_epochs(subject):
     raw_list = list()
     events_list = list()
     print("  Loading raw data")
-
+    
+    
+    
     for run in config.runs:
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname = op.splitext(raw_fname_in)[0] + '-int-P-1-2-3-eve.fif'
+        eve_fname = op.splitext(raw_fname_in)[0] + '_P-int123-scl-eve.fif'
         print("Input: ", raw_fname_in, eve_fname)
         
         if not op.exists(raw_fname_in):
             warn('Run %s not found for subject %s ' %
                  (raw_fname_in, subject))
             continue
-
+        
         raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
-
+        
+#        #############################
+#        evefolder = '3-3-events'
+#        raw_fname_in = op.join(meg_subject_dir, evefolder,
+#                               config.base_fname.format(**locals()))
+#        eve_fname = op.splitext(raw_fname_in)[0] + '_events_int1_short-eve.fif'
+#        ############################
         events = mne.read_events(eve_fname)
         events_list.append(events)
 
@@ -78,7 +86,7 @@ def run_epochs(subject):
                         reject=config.reject)
 
     print('  Writing epochs to disk')
-    extension = '-int-P-1-2-3-epo'
+    extension = 'P-int123-scl-epo'
     epochs_fname = op.join(meg_subject_dir,
                            config.base_fname.format(**locals()))
     print("Output: ", epochs_fname)
@@ -88,7 +96,6 @@ def run_epochs(subject):
         epochs.plot()
         epochs.plot_image(combine='gfp', group_by='type', sigma=2.,
                           cmap="YlGnBu_r")
-
 
 # Here we use fewer N_JOBS to prevent potential memory problems
 parallel, run_func, _ = parallel_func(run_epochs, n_jobs=N_JOBS)

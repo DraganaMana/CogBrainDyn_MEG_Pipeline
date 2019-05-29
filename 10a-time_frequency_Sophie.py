@@ -67,6 +67,7 @@ for pp, nip in enumerate(nips):
          
         meg_subject_dir = op.join(config.meg_dir, nip)
         
+        # Calculate the TFs w/o a baseline
         power = mne.time_frequency.read_tfrs(op.join(meg_subject_dir, '%s_%s_power_%s-tfr.h5'
                                                      % (config.study_name, nip,
                                                         condition.replace(op.sep, ''))))

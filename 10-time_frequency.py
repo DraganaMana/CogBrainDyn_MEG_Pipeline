@@ -47,10 +47,10 @@ def run_time_frequency(subject):
                        condition.replace(op.sep, ''))), overwrite=True)
 
         if config.plot:
-            power.plot_joint(baseline=(-0.3, -0.1), mode='logratio', tmin=-0.5, tmax=1.25,
+            power.plot_joint(baseline=(-0.3, -0.1), mode='percent', tmin=-0.5, tmax=1.25,
                              timefreqs=[(.15, 10), (0.6, 20)])
-#            plt.savefig('%s_%s_%s.pdf' %(config.study_name, subject,
-#                                         condition.replace(op.sep, '')))
+            plt.savefig('%s_%s_%s_%s.png' %(config.study_name, subject,
+                                         condition.replace(op.sep, ''), 'TFpercent'))
             
             
             

@@ -553,14 +553,14 @@ conditions = ['BPint01', 'BPint02', 'BPint03']
 #event_id = {'BPRint01': 4, 'BPRint02': 5, 'BPRint03':6} # BP-ButtonPress
 #conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 
-# For all 3 ints, and short-correct-long
+
+## For all 3 ints, and short-correct-long
 #event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
 #            'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
 #            'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
 #conditions = ['BPint01s', 'BPint01c', 'BPint01l',
 #              'BPint02s', 'BPint02c', 'BPint02l',
 #              'BPint03s', 'BPint03c', 'BPint03l']
-#
 
 
 
@@ -676,6 +676,7 @@ decoding_conditions = ['BPint01', 'BPint02', 'BPint03']
 #decoding_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
 #              'BPint02s', 'BPint02c', 'BPint02l',
 #              'BPint03s', 'BPint03c', 'BPint03l']
+
 
 # ``decoding_metric`` : str
 #    The metric to use for cross-validation. It can be 'roc_auc' or 'accuracy'

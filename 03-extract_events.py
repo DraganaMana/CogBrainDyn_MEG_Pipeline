@@ -31,7 +31,7 @@ def run_events(subject):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname_out = op.splitext(raw_fname_in)[0] + '-int-R-1-2-3-eve.fif'
+        eve_fname_out = op.splitext(raw_fname_in)[0] + '-eve.fif'
         
         if not op.exists(raw_fname_in):
             warn('Run %s not found for subject %s ' %
@@ -122,27 +122,27 @@ def run_events(subject):
 #                i=i+1
 #        events_ints 
         
-# [Replay] Different events for the 3 different intervals
-        events_Rints = np.array(np.zeros((45,3)), np.int64)
-        numrows = len(events)
-        i=0
-        for nrows in range(numrows):
-            if ((events[nrows][2]==19 or events[nrows][2]==20) and events[nrows+1][2]==2048): 
-                events_Rints[i][0]=events[nrows+1][0]
-                events_Rints[i][1]=events[nrows+1][1]
-                events_Rints[i][2]=4
-                i=i+1
-            elif ((events[nrows][2]==39 or events[nrows][2]==40) and events[nrows+1][2]==2048):
-                events_Rints[i][0]=events[nrows+1][0]
-                events_Rints[i][1]=events[nrows+1][1]
-                events_Rints[i][2]=5  
-                i=i+1
-            elif ((events[nrows][2]==59 or events[nrows][2]==60) and events[nrows+1][2]==2048):
-                events_Rints[i][0]=events[nrows+1][0]
-                events_Rints[i][1]=events[nrows+1][1]
-                events_Rints[i][2]=6    
-                i=i+1
-        events_Rints 
+## [Replay] Different events for the 3 different intervals
+#        events_Rints = np.array(np.zeros((45,3)), np.int64)
+#        numrows = len(events)
+#        i=0
+#        for nrows in range(numrows):
+#            if ((events[nrows][2]==19 or events[nrows][2]==20) and events[nrows+1][2]==2048): 
+#                events_Rints[i][0]=events[nrows+1][0]
+#                events_Rints[i][1]=events[nrows+1][1]
+#                events_Rints[i][2]=4
+#                i=i+1
+#            elif ((events[nrows][2]==39 or events[nrows][2]==40) and events[nrows+1][2]==2048):
+#                events_Rints[i][0]=events[nrows+1][0]
+#                events_Rints[i][1]=events[nrows+1][1]
+#                events_Rints[i][2]=5  
+#                i=i+1
+#            elif ((events[nrows][2]==59 or events[nrows][2]==60) and events[nrows+1][2]==2048):
+#                events_Rints[i][0]=events[nrows+1][0]
+#                events_Rints[i][1]=events[nrows+1][1]
+#                events_Rints[i][2]=6    
+#                i=i+1
+#        events_Rints 
 
 #        int01=1.45
 #        int02=2.9
@@ -181,14 +181,14 @@ def run_events(subject):
         print("Input: ", raw_fname_in)
         print("Output: ", eve_fname_out)
 
-        mne.write_events(eve_fname_out, events_Rints)
+        mne.write_events(eve_fname_out, events)
 #        mne.write_events(eve_fname_out, events)
 
         if config.plot:
             # plot events
             # It would be good to have names on the figures, from which Run are
             # the events plotted
-            figure = mne.viz.plot_events(events_Rints, sfreq=raw.info['sfreq'],
+            figure = mne.viz.plot_events(events, sfreq=raw.info['sfreq'],
                                          first_samp=raw.first_samp)
 #            figure = mne.viz.plot_events(events, sfreq=raw.info['sfreq'],
 #                                         first_samp=raw.first_samp)
