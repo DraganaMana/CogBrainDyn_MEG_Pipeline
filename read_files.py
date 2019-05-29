@@ -9,13 +9,15 @@ import os.path as op
 
 import mne
 import numpy as np
+import matplotlib.pyplot as plt
 
 import config
 
-subject = 'hm070076' #'at140305','hm070076', 'fr190151'
+#subject = 'hm070076' #'at140305','hm070076', 'fr190151'
+subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237'] 
 #runs = ['Run01']
-runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
-meg_subject_dir = op.join(config.meg_dir, subject)
+#runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
+#meg_subject_dir = op.join(config.meg_dir, subject)
 
 ###############################################################################
 
@@ -99,35 +101,34 @@ figure.show()
 
 #%% Plot average PSD
 
-# Read files after 04-make_epochs.py
-extension = '-int-P-1-2-3_cleaned-epo'
-fname_in = op.join(meg_subject_dir,
-               config.base_fname.format(**locals()))
-epochs = mne.read_epochs(fname_in, preload=True)
-epochs.plot_psd(fmin=2., fmax=40.)
+## Read files after 04-make_epochs.py
+#extension = '-int-P-1-2-3_cleaned-epo'
+#fname_in = op.join(meg_subject_dir,
+#               config.base_fname.format(**locals()))
+#epochs = mne.read_epochs(fname_in, preload=True)
+#epochs.plot_psd(fmin=2., fmax=40.)
 
 
 ##########################
 
 #PSD = np.zeros((len(config.subjects_list),6,2)) # subjects * blocks* freq (alpha,beta)
-for s,subj in enumerate(config.subjects_list): 
-    
-    # Read epochs per block       
-    for r, run in enumerate(config.runs): 
-        extension = '-int-P-1-2-3_cleaned-epo'
-        fname_in = op.join(meg_subject_dir,
-               config.base_fname.format(**locals()))
-        epochs = mne.read_epochs(fname_in, preload=True)
+for s,subj in enumerate(subjects_list): 
+    meg_subject_dir = op.join(config.meg_dir, subj)
+    fname_in = op.join(meg_subject_dir, subj + '_ScaledTime_-int-P-1-2-3_cleaned-epo.fif')
+    epochs = mne.read_epochs(fname_in, preload=True)
 #        ep = mne.read_epochs(sensors_dir + subj + '_' + epSplit + '_' + locked + '_ShCoLg' + block + '_equalTrialsAcrossBlk-epo.fif' )
-        epochs.pick_types('mag')
-        epochs.crop(config.tmin,config.tmax)
+    epochs.pick_types('mag')
+#        epochs.crop(config.tmin,config.tmax)
         
-        # Compute PSD
-        psds, freqs = mne.time_frequency.psd_welch(epochs, fmin=3, fmax = 45, n_fft=450, n_jobs = 3) # to do colormap PSD
+    # Compute PSD
+    psds, freqs = mne.time_frequency.psd_welch(epochs, fmin=3, fmax = 45, n_fft=450, n_jobs = 3) # to do colormap PSD
+    
+    psds = 10. * np.log10(psds)
+    psds_mean = psds.mean(0).mean(0)
+    psds_std = psds.mean(0).std(0)
         
         # Average across the 10 selected sensors and epochs
-        psds = np.mean(psds.mean(0),0)
-        psds.plot_psd(fmin=2., fmax=40.)
+#        psds = np.mean(psds.mean(0),0)
        
         # Retrieve alpha and beta PSD
 #        PSD[s,b,0] = psds[(freqs > f_alpha[s]-0.6) & (freqs < f_alpha[s]+0.6)].max()# alpha
