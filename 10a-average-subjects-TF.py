@@ -67,7 +67,7 @@ for pp, nip in enumerate(nips):
         
         
         # plot single subject
-        power.plot_topo(baseline=None) # , vmin = -50,vmax = 50
+#        power.plot_topo(baseline=None) # , vmin = -50,vmax = 50
      
         # initiate matrices on first need
         if pp == 0 and c == 0:
@@ -113,22 +113,25 @@ for c, condition in enumerate(conditions):
       
 #    AVGPOW.plot_topo(baseline=None, tmin = plot_tmin, tmax = plot_tmax,
 #                title=('POW ' + condition )) # vmin = -50,vmax = 50
-    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1.25,
-                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW ' + condition ))
+    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1.25, vmin = -1.2, vmax = 1.2,
+                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW '+ ch_type + ' ' + condition))
     
     plt.savefig('%s_%s_%s_%s_%s.png' %(config.study_name, subj, 
                                        condition, 'averageTF', ch_type))
  
 
+# Choose either the first or the second
+#POW_P = POW
+#POW_R = POW
+    
 # plot condition difference
-P = np.mean(POW[:,2] - (POW[:,1]), 0) # avg over sbs
+P = np.mean(POW_P[:,2] - (POW_R[:,2]), 0) # avg over sbs
 AVGPOW = mne.time_frequency.AverageTFR(pow_dummy.info,P,pow_dummy.times,pow_dummy.freqs,nave=len(nips))
       
 #AVGPOW.plot_topo(baseline=None, tmin = plot_tmin, tmax = plot_tmax,
 #                title=('POW ' + 'difference' ),
 #                vmin = -.30,vmax = .30) # , axes=axis[c]
 AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1.25,
-                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW diff ' + conditions[2] + '-' + conditions[1]))
+                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW diff Pint3-Rint3'))
     
-plt.savefig('%s_%s_%s_%s_%s.png' %(config.study_name, subj, 
-                                       condition, 'diff_3-2', ch_type))
+plt.savefig('%s_%s_%s_%s.png' %(config.study_name, subj, 'diff_P3-R3', ch_type))
