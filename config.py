@@ -17,6 +17,7 @@ import numpy as np
 #   run %matplotlib qt in the command line to get the plots in extra windows
 
 plot = True
+#plot = False
 
 ###############################################################################
 # DIRECTORIES
@@ -33,8 +34,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-study_path = 'D:/ScaledTime/MEGdata/'
+study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+#study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -94,7 +95,7 @@ exclude_subjects = []
 # if there are less runs than is expected. If there is only just one file,
 # leave empty!
 
-runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05']
+runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
 #runs = ['Run05']
 
 
@@ -492,7 +493,7 @@ reject = {'grad': 4000e-13, 'mag': 4e-12}
 # ``tmin``: float
 #    A float in seconds that gives the start time before event of an epoch.
 
-tmin = -1.5
+tmin = -0.5
 
 # ``tmax``: float
 #    A float in seconds that gives the end time before event of an epoch.
@@ -510,7 +511,7 @@ trigger_time_shift = -0.05
 # ``baseline`` : tuple
 #    It specifies how to baseline the epochs; if None, no baseline is applied.
 
-baseline = (-1.5, -0.8) # (None, 0.)
+baseline = (-0.3, -0.1) # (None, 0.)
 
 # ``stim_channel`` : str
 #    The name of the stimulus channel, which contains the events.
@@ -540,6 +541,10 @@ min_event_duration = 0.005
 #            'coherent/down': 37, 'coherent/up': 39}
 #conditions = ['incoherent', 'coherent']
 
+# For all intervals together
+#event_id = {'BPint123': 5}
+#conditions = ['BPint123']
+
 # For the 3 different intervals in Play
 event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
 conditions = ['BPint01', 'BPint02', 'BPint03']
@@ -549,9 +554,16 @@ conditions = ['BPint01', 'BPint02', 'BPint03']
 #conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 
 
-# For all intervals together
-#event_id = {'BPint123': 5}
-#conditions = ['BPint123']
+## For all 3 ints, and short-correct-long
+#event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
+#            'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
+#            'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
+#conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+#              'BPint02s', 'BPint02c', 'BPint02l',
+#              'BPint03s', 'BPint03c', 'BPint03l']
+
+
+
 
 
 # Good Practice / Advice
@@ -656,8 +668,15 @@ ica_ctps_ecg_threshold = 0.1
 # >>> decoding_conditions = [('Auditory', 'Visual'), ('Left', 'Right')]
 
 #decoding_conditions = [('incoherent', 'coherent')]
+# Play
 decoding_conditions = ['BPint01', 'BPint02', 'BPint03']
+# Replay
 #decoding_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
+# Play s-c-l division
+#decoding_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+#              'BPint02s', 'BPint02c', 'BPint02l',
+#              'BPint03s', 'BPint03c', 'BPint03l']
+
 
 # ``decoding_metric`` : str
 #    The metric to use for cross-validation. It can be 'roc_auc' or 'accuracy'
@@ -680,6 +699,10 @@ decoding_n_splits = 5
 
 time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
 #time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
+# Play s-c-l division
+#time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+#              'BPint02s', 'BPint02c', 'BPint02l',
+#              'BPint03s', 'BPint03c', 'BPint03l']
 
 
 ###############################################################################

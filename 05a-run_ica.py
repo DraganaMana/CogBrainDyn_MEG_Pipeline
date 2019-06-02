@@ -15,6 +15,8 @@ import mne
 from mne.report import Report
 from mne.preprocessing import ICA
 from mne.parallel import parallel_func
+from warnings import warn
+
 
 import config
 
@@ -32,8 +34,13 @@ def run_ica(subject, tsss=config.mf_st_duration):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname = op.splitext(raw_fname_in)[0] + '-int-1-2-3-eve.fif'
+        eve_fname = op.splitext(raw_fname_in)[0] + '_P-int123-scl-eve.fif'
         print("Input: ", raw_fname_in, eve_fname)
+        
+        if not op.exists(raw_fname_in):
+            warn('Run %s not found for subject %s ' %
+                 (raw_fname_in, subject))
+            continue
 
         raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
 
@@ -105,14 +112,14 @@ def run_ica(subject, tsss=config.mf_st_duration):
               ' variance)' % (ica.n_components_, 100 * n_components[ch_type]))
 
         ica_fname = \
-            '{0}_{1}_{2}-ica.fif'.format(subject, config.study_name, ch_type)
+            '{0}_{1}_{2}-Pscl-ica.fif'.format(subject, config.study_name, ch_type)
         ica_fname = op.join(meg_subject_dir, ica_fname)
         ica.save(ica_fname)
 
         if config.plot:
             # plot ICA components to html report
             report_fname = \
-                '{0}_{1}_{2}-ica.html'.format(subject, config.study_name,
+                '{0}_{1}_{2}-Pscl-ica.html'.format(subject, config.study_name,
                                               ch_type)
             report_fname = op.join(meg_subject_dir, report_fname)
             report = Report(report_fname, verbose=False)

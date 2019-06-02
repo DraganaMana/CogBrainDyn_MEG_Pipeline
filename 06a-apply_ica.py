@@ -20,6 +20,7 @@ from mne.parallel import parallel_func
 from mne.preprocessing import read_ica
 from mne.preprocessing import create_eog_epochs, create_ecg_epochs
 from mne.report import Report
+from warnings import warn
 
 import numpy as np
 import config
@@ -30,18 +31,26 @@ def apply_ica(subject):
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     # load epochs to reject ICA components
-    extension = '-int-1-2-3-epo'
+    extension = 'P-int123-scl-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
+    
+#    if not op.exists(fname_in):
+#            warn('Run %s not found for subject %s ' %
+#                 (fname_in, subject))
+#            continue
+    
     epochs = mne.read_epochs(fname_in, preload=True)
 
-    extension = '-int-1-2-3_cleaned-epo'
+    extension = 'P-int123-scl_cleaned-epo'
     
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
 
     print("Input: ", fname_in)
     print("Output: ", fname_out)
+    
+    
 
     # load first run of raw data for ecg /eog epochs
     raw_list = list()
@@ -69,7 +78,7 @@ def apply_ica(subject):
 
         # Load ICA
         fname_ica = op.join(meg_subject_dir,
-                            '{0}_{1}_{2}-ica.fif'.format(subject,
+                            '{0}_{1}_{2}-Pscl-ica.fif'.format(subject,
                                                          config.study_name,
                                                          ch_type))
         print('Reading ICA: ' + fname_ica)
@@ -103,7 +112,7 @@ def apply_ica(subject):
             del ecg_epochs
 
             report_fname = \
-                '{0}_{1}_{2}-reject_ica.html'.format(subject,
+                '{0}_{1}_{2}-Pscl-reject_ica.html'.format(subject,
                                                      config.study_name,
                                                      ch_type)
             report_fname = op.join(meg_subject_dir, report_fname)

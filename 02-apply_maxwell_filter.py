@@ -24,6 +24,7 @@ from mne.parallel import parallel_func
 
 import config
 
+from warnings import warn
 
 def run_maxwell_filter(subject):
     print("Processing subject: %s" % subject)
@@ -47,6 +48,11 @@ def run_maxwell_filter(subject):
         extension = run + '_sss_raw'
         raw_fname_out = op.join(meg_subject_dir,
                                 config.base_fname.format(**locals()))
+        
+        if not op.exists(raw_fname_in):
+            warn('Run %s not found for subject %s ' %
+                 (raw_fname_in, subject))
+            continue
 
         print("Input: ", raw_fname_in)
         print("Output: ", raw_fname_out)
