@@ -23,7 +23,7 @@ print(nips)
 
 conditions = config.time_frequency_conditions
 
-ch_type = 'grad' # mag/grad/eeg
+ch_type = 'mag' # mag/grad/eeg
 
 
 tmin = config.tmin
