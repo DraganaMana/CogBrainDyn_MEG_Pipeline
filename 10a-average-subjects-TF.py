@@ -16,14 +16,14 @@ import warnings
 warnings.filterwarnings("ignore",category=DeprecationWarning)
 
 import config
-#%% get nips
-subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237'] 
+#% get nips
+subjects_list = config.subjects_list
 nips = subjects_list # ['hm_070076','cc_150418']
 print(nips)
 
 conditions = config.time_frequency_conditions
 
-ch_type = 'mag' # mag/grad/eeg
+ch_type = 'grad' # mag/grad/eeg
 
 
 tmin = config.tmin
@@ -87,11 +87,12 @@ for pp, nip in enumerate(nips):
         pow_dummy = power
         itc_dummy = itc
         
-#%% 1. Compute condition averages per channel type and visualize    
+#% 1. Compute condition averages per channel type and visualize    
          
 plot_tmin = tmin
 plot_tmax = tmax  
-subj = 'subj1-'+ str(len(subjects_list))       
+subj = 'subj1-'+ str(len(subjects_list))  
+#topomap_args = dict(vmin=-0.6, vmax=0.6)
             
 for c, condition in enumerate(conditions):          
 #        c = 3
@@ -101,13 +102,17 @@ for c, condition in enumerate(conditions):
       
 #    AVGPOW.plot_topo(baseline=None, tmin = plot_tmin, tmax = plot_tmax,
 #                title=('POW ' + condition )) # vmin = -50,vmax = 50
-    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1.25, vmin = -1.2, vmax = 1.2,
-                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW '+ ch_type + ' ' + condition))
-    
+    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1., vmin = -0.6, vmax = 0.6, #topomap_args=topomap_args,
+                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW '+ ch_type + ' ' + condition))  
+#    nested_dict = { 'dictA': {'key_1': 'value_1'},
+#                'dictB': {'key_2': 'value_2'}}
+#    AVGPOW.plot(baseline=None, tmin=-0.5, tmax=1., vmin = -1.2, vmax = 1.2,
+#                             title=('POW '+ ch_type + ' ' + condition))
     plt.savefig('%s_%s_%s_%s_%s.png' %(config.study_name, subj, 
-                                       condition, 'averageTF', ch_type))
+                                       condition, 'averageTF_1sec', ch_type))
  
-#%% 2. Compute condition average differences per channel type and visualize    
+    
+#% 2. Compute condition average differences per channel type and visualize    
 
 # Choose either the first or the second
 POW_P = POW

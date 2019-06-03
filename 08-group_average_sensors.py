@@ -11,6 +11,8 @@ import os.path as op
 import mne
 
 import config
+import matplotlib.pyplot as plt
+
 
 # Container for all conditions:
 all_evokeds = [list() for _ in range(len(config.conditions))]
@@ -22,7 +24,7 @@ for subject in config.subjects_list:
     else:
         print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
-    extension = '-int123-ave'
+    extension = 'int-P-1-2-3_cleaned_epo-ave'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
 
@@ -36,7 +38,7 @@ for subject in config.subjects_list:
 for idx, evokeds in enumerate(all_evokeds):
     all_evokeds[idx] = mne.combine_evoked(evokeds, 'equal')  # Combine subjects
 
-extension = 'grand_average-ave'
+extension = 'int-P-1-2-3_grand_average-ave'
 
 fname_out = op.join(meg_subject_dir,
                     '{0}_{1}.fif'.format(config.study_name, extension))
@@ -52,3 +54,5 @@ if config.plot:
     for idx, evokeds in enumerate(all_evokeds):
         all_evokeds[idx].plot_joint(title=config.conditions[idx],
                                     ts_args=ts_args, topomap_args=topomap_args)
+        plt.savefig('%s_%s_%s.png' %(config.study_name,
+                                           config.conditions[idx], 'group_ave_sensors'))

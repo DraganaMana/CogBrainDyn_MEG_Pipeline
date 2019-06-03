@@ -31,7 +31,7 @@ def apply_ica(subject):
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     # load epochs to reject ICA components
-    extension = 'P-int123-scl-epo'
+    extension = 'ints-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
     
@@ -42,7 +42,7 @@ def apply_ica(subject):
     
     epochs = mne.read_epochs(fname_in, preload=True)
 
-    extension = 'P-int123-scl_cleaned-epo'
+    extension = 'ints_cleaned-epo'
     
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
@@ -78,7 +78,7 @@ def apply_ica(subject):
 
         # Load ICA
         fname_ica = op.join(meg_subject_dir,
-                            '{0}_{1}_{2}-Pscl-ica.fif'.format(subject,
+                            '{0}_{1}_{2}-ints-ica.fif'.format(subject,
                                                          config.study_name,
                                                          ch_type))
         print('Reading ICA: ' + fname_ica)
@@ -112,7 +112,7 @@ def apply_ica(subject):
             del ecg_epochs
 
             report_fname = \
-                '{0}_{1}_{2}-Pscl-reject_ica.html'.format(subject,
+                '{0}_{1}_{2}-ints-reject_ica.html'.format(subject,
                                                      config.study_name,
                                                      ch_type)
             report_fname = op.join(meg_subject_dir, report_fname)

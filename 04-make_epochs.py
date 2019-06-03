@@ -40,7 +40,7 @@ def run_epochs(subject):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname = op.splitext(raw_fname_in)[0] + '_P-int123-scl-eve.fif'
+        eve_fname = op.splitext(raw_fname_in)[0] + '-ints-eve.fif'
         print("Input: ", raw_fname_in, eve_fname)
         
         if not op.exists(raw_fname_in):
@@ -86,7 +86,7 @@ def run_epochs(subject):
                         reject=config.reject)
 
     print('  Writing epochs to disk')
-    extension = 'P-int123-scl-epo'
+    extension = 'ints-epo'
     epochs_fname = op.join(meg_subject_dir,
                            config.base_fname.format(**locals()))
     print("Output: ", epochs_fname)
