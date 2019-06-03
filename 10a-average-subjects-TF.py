@@ -8,22 +8,13 @@ Created on Wed May 29 10:02:05 2019
 
 import numpy as np
 import matplotlib.pyplot as plt
-import glob
 import os.path as op
 
 import mne
-from mne.time_frequency import tfr_morlet, psd_multitaper, read_tfrs , write_tfrs, AverageTFR
-from mne.baseline import rescale
-from mne.stats import _bootstrap_ci
-
-from mne.stats import (spatio_temporal_cluster_test, f_threshold_mway_rm,
-                       f_mway_rm)
-from mne.channels import read_ch_connectivity
 
 import warnings
 warnings.filterwarnings("ignore",category=DeprecationWarning)
 
-from functools import partial
 import config
 #%% get nips
 subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237'] 
@@ -32,7 +23,7 @@ print(nips)
 
 conditions = config.time_frequency_conditions
 
-ch_type = 'mag' # mag/grad/eeg
+ch_type = 'grad' # mag/grad/eeg
 
 
 tmin = config.tmin
@@ -96,20 +87,17 @@ for pp, nip in enumerate(nips):
         pow_dummy = power
         itc_dummy = itc
         
-        #%% compute condition differences per FP and visualize    
+#%% 1. Compute condition averages per channel type and visualize    
          
 plot_tmin = tmin
 plot_tmax = tmax  
 subj = 'subj1-'+ str(len(subjects_list))       
             
 for c, condition in enumerate(conditions):          
-    # loop over FP
-   
 #        c = 3
 #        condition = conditions[c]
-#         
     P = np.mean(POW[:,c], 0) # avg over sbs
-    AVGPOW = mne.time_frequency.AverageTFR(pow_dummy.info,P,pow_dummy.times,pow_dummy.freqs,nave=len(nips))
+    AVGPOW = mne.time_frequency.AverageTFR(pow_dummy.info, P ,pow_dummy.times,pow_dummy.freqs,nave=len(nips))
       
 #    AVGPOW.plot_topo(baseline=None, tmin = plot_tmin, tmax = plot_tmax,
 #                title=('POW ' + condition )) # vmin = -50,vmax = 50
@@ -119,19 +107,26 @@ for c, condition in enumerate(conditions):
     plt.savefig('%s_%s_%s_%s_%s.png' %(config.study_name, subj, 
                                        condition, 'averageTF', ch_type))
  
+#%% 2. Compute condition average differences per channel type and visualize    
 
 # Choose either the first or the second
-#POW_P = POW
+POW_P = POW
 #POW_R = POW
+
+# cond1 - cond2
+cond1 = 2
+cond2 = 1
     
-# plot condition difference
-P = np.mean(POW_P[:,2] - (POW_R[:,2]), 0) # avg over sbs
-AVGPOW = mne.time_frequency.AverageTFR(pow_dummy.info,P,pow_dummy.times,pow_dummy.freqs,nave=len(nips))
+# Plot condition difference
+P = np.mean(POW_P[:,(cond1-1)] - (POW_P[:,(cond2-1)]), 0) # avg over sbs
+AVGPOW = mne.time_frequency.AverageTFR(pow_dummy.info, P ,pow_dummy.times,pow_dummy.freqs,nave=len(nips))
       
 #AVGPOW.plot_topo(baseline=None, tmin = plot_tmin, tmax = plot_tmax,
 #                title=('POW ' + 'difference' ),
 #                vmin = -.30,vmax = .30) # , axes=axis[c]
 AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1.25,
-                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW diff Pint3-Rint3'))
+                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW '+ ch_type +' diff Pint' 
+                                        + str(cond1) + ' - Pint' + str(cond2)))
     
-plt.savefig('%s_%s_%s_%s.png' %(config.study_name, subj, 'diff_P3-R3', ch_type))
+plt.savefig('%s_%s_%s_%s.png' %(config.study_name, subj, ('diff_P' + str(cond1) + '-P' + str(cond2)), 
+                                ch_type))

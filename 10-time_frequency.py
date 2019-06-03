@@ -18,7 +18,7 @@ from mne.parallel import parallel_func
 
 import config
 
-freqs = np.arange(3, 60)
+freqs = np.arange(3, 60) # Used initially for Replay and then for Play
 n_cycles = freqs / 3.
 
 
@@ -67,8 +67,6 @@ def run_time_frequency(subject):
         
 #        power.plot_topo(baseline=(-0.5, 0), mode='logratio', title='Average power')
 #        power.plot([150], baseline=(-0.5, 0), mode='logratio') 
-        power.plot_joint(baseline=(-1.5, -0.8), mode='logratio', tmin=-1.5, tmax=1.25,
-                 timefreqs=[(.15, 10), (0.6, 20)])
         
 
 

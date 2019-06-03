@@ -81,12 +81,17 @@ figure.show()
 """
 
 
-## Read files after 04-make_epochs.py
-#extension = '-int-P-1-2-3_cleaned-epo'
-#fname_in = op.join(meg_subject_dir,
-#               config.base_fname.format(**locals()))
-#epochs = mne.read_epochs(fname_in, preload=True)
-#epochs.plot_psd(fmin=2., fmax=40.)
+# Read files after 04-make_epochs.py
+for subject in subjects_list:
+    meg_subject_dir = op.join(config.meg_dir, subject)
+    extension = 'P-int123-scl-epo'
+    fname_in = op.join(meg_subject_dir,
+                   config.base_fname.format(**locals()))
+    epochs = mne.read_epochs(fname_in, preload=True)
+    epochs.plot()
+    epochs.plot_image(combine='gfp', group_by='type', sigma=2.,
+                      cmap="YlGnBu_r")
+    epochs.plot_psd(fmin=2., fmax=40.)
 #
 #
 ## Read files from 10-TF

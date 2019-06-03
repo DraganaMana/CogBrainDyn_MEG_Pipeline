@@ -34,8 +34,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -545,22 +545,22 @@ min_event_duration = 0.005
 #event_id = {'BPint123': 5}
 #conditions = ['BPint123']
 
-# For the 3 different intervals in Play
-event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
-conditions = ['BPint01', 'BPint02', 'BPint03']
+## For the 3 different intervals in Play
+#event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
+#conditions = ['BPint01', 'BPint02', 'BPint03']
 
 ## For the 3 different intervals in Replay
 #event_id = {'BPRint01': 4, 'BPRint02': 5, 'BPRint03':6} # BP-ButtonPress
 #conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 
 
-## For all 3 ints, and short-correct-long
-#event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
-#            'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
-#            'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
-#conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-#              'BPint02s', 'BPint02c', 'BPint02l',
-#              'BPint03s', 'BPint03c', 'BPint03l']
+# For all 3 ints, and short-correct-long
+event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
+            'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
+            'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
+conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+              'BPint02s', 'BPint02c', 'BPint02l',
+              'BPint03s', 'BPint03c', 'BPint03l']
 
 
 
@@ -669,13 +669,13 @@ ica_ctps_ecg_threshold = 0.1
 
 #decoding_conditions = [('incoherent', 'coherent')]
 # Play
-decoding_conditions = ['BPint01', 'BPint02', 'BPint03']
+#decoding_conditions = ['BPint01', 'BPint02', 'BPint03']
 # Replay
 #decoding_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 # Play s-c-l division
-#decoding_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-#              'BPint02s', 'BPint02c', 'BPint02l',
-#              'BPint03s', 'BPint03c', 'BPint03l']
+decoding_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+              'BPint02s', 'BPint02c', 'BPint02l',
+              'BPint03s', 'BPint03c', 'BPint03l']
 
 
 # ``decoding_metric`` : str
@@ -697,12 +697,12 @@ decoding_n_splits = 5
 # ``time_frequency_conditions`` : list
 #    The conditions to compute time-frequency decomposition on.
 
-time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
+#time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
 #time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 # Play s-c-l division
-#time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-#              'BPint02s', 'BPint02c', 'BPint02l',
-#              'BPint03s', 'BPint03c', 'BPint03l']
+time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+              'BPint02s', 'BPint02c', 'BPint02l',
+              'BPint03s', 'BPint03c', 'BPint03l']
 
 
 ###############################################################################
