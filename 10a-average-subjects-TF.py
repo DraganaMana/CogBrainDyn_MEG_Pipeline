@@ -92,7 +92,7 @@ for pp, nip in enumerate(nips):
 plot_tmin = tmin
 plot_tmax = tmax  
 subj = 'subj1-'+ str(len(subjects_list))  
-topomap_args = dict(vmin=-1.3, vmax=1.3) # fix the colormap values
+topomap_args = dict(vmin=-2.5, vmax=2.5) # fix the colormap values
             
 for c, condition in enumerate(conditions):          
 #        c = 3

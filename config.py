@@ -698,12 +698,12 @@ decoding_n_splits = 5
 #    The conditions to compute time-frequency decomposition on.
 
 #time_frequency_conditions = ['BPint123']
-time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
+#time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
 #time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 # Play s-c-l division
-#time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-#              'BPint02s', 'BPint02c', 'BPint02l',
-#              'BPint03s', 'BPint03c', 'BPint03l']
+time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+              'BPint02s', 'BPint02c', 'BPint02l',
+              'BPint03s', 'BPint03c', 'BPint03l']
 
 
 ###############################################################################
