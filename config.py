@@ -34,8 +34,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -699,11 +699,11 @@ decoding_n_splits = 5
 
 #time_frequency_conditions = ['BPint123']
 #time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
-#time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
+time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 # Play s-c-l division
-time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-              'BPint02s', 'BPint02c', 'BPint02l',
-              'BPint03s', 'BPint03c', 'BPint03l']
+#time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+#              'BPint02s', 'BPint02c', 'BPint02l',
+#              'BPint03s', 'BPint03c', 'BPint03l']
 
 
 ###############################################################################
