@@ -34,8 +34,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-study_path = 'D:/ScaledTime/MEGdata/'
+study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+#study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -542,12 +542,12 @@ min_event_duration = 0.005
 #conditions = ['incoherent', 'coherent']
 
 ## For all intervals together
-#event_id = {'BPint123': 5}
-#conditions = ['BPint123']
+event_id = {'BPint123': 5}
+conditions = ['BPint123']
 
 ## For the 3 different intervals in Play
-event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
-conditions = ['BPint01', 'BPint02', 'BPint03']
+#event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
+#conditions = ['BPint01', 'BPint02', 'BPint03']
 
 ## For the 3 different intervals in Replay
 #event_id = {'BPRint01': 4, 'BPRint02': 5, 'BPRint03':6} # BP-ButtonPress
@@ -698,8 +698,8 @@ decoding_n_splits = 5
 #    The conditions to compute time-frequency decomposition on.
 
 #time_frequency_conditions = ['BPint123']
-#time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
-time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
+time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
+#time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 # Play s-c-l division
 #time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
 #              'BPint02s', 'BPint02c', 'BPint02l',

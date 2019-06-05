@@ -93,14 +93,16 @@ plot_tmin = tmin
 plot_tmax = tmax  
 subj = 'subj1-'+ str(len(subjects_list))  
 topomap_args = dict(vmin=-1.2, vmax=1.2) # fix the colormap values
-            
+vvmin = -1.2
+vvmax = 1.2            
+
 for c, condition in enumerate(conditions):          
 #        c = 3
 #        condition = conditions[c]
     P = np.mean(POW[:,c], 0) # avg over sbs
     AVGPOW = mne.time_frequency.AverageTFR(pow_dummy.info, P ,pow_dummy.times,pow_dummy.freqs,nave=len(nips))
-#    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1., topomap_args=topomap_args, #vmin = -1.3, vmax = 1.3, 
-#                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW '+ ch_type + ' ' + condition))
+    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1., topomap_args=topomap_args, vmin = vvmin, vmax = vvmax, 
+                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW '+ ch_type + ' ' + condition))
     
 #    AVGPOW.plot(baseline=None, tmin=-0.4, tmax=1., vmin = -1.2, vmax = 1.2,
 #                             title=('POW '+ ch_type + ' ' + condition))

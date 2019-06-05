@@ -70,8 +70,10 @@ def run_epochs(subject):
 
     del raw_list
 
-    picks = mne.pick_types(raw.info, meg=True, eeg=config.eeg, stim=True,
-                           eog=True, exclude=())
+#    picks = mne.pick_types(raw.info, meg=True, eeg=config.eeg, stim=True,
+#                           eog=True, exclude=())
+    picks = mne.pick_types(raw.info, meg='mag', eog=True)
+    
 
     # Construct metadata from the epochs
     # Add here if you need to attach a pandas dataframe as metadata
@@ -83,10 +85,13 @@ def run_epochs(subject):
     epochs = mne.Epochs(raw, events, config.event_id, config.tmin, config.tmax,
                         proj=True, picks=picks, baseline=config.baseline,
                         preload=False, decim=config.decim,
-                        reject=config.reject)
+#                        reject=config.reject)
+                        reject = {'mag': 4e-12})
+    
+#    epochs.drop_channels(['EOG061'])
 
     print('  Writing epochs to disk')
-    extension = 'ints-epo'
+    extension = 'ints-mag-epo'
     epochs_fname = op.join(meg_subject_dir,
                            config.base_fname.format(**locals()))
     print("Output: ", epochs_fname)
