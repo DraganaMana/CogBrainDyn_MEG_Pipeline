@@ -66,6 +66,11 @@ def run_filter(subject):
         if config.rename_channels is not None:
             raw.rename_channels(config.rename_channels)
 
+        if config.notch:
+            print("Applying a notch filter for 50 Hz")
+            raw.notch_filter(np.arange(50, 100, 50), filter_length='auto', 
+                phase='zero')
+
         # Band-pass the data channels (MEG and EEG)
         print("Filtering data between %s and %s (Hz)" %
               (config.l_freq, config.h_freq))
@@ -79,6 +84,8 @@ def run_filter(subject):
         if config.resample_sfreq:
             print("Resampling data to %.1f Hz" % config.resample_sfreq)
             raw.resample(config.resample_sfreq, npad='auto')
+
+        
 
         raw.save(raw_fname_out, overwrite=True)
         n_raws += 1

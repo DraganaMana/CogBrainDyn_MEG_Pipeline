@@ -34,8 +34,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -66,7 +66,12 @@ study_name = 'ScaledTime'
 # To use all subjects use
 #subjects_list = ['s190320']
 subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237'] 
-# ALL PAX: 'fm180074', lk160274, empty_room, 'hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237'
+# ALL PAX: 'fm180074', lk160274, empty_room, 
+# final pax
+# 'hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 'ms180425', 'ch180036',
+# 'cg190026', 'ih190084', 'cr170417', 'll180197', 'tr180110', 'lr190095', 'ep190335', 'gl180335', 
+# 'ad190325'
+
 #cur_subj = 'lk160274'
 #subject_pilot = 's190320'
 # else for speed and fast test you can use:
@@ -223,7 +228,7 @@ bads['fm180074'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
 #    Run04=[213, 1732, 1722,1723, 1933, 633, 613, 623, 2511],
 #    Run05=[213, 1732, 1722,1723, 1933, 633, 613, 623, 2542])
 
-
+# Pax 1
 bads['hm070076'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522', 'MEG0311', 'MEG0613'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
     Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG2522'],
@@ -231,12 +236,12 @@ bads['hm070076'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933'])
 
-bads['fr190151'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613'],
-    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613'],
-    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613'],
-    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613'],
-    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613'],
-    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613'])
+bads['fr190151'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613', 'MEG0623'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613', 'MEG0623'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613', 'MEG0623'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613', 'MEG0623'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613', 'MEG0623'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0321', 'MEG0613', 'MEG0623'])
 
 bads['at140305'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0342'],
@@ -249,20 +254,100 @@ bads['cc150418'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG19
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG2432'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG2632'])
 
-bads['eb180237'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511'],
+# Pax 5
+bads['eb180237'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511', 'MEG1512'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511'],
-    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511', 'MEG1512'],
-    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511'],
-    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2542'])
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2542'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623'])
 
-"""
+bads['ld190260'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG1441'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0522'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613'])
+
+bads['ms180425'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG0422', 'MEG2432'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG0422', 'MEG2432', 'MEG0741'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG0422', 'MEG2432', 'MEG0522'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG0422', 'MEG2432'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG0422', 'MEG2432'])
+
+bads['ch180036'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633', 'MEG0623'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633'])
+
+bads['cg190026'] = dict(Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0613', 'MEG0623'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0613', 'MEG0623'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0613', 'MEG0623'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0613', 'MEG0623'])
+
+# Pax 10
 bads['ih190084'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
     Run02=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633', 'MEG0131'],
     Run03=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633', 'MEG1921'],
     Run04=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
     Run05=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'],
     Run06=['MEG0213', 'MEG1732', 'MEG1923', 'MEG0633'])
+
+bads['cr170417'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG1721'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG0341'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG0613', 'MEG0522', 'MEG0523', 'MEG0542'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG0732'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0633', 'MEG0732', 'MEG0613', 'MEG0943'])
+
+bads['ll180197'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0613', 'MEG0633'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0613'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0613'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0613'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0613'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0613'])
+
+bads['tr180110 '] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1323'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1323'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1323'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1323'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1323'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1323'])
+
+bads['lr190095'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0633', 'MEG0623', 'MEG1043', 'MEG1323'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0633', 'MEG0211', 'MEG1043', 'MEG1323'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0633', 'MEG0623', 'MEG1043', 'MEG1323', 'MEG0613'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0633', 'MEG0623', 'MEG1043', 'MEG1323'])
+
+# Pax 15
+bads['ep190335'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1833', 'MEG1842'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512'])
+
+bads['gl180335'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG0541', 'MEG0623', 'MEG0922' 'MEG2341'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG2511', 'MEG2341', 'MEG0922'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG0922'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG0541'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412'])
+
+bads['ad190325'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0613', 'MEG0623', 'MEG0111'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0613', 'MEG0623', 'MEG0111'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0613', 'MEG0623', 'MEG0111'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0613', 'MEG0623', 'MEG0111'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0613', 'MEG0623', 'MEG0111'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0613', 'MEG0623', 'MEG0111'])
+
 """
+bads[''] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613'],
+    Run02=[],
+    Run03=[],
+    Run04=[],
+    Run05=[],
+    Run06=[])
+"""
+
 
 ###############################################################################
 # DEFINE ADDITIONAL CHANNELS
@@ -331,7 +416,7 @@ l_freq = 0.3
 
 h_freq = 120.
 
-
+notch = True
 ###############################################################################
 # MAXFILTER PARAMETERS
 # --------------------
@@ -542,8 +627,8 @@ min_event_duration = 0.005
 #conditions = ['incoherent', 'coherent']
 
 ## For all intervals together
-event_id = {'BPint123': 5}
-conditions = ['BPint123']
+#event_id = {'BPint123': 5}
+#conditions = ['BPint123']
 
 ## For the 3 different intervals in Play
 #event_id = {'BPint01': 1, 'BPint02': 2, 'BPint03':3} # BP-ButtonPress
@@ -555,12 +640,12 @@ conditions = ['BPint123']
 
 
 # For all 3 ints, and short-correct-long
-#event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
-#            'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
-#            'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
-#conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-#              'BPint02s', 'BPint02c', 'BPint02l',
-#              'BPint03s', 'BPint03c', 'BPint03l']
+event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
+            'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
+            'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
+conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+              'BPint02s', 'BPint02c', 'BPint02l',
+              'BPint03s', 'BPint03c', 'BPint03l']
 
 
 
@@ -698,12 +783,12 @@ decoding_n_splits = 5
 #    The conditions to compute time-frequency decomposition on.
 
 #time_frequency_conditions = ['BPint123']
-time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
+#time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
 #time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 # Play s-c-l division
-#time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-#              'BPint02s', 'BPint02c', 'BPint02l',
-#              'BPint03s', 'BPint03c', 'BPint03l']
+time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+              'BPint02s', 'BPint02c', 'BPint02l',
+              'BPint03s', 'BPint03c', 'BPint03l']
 
 
 ###############################################################################
