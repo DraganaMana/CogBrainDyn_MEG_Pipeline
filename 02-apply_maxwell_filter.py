@@ -34,8 +34,15 @@ def run_maxwell_filter(subject):
     # To match their processing, transform to the head position of the
     # defined run
     extension = config.runs[config.mf_reference_run] + '_filt_raw'
+    
     raw_fname_in = op.join(meg_subject_dir,
-                           config.base_fname.format(**locals()))
+                           config.base_fname.format(**locals()))   
+    
+    # I do the following because I'm not processing their first blocks
+    if subject == 'cg190026' or subject == 'ih190084':
+        raw_fname_in = op.join('/media/dm258725/VERBATIM/ScaledTime/MEGdata/MEG/cg190026/cg190026_ScaledTime_Run02_filt_raw.fif')       
+     
+    
     info = mne.io.read_info(raw_fname_in)
     destination = info['dev_head_t']
 

@@ -31,9 +31,10 @@ def apply_ica(subject):
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     # load epochs to reject ICA components
-    extension = 'ints-epo'
+    extension = 'P-int123-scl-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
+
     
 #    if not op.exists(fname_in):
 #            warn('Run %s not found for subject %s ' %
@@ -42,7 +43,7 @@ def apply_ica(subject):
     
     epochs = mne.read_epochs(fname_in, preload=True)
 
-    extension = 'ints_cleaned-epo'
+    extension = 'P-int123-scl_cleaned-epo'
     
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
@@ -58,6 +59,11 @@ def apply_ica(subject):
     extension = config.runs[0] + '_sss_raw'
     raw_fname_in = op.join(meg_subject_dir,
                            config.base_fname.format(**locals()))
+    
+    # I do the following because I'm not processing their first blocks
+    if subject == 'cg190026' or subject == 'ih190084':
+        raw_fname_in = op.join('/media/dm258725/VERBATIM/ScaledTime/MEGdata/MEG/cg190026/cg190026_ScaledTime_Run02_sss_raw.fif')       
+    
     raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
 
     # run ICA on MEG and EEG
@@ -78,7 +84,7 @@ def apply_ica(subject):
 
         # Load ICA
         fname_ica = op.join(meg_subject_dir,
-                            '{0}_{1}_{2}-ints-ica.fif'.format(subject,
+                            '{0}_{1}_{2}-P-int123-scl-ica.fif'.format(subject,
                                                          config.study_name,
                                                          ch_type))
         print('Reading ICA: ' + fname_ica)
@@ -112,7 +118,7 @@ def apply_ica(subject):
             del ecg_epochs
 
             report_fname = \
-                '{0}_{1}_{2}-ints-reject_ica.html'.format(subject,
+                '{0}_{1}_{2}-P-int123-scl-reject_ica.html'.format(subject,
                                                      config.study_name,
                                                      ch_type)
             report_fname = op.join(meg_subject_dir, report_fname)
@@ -205,4 +211,4 @@ def apply_ica(subject):
 
 
 parallel, run_func, _ = parallel_func(apply_ica, n_jobs=config.N_JOBS)
-parallel(run_func(subject) for subject in config.subjects_list)
+parallel(run_func(subject) for subject in config.subjects_list2)

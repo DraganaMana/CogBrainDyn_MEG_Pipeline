@@ -37,6 +37,7 @@ for subject in config.subjects_list:
         # in other words, this code doesn't find the events,
         # but only reads the events file and alters it. 
         eve_fname = op.splitext(raw_fname_in)[0] + '-eve.fif'
+        print("Processing eve file: %s" % eve_fname)
     #    raw = mne.io.read_raw_fif(raw_fname_in)
     
         if not op.exists(eve_fname):

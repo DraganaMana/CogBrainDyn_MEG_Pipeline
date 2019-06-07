@@ -18,6 +18,7 @@ import os.path as op
 import mne
 from mne.parallel import parallel_func
 from warnings import warn
+import numpy as np
 
 import config
 
@@ -68,7 +69,7 @@ def run_filter(subject):
 
         if config.notch:
             print("Applying a notch filter for 50 Hz")
-            raw.notch_filter(np.arange(50, 100, 50), filter_length='auto', 
+            raw.notch_filter(np.arange(50, 300, 50), filter_length='auto', 
                 phase='zero')
 
         # Band-pass the data channels (MEG and EEG)

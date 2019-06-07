@@ -4,6 +4,9 @@ Config file
 ===========
 Configuration parameters for the study. This should be in a folder called
 ``library/`` inside the ``processing/`` directory.
+
+
+https://mne-tools.github.io/0.17/auto_tutorials/plot_metadata_epochs.html?highlight=pandas%20querying%20metadata%20epochs%20objects
 """
 
 import os
@@ -34,8 +37,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-study_path = 'D:/ScaledTime/MEGdata/'
+study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+#study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -57,6 +60,8 @@ meg_dir = os.path.join(study_path, 'MEG')
 #   This is the name of your experiment.
 study_name = 'ScaledTime'
 
+name_ext = 'P-int123-scl'
+
 # ``subjects_list`` : list of str
 #   To define the list of participants, we use a list with all the anonymized
 #   participant names. Even if you plan on analyzing a single participant, it
@@ -65,7 +70,13 @@ study_name = 'ScaledTime'
 
 # To use all subjects use
 #subjects_list = ['s190320']
-subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237'] 
+subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 'ch180036', 'ms180425', 
+                 'cg190026', 'ih190084', 'cr170417', 'll180197', 'tr180110', 'ep190335', 'gl180335'] 
+subjects_list2 = ['lr190095', 'ad190325', 'ag170045']
+#subjects_list3 = ['tr180110', 'ep190335', 'gl180335']
+#subjects_list = ['ih190084', 'cr170417', 'll180197', 'tr180110', 'ep190335', 'gl180335']
+# 
+#                 
 # ALL PAX: 'fm180074', lk160274, empty_room, 
 # final pax
 # 'hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 'ms180425', 'ch180036',
@@ -273,11 +284,11 @@ bads['ms180425'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG0422', 'MEG2432'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG0422', 'MEG2432'])
 
-bads['ch180036'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633'],
-    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633', 'MEG0623'],
-    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633'],
-    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633'],
-    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723' 'MEG1933', 'MEG0633'])
+bads['ch180036'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG0623'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633'])
 
 bads['cg190026'] = dict(Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0613', 'MEG0623'],
     Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1933', 'MEG0613', 'MEG0623'],
@@ -325,7 +336,7 @@ bads['ep190335'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512'])
 
-bads['gl180335'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG0541', 'MEG0623', 'MEG0922' 'MEG2341'],
+bads['gl180335'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG0541', 'MEG0623', 'MEG0922', 'MEG2341'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG2511', 'MEG2341', 'MEG0922'],
     Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG0922'],
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG0541'],
@@ -338,6 +349,13 @@ bads['ad190325'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0613', 'MEG0623', 'MEG0111'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0613', 'MEG0623', 'MEG0111'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG1512', 'MEG0613', 'MEG0623', 'MEG0111'])
+
+bads['ag170045'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG1512', 'MEG1043'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG1512', 'MEG1043'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG2041'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG2041'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG1512', 'MEG1043'],
+    Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG1512', 'MEG1043'])
 
 """
 bads[''] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613'],
@@ -409,7 +427,7 @@ set_channel_types = {'EOG061': 'eog', 'EOG062': 'eog', 'ECG063': 'ecg',
 # ``l_freq`` : the low-frequency cut-off in the highpass filtering step.
 #   Keep it None if no highpass filtering should be applied.
 
-l_freq = 0.3
+l_freq = 0.1
 
 # ``h_freq`` : the high-frequency cut-off in the lowpass filtering step.
 #   Keep it None if no lowpass filtering should be applied.

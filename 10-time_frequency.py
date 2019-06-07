@@ -25,7 +25,7 @@ n_cycles = freqs / 3.
 def run_time_frequency(subject):
     print("processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
-    extension = 'ints_cleaned-epo'
+    extension = 'P-int123-scl_cleaned-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
     print("Input: ", fname_in)
