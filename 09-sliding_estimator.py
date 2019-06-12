@@ -40,7 +40,7 @@ def run_time_decoding(subject, condition1, condition2):
 
     meg_subject_dir = op.join(config.meg_dir, subject)
 
-    extension = '-int-P-1-2-3-epo'
+    extension = config.name_ext + '-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
     print("Input: ", fname_in)

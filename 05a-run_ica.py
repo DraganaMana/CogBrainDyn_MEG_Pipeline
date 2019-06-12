@@ -34,7 +34,7 @@ def run_ica(subject, tsss=config.mf_st_duration):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname = op.splitext(raw_fname_in)[0] + '_P-int123-scl-eve.fif'
+        eve_fname = op.splitext(raw_fname_in)[0] + '_' + config.name_ext + '-eve.fif'
         print("Input: ", raw_fname_in, eve_fname)
         
         if not op.exists(raw_fname_in):
@@ -112,15 +112,16 @@ def run_ica(subject, tsss=config.mf_st_duration):
               ' variance)' % (ica.n_components_, 100 * n_components[ch_type]))
 
         ica_fname = \
-            '{0}_{1}_{2}-P-int123-scl-ica.fif'.format(subject, config.study_name, ch_type)
+            '{0}_{1}_{2}-{3}-ica.fif'.format(subject, config.study_name, 
+                                                                 ch_type, config.name_ext)
         ica_fname = op.join(meg_subject_dir, ica_fname)
         ica.save(ica_fname)
 
         if config.plot:
             # plot ICA components to html report
             report_fname = \
-                '{0}_{1}_{2}-P-int123-scl-ica.html'.format(subject, config.study_name,
-                                              ch_type)
+                '{0}_{1}_{2}-{3}-ica.html'.format(subject, config.study_name,
+                                              ch_type, config.name_ext)
             report_fname = op.join(meg_subject_dir, report_fname)
             report = Report(report_fname, verbose=False)
 
@@ -138,4 +139,4 @@ def run_ica(subject, tsss=config.mf_st_duration):
 
 #run_ica(config.cur_subj)
 parallel, run_func, _ = parallel_func(run_ica, n_jobs=config.N_JOBS)
-parallel(run_func(subject) for subject in config.subjects_list2)
+parallel(run_func(subject) for subject in config.subjects_list)

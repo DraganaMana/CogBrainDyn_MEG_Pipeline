@@ -5,7 +5,7 @@ Created on Wed May 29 10:02:05 2019
 
 @author: dm258725
 """
-"""
+
 
 import numpy as np
 from numpy import append
@@ -124,7 +124,7 @@ POW_P = POW
 #POW_R = POW
 
 # cond1 - cond2
-cond1 = 2
+cond1 = 3
 cond2 = 1
     
 # Plot condition difference
@@ -139,46 +139,41 @@ AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1.25,
     
 plt.savefig('%s_%s_%s_%s.png' %(config.study_name, subj, ('diff_P' + str(cond1) + '-P' + str(cond2)), 
                                 ch_type))
-"""
-#%% Compute average beta power 0.5-1 sec
+
+#%% Compute average beta power 0.5-1 sec for all pax together
 
 # idk if this is correct, because there are negative values and they cancel each other
 # check how to make them mean but w/ absolute values
 
 pow_beta = []
 pow_beta_sd = []
-#for s, subj in enumerate(subjects_list) # think about how to plot the averages of all pax
 for c, cond in enumerate(conditions):
     P = np.mean(POW[:,c], 0) # avg over sbs
     AVGPOW = mne.time_frequency.AverageTFR(pow_dummy.info, P ,pow_dummy.times,pow_dummy.freqs,nave=len(nips))
-    AVGPOW.crop(0.5,1)
+    AVGPOW = AVGPOW.crop(0.5,1)
     AVGPOW1 = AVGPOW.data  
     
-    AVGPOW_beta = np.zeros((len(AVGPOW1[:,0,0]), 28, 250))
+    AVGPOW_beta = np.zeros((len(AVGPOW1[:,0,0]), 28, 251))
 # also I need to check which are the significant channels from the clusters, and
     # only pick them like I picked the freq and times
     for i, chan in enumerate(AVGPOW1[:,0,0]):
-        m=0
-        for j, freq in enumerate(AVGPOW1[0,:,0]):
-            if j > 9 and j <=27: # j<=37
-                AVGPOW_beta[0,m,0] = freq
-                m += 1
-                n=0
-                
-                for k, times in enumerate(AVGPOW1[0,0,:]):
-                    if k > 500 and k <= 750:
-                        AVGPOW_beta[0,0,n] = times
-                        n += 1
+        for k, time in enumerate(AVGPOW1[i,0,:]):
+            m=0
+            for j, freq in enumerate(AVGPOW1[i,:,k]):
+                if j > 9 and j <= 37: # j<=37
+                    AVGPOW_beta[i,m,k] = freq
+                    m += 1
+
             
     pow_beta.append(np.mean(AVGPOW_beta)) # average over times and frequencies and channels 
     pow_beta_sd.append(np.std(AVGPOW_beta, axis=(0,1,2)))
     
-#!!! crop a given TF from the MNE object: crop(tmin=None, tmax=None)
 ints = ['1.45s','1.45c','1.45l','2.9s','2.9c','2.9l','5.8s','5.8c','5.8l']
-plt.plot(ints, pow_beta, 'b--')
+plt.plot(ints, pow_beta, 'bo-')
 #plt.errorbar(ints, pow_beta, yerr=pow_beta_sd, linestyle='None', marker='^')
+
 # Check
-count = 0
-if AVGPOW_beta.any() != 0:
-    count = count+1
+#count = 0
+#if AVGPOW_beta.any() != 0:
+#    count = count+1
     

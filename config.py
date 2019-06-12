@@ -37,8 +37,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -69,10 +69,11 @@ name_ext = 'P-int123-scl'
 #   subjects_list = ['SB01']
 
 # To use all subjects use
-#subjects_list = ['s190320']
-subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 'ch180036', 'ms180425', 
-                 'cg190026', 'ih190084', 'cr170417', 'll180197', 'tr180110', 'ep190335', 'gl180335'] 
-subjects_list2 = ['lr190095', 'ad190325', 'ag170045']
+#subjects_list = ['gl180335']
+subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
+                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
+                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
+#subjects_list2 = ['lr190095', 'ad190325', 'ag170045']
 #subjects_list3 = ['tr180110', 'ep190335', 'gl180335']
 #subjects_list = ['ih190084', 'cr170417', 'll180197', 'tr180110', 'ep190335', 'gl180335']
 # 
@@ -267,16 +268,17 @@ bads['cc150418'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG19
 
 # Pax 5
 bads['eb180237'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511', 'MEG1512'],
-    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2511', 'MEG1441'],
     Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623', 'MEG2542'],
     Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723','MEG1933', 'MEG0633', 'MEG0613', 'MEG0623'])
 
-bads['ld190260'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613'],
-    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG1441'],
-    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0522'],
-    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613'],
-    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613'])
+# 0131, 0132, 0133
+bads['ld190260'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0311', 'MEG0331'],
+    Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG1441', 'MEG0311', 'MEG0331'],
+    Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633','MEG0522', 'MEG0311', 'MEG0331', 'MEG0343', 'MEG0342', 'MEG0131', 'MEG1511', 'MEG0522', 'MEG0813', 'MEG0513', 'MEG0512'],
+    Run04=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633','MEG0311', 'MEG0331', 'MEG0343', 'MEG0342', 'MEG0131', 'MEG1511', 'MEG0522', 'MEG0813', 'MEG0513', 'MEG0512'],
+    Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633','MEG0311', 'MEG2432', 'MEG0331', 'MEG0343', 'MEG0342', 'MEG0131', 'MEG1511', 'MEG0522', 'MEG0813', 'MEG0513', 'MEG0512'])
 
 bads['ms180425'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG0422', 'MEG2432'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG0422', 'MEG2432', 'MEG0741'],
@@ -560,7 +562,7 @@ decim = 1
 #    don't specify a value for the eog channel (see examples below).
 #    Make sure to include values for eeg if you have EEG data
 
-reject = {'grad': 4000e-13, 'mag': 4e-12}
+#reject = {'grad': 4000e-13, 'mag': 4e-12}
 
 # Note
 # ~~~~
@@ -661,6 +663,7 @@ min_event_duration = 0.005
 event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
             'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
             'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
+#event_id = {'BPint01c': 15}
 conditions = ['BPint01s', 'BPint01c', 'BPint01l',
               'BPint02s', 'BPint02c', 'BPint02l',
               'BPint03s', 'BPint03c', 'BPint03l']

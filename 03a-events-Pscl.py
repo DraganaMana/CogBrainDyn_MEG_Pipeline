@@ -343,7 +343,7 @@ for subject in config.subjects_list:
 #            eve_dir = op.join(config.meg_dir, subject)
             # Set filename for the events
         #   eve_fname_out = op.splitext(raw_fname_in)[0] + '_' + eve_name + '-eve.fif'
-            eve_fname_out = meg_subject_dir + '/' + subject + '_' + 'ScaledTime' + '_' + run + '_sss_raw_' + 'P-int123-scl' + '-eve.fif'
+            eve_fname_out = meg_subject_dir + '/' + subject + '_' + 'ScaledTime' + '_' + run + '_sss_raw_' + config.name_ext + '-eve.fif'
             # Save the events in a file
             print("%s, writing events: %s" % (run, eve_fname_out))
             mne.write_events(eve_fname_out, events)

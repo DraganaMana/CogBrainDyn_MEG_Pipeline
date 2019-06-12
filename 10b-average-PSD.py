@@ -16,12 +16,12 @@ import config
 PSD = np.zeros((len(config.subjects_list),3), dtype='object') # subjects * blocks* freq (alpha,beta)
 for s,subj in enumerate(config.subjects_list): 
     meg_subject_dir = op.join(config.meg_dir, subj)
-    fname_in = op.join(meg_subject_dir, subj + '_ScaledTime_-int-P-1-2-3_cleaned-epo.fif')
+    fname_in = op.join(meg_subject_dir, subj + '_ScaledTime_' + config.name_ext + '_cleaned-epo.fif')
     epochs = mne.read_epochs(fname_in, preload=True)
-    epochs.pick_types('grad')
+    epochs.pick_types('mag')
         
     # Compute PSD
-    psds, freqs = mne.time_frequency.psd_welch(epochs, fmin=3, fmax = 45, n_fft=450, n_jobs = 3) # to do colormap PSD
+    psds, freqs = mne.time_frequency.psd_welch(epochs, fmin=3, fmax = 45, n_fft=450, n_jobs = 5) # to do colormap PSD
 #    psds, freqs = mne.time_frequency.psd_multitaper(epochs, fmin=2, fmax=45, n_jobs=5)
     
     psds = 10. * np.log10(psds)
@@ -40,6 +40,6 @@ f, ax = plt.subplots()
 ax.plot(freqs, PSD_mean, color='k')
 ax.fill_between(freqs, PSD_mean - PSD_std, PSD_mean + PSD_std,
                 color='k', alpha=.5)
-ax.set(title='Welch PSD (grad)', xlabel='Frequency',
+ax.set(title='Welch PSD (mag)', xlabel='Frequency',
        ylabel='Power Spectral Density (dB)')
 plt.show()

@@ -31,7 +31,7 @@ def apply_ica(subject):
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     # load epochs to reject ICA components
-    extension = 'P-int123-scl-epo'
+    extension = config.name_ext + '-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
 
@@ -43,7 +43,7 @@ def apply_ica(subject):
     
     epochs = mne.read_epochs(fname_in, preload=True)
 
-    extension = 'P-int123-scl_cleaned-epo'
+    extension = config.name_ext + '_cleaned-epo'
     
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
@@ -84,9 +84,9 @@ def apply_ica(subject):
 
         # Load ICA
         fname_ica = op.join(meg_subject_dir,
-                            '{0}_{1}_{2}-P-int123-scl-ica.fif'.format(subject,
+                            '{0}_{1}_{2}-{3}-ica.fif'.format(subject,
                                                          config.study_name,
-                                                         ch_type))
+                                                         ch_type, config.name_ext))
         print('Reading ICA: ' + fname_ica)
         ica = read_ica(fname=fname_ica)
 
@@ -118,9 +118,9 @@ def apply_ica(subject):
             del ecg_epochs
 
             report_fname = \
-                '{0}_{1}_{2}-P-int123-scl-reject_ica.html'.format(subject,
+                '{0}_{1}_{2}-{3}-reject_ica.html'.format(subject,
                                                      config.study_name,
-                                                     ch_type)
+                                                     ch_type, config.name_ext)
             report_fname = op.join(meg_subject_dir, report_fname)
             report = Report(report_fname, verbose=False)
 
@@ -211,4 +211,4 @@ def apply_ica(subject):
 
 
 parallel, run_func, _ = parallel_func(apply_ica, n_jobs=config.N_JOBS)
-parallel(run_func(subject) for subject in config.subjects_list2)
+parallel(run_func(subject) for subject in config.subjects_list)
