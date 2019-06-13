@@ -70,12 +70,12 @@ name_ext = 'P-int123-scl'
 
 # To use all subjects use
 #subjects_list = ['gl180335']
-#subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
-#                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
-#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
-
-subjects_list = ['ll180197', 
+subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
+                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
                  'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
+
+#subjects_list = ['ll180197', 
+#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
 #subjects_list2 = ['lr190095', 'ad190325', 'ag170045']
 #subjects_list3 = ['tr180110', 'ep190335', 'gl180335']
 #subjects_list = ['ih190084', 'cr170417', 'll180197', 'tr180110', 'ep190335', 'gl180335']
@@ -115,7 +115,7 @@ exclude_subjects = []
 # if there are less runs than is expected. If there is only just one file,
 # leave empty!
 
-runs = ['Run04', 'Run05', 'Run06'] #'Run01', 'Run02', 'Run03', 
+runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06'] #
 #runs = ['Run05']
 
 
@@ -904,7 +904,7 @@ h_trans_bandwidth = 'auto'
 #  ``N_JOBS`` : int
 #    An integer that specifies how many subjects you want to run in parallel.
 
-N_JOBS = 8
+N_JOBS = 1
 
 # ``random_state`` : None | int | np.random.RandomState
 #    To specify the random generator state. This allows to have
