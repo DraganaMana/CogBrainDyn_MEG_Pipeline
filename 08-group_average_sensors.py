@@ -24,7 +24,7 @@ for subject in config.subjects_list:
     else:
         print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
-    extension = config.name_ext + '_cleaned_epo-ave'
+    extension = config.name_ext + '_cleaned-epo-ave'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
 

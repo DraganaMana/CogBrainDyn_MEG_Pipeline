@@ -18,5 +18,5 @@ exec(open("/home/dm258725/CogBrainDyn_MEG_Pipeline/06a-apply_ica.py").read())
 
 exec(open("/home/dm258725/CogBrainDyn_MEG_Pipeline/07-make_evoked.py").read())
 
-exec(open("/home/dm258725/CogBrainDyn_MEG_Pipeline/10-time-frequency.py").read())
+exec(open("/home/dm258725/CogBrainDyn_MEG_Pipeline/10a-time-frequency.py").read())
 

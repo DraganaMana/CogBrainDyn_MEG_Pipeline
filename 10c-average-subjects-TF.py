@@ -25,7 +25,7 @@ print(nips)
 
 conditions = config.time_frequency_conditions
 
-ch_type = 'mag' # mag/grad/eeg
+ch_type = 'grad' # mag/grad/eeg
 
 
 tmin = config.tmin
@@ -108,8 +108,11 @@ for c, condition in enumerate(conditions):
                     % (config.study_name, 'all-subj', ch_type,
                        condition.replace(op.sep, ''))), overwrite=True)  
     
-    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1., topomap_args=topomap_args, vmin = vvmin, vmax = vvmax, 
-                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW '+ ch_type + ' ' + condition))
+    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1., 
+                              topomap_args=topomap_args, 
+                              vmin = vvmin, vmax = vvmax, 
+                              timefreqs=[(.15, 10), (0.6, 20)], 
+                              title=('POW '+ ch_type + ' ' + condition))
     
 #    AVGPOW.plot(baseline=None, tmin=-0.4, tmax=1., vmin = -1.2, vmax = 1.2,
 #                             title=('POW '+ ch_type + ' ' + condition))
@@ -134,7 +137,8 @@ AVGPOW = mne.time_frequency.AverageTFR(pow_dummy.info, P ,pow_dummy.times,pow_du
 #                title=('POW ' + 'difference' ),
 #                vmin = -.30,vmax = .30) # , axes=axis[c]
 AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1.25,
-                             timefreqs=[(.15, 10), (0.6, 20)], title=('POW '+ ch_type +' diff Pint' 
+                             timefreqs=[(.15, 10), (0.6, 20)], 
+                             title=('POW '+ ch_type +' diff Pint' 
                                         + str(cond1) + ' - Pint' + str(cond2)))
     
 plt.savefig('%s_%s_%s_%s.png' %(config.study_name, subj, ('diff_P' + str(cond1) + '-P' + str(cond2)), 

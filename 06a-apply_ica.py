@@ -164,7 +164,7 @@ def apply_ica(subject):
 
             eog_average = eog_epochs.average()
 
-            eog_inds, scores = ica.find_bads_eog(eog_epochs, threshold=2.5) # threshold = 2.5
+            eog_inds, scores = ica.find_bads_eog(eog_epochs, threshold=2.15) # threshold = 2.5
 
             del eog_epochs
 
