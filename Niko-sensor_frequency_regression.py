@@ -37,7 +37,10 @@ from functools import partial
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 from mne.channels import read_ch_connectivity
-connectivity, ch_names = read_ch_connectivity('neuromag306mag') #  neuromag306planar
+
+
+connectivity, ch_names = read_ch_connectivity('neuromag306planar') #  neuromag306mag
+chan_pick = 'grad'
 
 
 subject = config.subjects_list[0] #take the first subject
@@ -48,7 +51,7 @@ fname_in = op.join(meg_subject_dir,
 evokeds = mne.read_evokeds(fname_in)
 dum_evo = evokeds[0]
 times = len(dum_evo.times)
-n_channels = len(mne.pick_types(dum_evo.info, 'mag'))
+n_channels = len(mne.pick_types(dum_evo.info, chan_pick))
 
 #bands = {'theta':(4,7),'alpha':(8,12),
 #        'beta1':(12,20),'beta2':(20,30),
@@ -61,8 +64,8 @@ bands = {'beta': (15,40)}
 #event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
 #            'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
 #            'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
-event_id = {'BPint02c': 23}
-conditions = ['BPint02c']
+event_id = {'BPint123': 5}
+conditions = ['BPint123']
 #conditions = ['BPint01s', 'BPint01c', 'BPint01l',
 #              'BPint02s', 'BPint02c', 'BPint02l',
 #              'BPint03s', 'BPint03c', 'BPint03l']
@@ -71,7 +74,7 @@ itc=[list() for _ in range(len(conditions))]
 all_freq=np.zeros((len(bands),len(config.subjects_list),n_channels,times))
 this_freq=np.zeros((len(config.subjects_list),n_channels,times))
 
-p_threshold = 0.01
+p_threshold = 0.00001
 n_samples = len(config.subjects_list)-len(config.exclude_subjects) # *len(conditions)
 threshold = - stats.distributions.t.ppf(p_threshold / 2., n_samples - 1)
 threshold_tfce = dict(start=0., step = 0.2)
@@ -100,7 +103,7 @@ for con,condition in enumerate(conditions): # currently it iterates through all 
                         power[con] = power[con][-1]
                         power[con].apply_baseline(mode='percent',baseline=(-0.3,-0.1))
                         
-                        power[con].pick_types(meg='mag')
+                        power[con].pick_types(meg=chan_pick)
                 # itc[con] = read_tfrs(
                 #         op.join(meg_subject_dir,config.analysis, '%s_%s_itc_%s-tfr.h5'
                 #                 % (config.study_name, subject, 
@@ -118,10 +121,10 @@ cluster_stats  = spatio_temporal_cluster_1samp_test(
         n_permutations=n_perm, buffer_size=None, out_type='indices') 
 
 T_obs, clusters, p_values, H0 = cluster_stats
-good_cluster_inds = np.where(p_values < p_accept)[0]
+good_cluster_inds = np.where(p_values < 0.05)[0]
 print('found ' + str(len(good_cluster_inds)) + ' significant clusters')
 
-#%% Visualise clusters
+#%% 
 
 # Read the epochs
 for subject in config.subjects_list:
@@ -130,11 +133,12 @@ for subject in config.subjects_list:
     fname_in = op.join(meg_subject_dir,
                    config.base_fname.format(**locals()))
     epochs = mne.read_epochs(fname_in, preload=True)
-    epochs.pick_types(meg='mag')
-
+    epochs.pick_types(meg=chan_pick)
+#%% Visualise clusters
+    
 # configure variables for visualization
-colors = {"BPint02c": "crimson"}
-linestyles = {"BPint02c": '-'}
+colors = {"BPint123": "crimson"}
+linestyles = {"BPint123": '-'}
 
 # get sensor positions via layout
 pos = mne.find_layout(epochs.info).pos

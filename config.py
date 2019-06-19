@@ -37,8 +37,8 @@ plot = True
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
-study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-#study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -60,7 +60,7 @@ meg_dir = os.path.join(study_path, 'MEG')
 #   This is the name of your experiment.
 study_name = 'ScaledTime'
 
-name_ext = 'R-int123-scl' # 'P-int123-scl'
+name_ext = 'P-int123-scl' # 'P-int123-scl', 'R-int123-scl', 'P-ints'
 
 # ``subjects_list`` : list of str
 #   To define the list of participants, we use a list with all the anonymized
@@ -69,7 +69,8 @@ name_ext = 'R-int123-scl' # 'P-int123-scl'
 #   subjects_list = ['SB01']
 
 # To use all subjects use
-#subjects_list = ['ld190260', 'ad190325', 'ag170045', 'ep190335']
+#subjects_list = ['cg190026', 'ih190084', 'cr170417', 'll180197', 
+#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
 subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
                  'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
                  'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
@@ -667,23 +668,23 @@ min_event_duration = 0.005
 #conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 
 
-## For all 3 ints, and short-correct-long
-#event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
-#            'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
-#            'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
-##event_id = {'BPint01c': 15}
-#conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-#              'BPint02s', 'BPint02c', 'BPint02l',
-#              'BPint03s', 'BPint03c', 'BPint03l']
-
-# For all 3 ints, and short-correct-long
-event_id = {'BPRint01s': 14, 'BPRint01c': 16, 'BPRint01l': 18, 
-            'BPRint02s': 24, 'BPRint02c': 26, 'BPRint02l': 28,
-            'BPRint03s': 34, 'BPRint03c': 36, 'BPRint03l': 38}
+## PLAY: For all 3 ints, and short-correct-long
+event_id = {'BPint01s': 13, 'BPint01c': 15, 'BPint01l': 17, 
+            'BPint02s': 23, 'BPint02c': 25, 'BPint02l': 27,
+            'BPint03s': 33, 'BPint03c': 35, 'BPint03l': 37}
 #event_id = {'BPint01c': 15}
-conditions = ['BPRint01s', 'BPRint01c', 'BPRint01l',
-              'BPRint02s', 'BPRint02c', 'BPRint02l',
-              'BPRint03s', 'BPRint03c', 'BPRint03l']
+conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+              'BPint02s', 'BPint02c', 'BPint02l',
+              'BPint03s', 'BPint03c', 'BPint03l']
+
+# REPLAY: For all 3 ints, and short-correct-long
+#event_id = {'BPRint01s': 14, 'BPRint01c': 16, 'BPRint01l': 18, 
+#            'BPRint02s': 24, 'BPRint02c': 26, 'BPRint02l': 28,
+#            'BPRint03s': 34, 'BPRint03c': 36, 'BPRint03l': 38}
+##event_id = {'BPint01c': 15}
+#conditions = ['BPRint01s', 'BPRint01c', 'BPRint01l',
+#              'BPRint02s', 'BPRint02c', 'BPRint02l',
+#              'BPRint03s', 'BPRint03c', 'BPRint03l']
 
 
 
@@ -824,15 +825,15 @@ decoding_n_splits = 5
 #time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
 #time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 # Play s-c-l division
-#time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-#                             'BPint02s', 'BPint02c', 'BPint02l',
-#                             'BPint03s', 'BPint03c', 'BPint03l']
+time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+                             'BPint02s', 'BPint02c', 'BPint02l',
+                             'BPint03s', 'BPint03c', 'BPint03l']
 
 
 # Replay s-c-l
-time_frequency_conditions = ['BPRint01s', 'BPRint01c', 'BPRint01l',
-                             'BPRint02s', 'BPRint02c', 'BPRint02l',
-                             'BPRint03s', 'BPRint03c', 'BPRint03l']
+#time_frequency_conditions = ['BPRint01s', 'BPRint01c', 'BPRint01l',
+#                             'BPRint02s', 'BPRint02c', 'BPRint02l',
+#                             'BPRint03s', 'BPRint03c', 'BPRint03l']
 
 
 ###############################################################################
@@ -919,7 +920,7 @@ h_trans_bandwidth = 'auto'
 #  ``N_JOBS`` : int
 #    An integer that specifies how many subjects you want to run in parallel.
 
-N_JOBS = 4
+N_JOBS = 1
 
 # ``random_state`` : None | int | np.random.RandomState
 #    To specify the random generator state. This allows to have

@@ -56,7 +56,7 @@ for pp, nip in enumerate(nips):
         elif ch_type == 'grad':
             power.pick_types(meg='grad')
         elif ch_type == 'eeg':
-            power.pick_types(eeg=True,meg = False)
+            power.pick_types(eeg=True, meg = False)
         
         
         # plot single subject
@@ -69,34 +69,34 @@ for pp, nip in enumerate(nips):
            
         POW[pp,c]=power.data
 
+################################# ITC
+#        itc =  mne.time_frequency.read_tfrs(op.join(meg_subject_dir, '%s_%s_itc_%s-tfr.h5'
+#                                                    % (config.study_name, nip,
+#                                                       condition.replace(op.sep, ''))))
+#        itc = itc.pop()
+#        itc = itc.crop(tmin=tmin,tmax=tmax)
         
-        itc =  mne.time_frequency.read_tfrs(op.join(meg_subject_dir, '%s_%s_itc_%s-tfr.h5'
-                                                    % (config.study_name, nip,
-                                                       condition.replace(op.sep, ''))))
-        itc = itc.pop()
-        itc = itc.crop(tmin=tmin,tmax=tmax)
-        
-        if ch_type == 'mag':
-           itc.pick_types(meg='mag')
-        elif ch_type == 'grad':
-            itc.pick_types(meg='grad')
-        elif ch_type == 'eeg':
-            itc.pick_types(eeg=True,meg = False)
-        
-        ITC[pp,c]=itc.data
-
+#        if ch_type == 'mag':
+#           itc.pick_types(meg='mag')
+#        elif ch_type == 'grad':
+#            itc.pick_types(meg='grad')
+#        elif ch_type == 'eeg':
+#            itc.pick_types(eeg=True,meg = False)
+#        
+#        ITC[pp,c]=itc.data
+#################################
     if pp == 0:
         pow_dummy = power
-        itc_dummy = itc
+#        itc_dummy = itc
         
 #%% 1. Compute condition averages per channel type and visualize    
          
 plot_tmin = tmin
 plot_tmax = tmax  
 subj = 'subj1-'+ str(len(subjects_list))  
-topomap_args = dict(vmin=-1.2, vmax=1.2) # fix the colormap values
-vvmin = -1.2
-vvmax = 1.2            
+topomap_args = dict(vmin=-1.8, vmax=1.8) # fix the colormap values
+vvmin = -0.9 # -1.2 for mag and 1.2
+vvmax = 0.9           
 
 for c, condition in enumerate(conditions):          
 #        c = 3
@@ -104,20 +104,28 @@ for c, condition in enumerate(conditions):
     P = np.mean(POW[:,c], 0) # avg over sbs
     AVGPOW = mne.time_frequency.AverageTFR(pow_dummy.info, P ,pow_dummy.times,pow_dummy.freqs,nave=len(nips))
     
-    AVGPOW.save(op.join(config.study_path, '%s_%s_%s_AVGpower_%s-tfr.h5'
-                    % (config.study_name, 'all-subj', ch_type,
-                       condition.replace(op.sep, ''))), overwrite=True)  
+#    AVGPOW.save(op.join(config.study_path, '%s_%s_%s_AVGpower_%s-tfr.h5'
+#                    % (config.study_name, 'all-subj', ch_type,
+#                       condition.replace(op.sep, ''))), overwrite=True)  
     
-    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1., 
-                              topomap_args=topomap_args, 
-                              vmin = vvmin, vmax = vvmax, 
-                              timefreqs=[(.15, 10), (0.6, 20)], 
-                              title=('POW '+ ch_type + ' ' + condition))
+    AVGPOW.plot(baseline=None, tmin=-0.5, tmax=1., vmin = vvmin, vmax = vvmax,
+                             title=('POW '+ ch_type + ' ' + condition))
+#    fig = plt.figure()
+#    fig.set_figheight(3)
+#    fig.set_figwidth(4)
     
-#    AVGPOW.plot(baseline=None, tmin=-0.4, tmax=1., vmin = -1.2, vmax = 1.2,
-#                             title=('POW '+ ch_type + ' ' + condition))
-    plt.savefig('%s_%s_%s_%s_%s.png' %(config.study_name, subj, condition, 'averageTF_1sec', ch_type),
-                dpi=96)
+    AVGPOW.plot_topomap(baseline=None, tmin=0.5, tmax=1., fmin=15, fmax=40,
+#                              vmin = vvmin, vmax = vvmax, 
+                              colorbar=True,
+                              title=('Beta power (15-40Hz) of gradiometers (fT/cm), t=0.5-1sec'))
+    
+#    AVGPOW.plot_joint(baseline=None, tmin=-0.5, tmax=1., 
+#                              topomap_args=topomap_args, 
+#                              vmin = vvmin, vmax = vvmax, 
+#                              timefreqs=[(.15, 10), (0.6, 20)], 
+#                              title=('POW '+ ch_type + ' ' + condition))
+#    plt.savefig('%s_%s_%s_%s_%s.png' %(config.study_name, subj, condition, 'averageTF_1sec', ch_type),
+#                dpi=96)
  
     
 #%% 2. Compute condition average differences per channel type and visualize    

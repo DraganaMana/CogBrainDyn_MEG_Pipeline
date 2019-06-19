@@ -39,9 +39,11 @@ def run_maxwell_filter(subject):
                            config.base_fname.format(**locals()))   
     
     # I do the following because I'm not processing their first blocks
-    if subject == 'cg190026' or subject == 'ih190084':
-        raw_fname_in = op.join('/media/dm258725/VERBATIM/ScaledTime/MEGdata/MEG/cg190026/cg190026_ScaledTime_Run02_filt_raw.fif')       
-     
+    if subject == 'cg190026':
+        raw_fname_in = op.join('D:\ScaledTime\MEGdata\MEG\cg190026\cg190026_ScaledTime_Run02_sss_raw.fif')
+#        raw_fname_in = op.join('/media/dm258725/VERBATIM/ScaledTime/MEGdata/MEG/cg190026/cg190026_ScaledTime_Run02_sss_raw.fif')       
+    if subject == 'ih190084':
+        raw_fname_in = op.join('D:\ScaledTime\MEGdata\MEG\ih190084\ih190084_ScaledTime_Run02_sss_raw.fif')
     
     info = mne.io.read_info(raw_fname_in)
     destination = info['dev_head_t']

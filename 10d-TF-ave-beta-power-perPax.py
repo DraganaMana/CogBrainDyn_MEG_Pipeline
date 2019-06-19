@@ -84,7 +84,7 @@ for c,condition in enumerate(conditions):
             for k, time in enumerate(power[i,0,:]):
                 m=0
                 for j, freq in enumerate(power[i,:,k]):
-                    if j > 9 and j <= 37: # j<=37
+                    if j > 10 and j <= 37: # j<=37 10 --> 13Hz; 37 --> 40 Hz
                         power_beta[i,m,k] = freq
                         m += 1
                         
@@ -103,13 +103,13 @@ ints_long = []
 for i in range(0, len(ints_num)):  
     for p in range(0,18):
         ints_long.append(ints_num[i])
-
-for i, val in enumerate(pow_beta):
-    if val > 1:
-        print(i,val)
-        
-for p in range(0,len(ints)):
-    print(p)
+#
+#for i, val in enumerate(pow_beta):
+#    if val > 1:
+#        print(i,val)
+#        
+#for p in range(0,len(ints)):
+#    print(p)
     
     
     
@@ -150,7 +150,84 @@ plt.yticks(())
 
 plt.show()
 
+#%% New plot
+"""
+import pandas as pd
+import seaborn as sns
+import itertools
+#%matplotlib qt
+
+xl      = np.ndarray.tolist(x) # x from the linear regress is an array, and we get list of lists
+yl      = np.ndarray.tolist(y)
+yl_pred = np.ndarray.tolist(y_pred)
+xll = list(itertools.chain.from_iterable(xl)) # we have list of lists, and we need a flat list
+
+df1 = pd.DataFrame({'Int123scl': xll, 'betaPow': y})
+df2 = pd.DataFrame({'X': xll, 'y_pred': y_pred})
+
+sns.set_style("whitegrid")
+#plt.figure()
+# 1
+#ints = ['why', '1.45s','1.45c','1.45l','2.9s','2.9c','2.9l','5.8s','5.8c','5.8l']
+#spl = sns.scatterplot(x="Int123scl", y="betaPow", data=df1, s=60, #marker="s", 
+#                      color="indianred", label="Beta power")
+#spl = sns.lineplot(x="X", y="y_pred", data=df2, color="black", label="Linear regression")
+# 2
+#ints = ['1.45s','1.45c','1.45l','2.9s','2.9c','2.9l','5.8s','5.8c','5.8l']
+#spl = sns.boxplot(x="Int123scl", y="betaPow", data=df1, color="indianred")
+# 3
+spl = sns.regplot(x="Int123scl", y="betaPow", data=df1, x_jitter=.1, color="indianred",
+                  label="Beta power")
+ints = ['why','1.45s','1.45c','1.45l','2.9s','2.9c','2.9l','5.8s','5.8c','5.8l']
+plt.title("Beta power over P123 scl, per pax")
+plt.xlabel("P 123 scl", fontsize=12) 
+plt.ylabel("Average beta power per pax", fontsize=12)    
+spl.legend(loc='upper left', frameon=True)
+spl.set_xticklabels(ints)
+#plt.figure(frameon=True)
+plt.show()
+
+
+#
+
+#spl.figure.savefig("betaPower_perInt123scl_perPax.svg")
+#plt.show()
+"""
+#%% Box plot
+import pandas as pd
+import seaborn as sns
+import itertools
+import matplotlib.style as style
+#%matplotlib qt
+
+xl      = np.ndarray.tolist(x) # x from the linear regress is an array, and we get list of lists
+yl      = np.ndarray.tolist(y)
+yl_pred = np.ndarray.tolist(y_pred)
+xll = list(itertools.chain.from_iterable(xl)) # we have list of lists, and we need a flat list
+
+df1 = pd.DataFrame({'Int123scl': xll, 'betaPow': y})
+#df2 = pd.DataFrame({'X': xll, 'y_pred': y_pred})
+#with sns.color_palette("YlOrRd", 6):
+sns.set_style("whitegrid")
+style.use('seaborn-poster')
+# Draw a pointplot to show pulse as a function of three categorical factors
+spl = sns.catplot(x="Int123scl", y="betaPow", # alpha=1.5, # hue="kind", col="diet",
+                capsize=.2, palette=sns.color_palette("Reds", 9), # height=6, aspect=.75,
+                kind="point", data=df1)
+ints = ['1.45s','1.45c','1.45l','2.9s','2.9c','2.9l','5.8s','5.8c','5.8l']
+plt.title("Average beta power per condition")
+plt.xlabel("Conditions (s-short, c-correct, l-long) per interval") 
+plt.ylabel("Beta power") 
+plt.ylim(0.05, 0.35)   
+spl.set_xticklabels(ints)
+sns.despine() 
+plt.show()
+
+
+
+
 #%% Plot the CV-ER dots + the linear regression
+"""
 import pygal
 
 xl = np.ndarray.tolist(x) # x from the linear regress is an array, and we get list of lists
@@ -190,13 +267,13 @@ xy_chart.add('beta power per pax', [t[i] for i in range(len(ints_long))])
 xy_chart.add('Linear regression', [min(tups), max(tups)], stroke=True, stroke_style={'width': 3})
 xy_chart.render()
 xy_chart.render_to_file('beta-power_P123scl_perPax.svg')
-
+"""
 #%% Pearson correlation coefficient and p-value for testing non-correlation.
 
 #https://www.texasgateway.org/resource/124-testing-significance-correlation-coefficient-optional
 #https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html
 
-import scipy 
+#import scipy 
 from scipy import stats
 
 r, p = stats.pearsonr(ints_long, pow_beta)

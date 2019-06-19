@@ -31,7 +31,7 @@ def run_events(subject):
         extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname_out = op.splitext(raw_fname_in)[0] + '-eve.fif'
+        eve_fname_out = op.splitext(raw_fname_in)[0] + '_' + config.name_ext +'-eve.fif'
         
         if not op.exists(raw_fname_in):
             warn('Run %s not found for subject %s ' %
@@ -59,17 +59,17 @@ def run_events(subject):
 #                    raw.info['sfreq'],
 #                    )
 #-----------------------------------
-#        # First button press
-#        events_ints = np.array(np.zeros((45,3)), np.int64)
-#        numrows = len(events)
-#        i=0
-#        for nrows in range(numrows):
-#            if (events[nrows][2]==15 and events[nrows+1][2]==2048) or (events[nrows][2]==35 and events[nrows+1][2]==2048) or (events[nrows][2]==55 and events[nrows+1][2]==2048):
-#                events_ints[i][0]=events[nrows+1][0]
-#                events_ints[i][1]=events[nrows+1][1]
-#                events_ints[i][2]=5
-#                i=i+1
-#        events_ints 
+        # First button press
+        events_ints = np.array(np.zeros((45,3)), np.int64)
+        numrows = len(events)
+        i=0
+        for nrows in range(numrows):
+            if (events[nrows][2]==15 and events[nrows+1][2]==2048) or (events[nrows][2]==35 and events[nrows+1][2]==2048) or (events[nrows][2]==55 and events[nrows+1][2]==2048):
+                events_ints[i][0]=events[nrows+1][0]
+                events_ints[i][1]=events[nrows+1][1]
+                events_ints[i][2]=5
+                i=i+1
+        events_ints 
 #-----------------------------------
         # Seconds button press
 #        events_ints = np.array(np.zeros((45,3)), np.int64)
@@ -181,7 +181,7 @@ def run_events(subject):
         print("Input: ", raw_fname_in)
         print("Output: ", eve_fname_out)
 
-        mne.write_events(eve_fname_out, events)
+        mne.write_events(eve_fname_out, events_ints)
 #        mne.write_events(eve_fname_out, events)
 
         if config.plot:
