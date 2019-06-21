@@ -18,6 +18,10 @@ from mne.io import concatenate_raws, read_raw_edf
 from mne.time_frequency import tfr_multitaper
 from mne.stats import permutation_cluster_1samp_test as pcluster_test
 from mne.viz.utils import center_cmap
+import config
+import os.path as op
+from warnings import warn
+
 
 
 # load and preprocess data ####################################################
@@ -44,23 +48,23 @@ subject = 'hm070076'
 runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06'] 
 meg_subject_dir = op.join(config.meg_dir, subject)
 
-# Read raw files from MEG room
-for run in runs:
-    extension = run + '_raw'
-    raw_MEG = op.join(meg_subject_dir,
-                               config.base_fname.format(**locals()))
-    raw = mne.io.read_raw_fif(raw_MEG,
-                                  allow_maxshield=config.allow_maxshield,
-                                  preload=True, verbose='error')
-#%% Read files (events) after 03-extract_events.py
-for run in runs:
-    extension = run + '_sss_raw'
-    raw_fname_in = op.join(meg_subject_dir, config.base_fname.format(**locals()))
-    eve_fname = op.splitext(raw_fname_in)[0] + '_' + config.name_ext + '-eve.fif'
-    events = mne.read_events(eve_fname)
+## Read raw files from MEG room
+#for run in runs:
+#    extension = run + '_raw'
+#    raw_MEG = op.join(meg_subject_dir,
+#                               config.base_fname.format(**locals()))
+#    raw = mne.io.read_raw_fif(raw_MEG,
+#                                  allow_maxshield=config.allow_maxshield,
+#                                  preload=True, verbose='error')
+## Read files (events) after 03-extract_events.py
+#for run in runs:
+#    extension = run + '_sss_raw'
+#    raw_fname_in = op.join(meg_subject_dir, config.base_fname.format(**locals()))
+#    eve_fname = op.splitext(raw_fname_in)[0] + '_' + config.name_ext + '-eve.fif'
+#    events = mne.read_events(eve_fname)
 
 
-picks = mne.pick_channels....
+
 
 
 # epoch data ##################################################################
@@ -74,14 +78,47 @@ picks = mne.pick_channels....
 tmin = config.tmin
 tmax = config.tmax
 baseline = config.baseline
-event_id = config.event_id
+event_ids = config.event_id
 
-# Read files after 04-make_epochs.py
-meg_subject_dir = op.join(config.meg_dir, subject)
-extension = 'P-int123-scl-epo'
-fname_in = op.join(meg_subject_dir,
-                   config.base_fname.format(**locals()))
-epochs = mne.read_epochs(fname_in, preload=True)
+raw_list = list()
+events_list = list()
+
+for run in runs:
+    extension = run + '_sss_raw'
+    raw_fname_in = op.join(meg_subject_dir,
+                           config.base_fname.format(**locals()))
+    eve_fname = op.splitext(raw_fname_in)[0] + '_' + config.name_ext + '-eve.fif'
+    print("Input: ", raw_fname_in, eve_fname)
+    
+    if not op.exists(raw_fname_in):
+        warn('Run %s not found for subject %s ' %
+             (raw_fname_in, subject))
+        continue
+    
+    raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
+    
+    events = mne.read_events(eve_fname)
+    events_list.append(events)
+
+
+    raw_list.append(raw)
+
+print('  Concatenating runs')
+raw, events = mne.concatenate_raws(raw_list, events_list=events_list)
+
+if config.eeg:
+    raw.set_eeg_reference(projection=True)
+
+del raw_list
+
+picks = mne.pick_channels(raw.info["ch_names"], ["MEG0433", "MEG0432", "MEG0431"])
+
+# Epoch the data
+print('  Epoching')
+epochs = mne.Epochs(raw, events, config.event_id, config.tmin, config.tmax,
+                    proj=True, picks=picks, baseline=config.baseline,
+                    preload=False, decim=config.decim,
+                    reject=config.reject)
 
 
 # compute ERDS maps ###########################################################
@@ -94,6 +131,7 @@ kwargs = dict(n_permutations=100, step_down_p=0.05, seed=1,
               buffer_size=None)  # for cluster test
 
 for event in event_ids:
+    print(event)
     tfr = tfr_multitaper(epochs[event], freqs=freqs, n_cycles=n_cycles,
                          use_fft=True, return_itc=False, average=False,
                          decim=2)
