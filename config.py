@@ -33,12 +33,12 @@ plot = True
 # ~~~~~~~
 # study_path = '../MNE-sample-data/'
 
-#study_path = '/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/'
+study_path = '/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/'
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
 #study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-study_path = 'D:/ScaledTime/MEGdata/'
+#study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
