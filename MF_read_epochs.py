@@ -41,11 +41,37 @@ for subject in subjects_list:
         # 5 to 6 epochs. 
 
 import scipy.io as sio
-mat_name = subject + '_ScaledTime_MF-block_' + condition + '_epoch-1' +  '_cleaned-epo.mat'
-sio.savemat(mat_name, {'epoch': epochs[0][0].times}, long_field_names=True)
+mat_name = subject + '_ScaledTime_MF-block_' + condition + '_epoch-111' +  '_cleaned-epo.mat'
+sio.savemat(mat_name, {'epoch': epochs[0][0]}, long_field_names=True)
 
-a = {}
-a['rawtimes']=times
-#a['rawdata']=data
+#%%
+import os.path as op
 
-sio.savemat(mat_name, a)
+import mne
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.io as sio
+
+import config
+
+subject = 'ag170045'
+runs = ['Run05'] # 'Run06']
+meg_subject_dir = op.join(config.meg_dir, subject)
+
+
+for run in runs:
+    extension = run + '_raw'
+    raw_MEG = op.join(meg_subject_dir,
+                               config.base_fname.format(**locals()))
+    
+    raw = mne.io.read_raw_fif(raw_MEG,
+                                  allow_maxshield=config.allow_maxshield,
+                                  preload=True, verbose='error')
+    
+    mat_name = subject + '_ScaledTime_MF-block_' + run +  '_cleaned-epo.mat'
+#    ad190325_ScaledTime_MF-block_int145_cleaned-epo.mat
+    data, times = raw[:]
+    a = {}
+    a['rawtimes']=times
+    a['rawdata']=data
+    sio.savemat(mat_name, a)
