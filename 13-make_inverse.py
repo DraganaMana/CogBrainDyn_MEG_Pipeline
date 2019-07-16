@@ -40,8 +40,10 @@ def run_inverse(subject):
     cov = mne.read_cov(fname_cov)
     forward = mne.read_forward_solution(fname_fwd)
     info = evokeds[0].info
+    #
     inverse_operator = make_inverse_operator(
         info, forward, cov, loose=0.2, depth=0.8)
+    #
     write_inverse_operator(fname_inv, inverse_operator)
 
     # Apply inverse

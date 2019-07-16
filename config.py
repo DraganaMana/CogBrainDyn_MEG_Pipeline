@@ -848,7 +848,6 @@ time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
 #    ``'all'`` for all points, or an integer to use appoximate
 #    distance-based spacing (in mm).
 
-spacing = 'oct6'
 
 # ``mindist`` : float
 #    Exclude points closer than this distance (mm) to the bounding surface.
