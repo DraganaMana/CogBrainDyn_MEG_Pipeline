@@ -18,12 +18,13 @@ def run_forward(subject):
     print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
 
-    extension = '-ave'
+    extension = config.name_ext + '_cleaned-epo-ave'
+    # hm070076_ScaledTime_P-int123-scl_cleaned-epo-ave
     fname_evoked = op.join(meg_subject_dir,
                            config.base_fname.format(**locals()))
     print("Input: ", fname_evoked)
 
-    extension = '%s-fwd' % (config.spacing)
+    extension = config.name_ext + '%s-fwd' % (config.spacing)
     fname_fwd = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
     print("Output: ", fname_fwd)

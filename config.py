@@ -43,7 +43,7 @@ study_path = '/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/'
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
 
-subjects_dir = os.path.join(study_path, 'subjects')
+subjects_dir = os.path.join(study_path, 'subjects/aMRI')
 
 # ``meg_dir`` : str
 #   The ``meg_dir`` contains the MEG data in subfolders
@@ -69,18 +69,12 @@ name_ext = 'P-int123-scl' # 'P-int123-scl', 'R-int123-scl', 'P-ints'
 #   subjects_list = ['SB01']
 
 # To use all subjects use
-#subjects_list = ['cg190026', 'ih190084', 'cr170417', 'll180197', 
-#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
-subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
-                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
-                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045', 
-		 'pl170230', 'ma190185'] 
+subjects_list = ['hm070076'] 
+#subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
+#                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
+#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045', 
+#                 'pl170230', 'ma190185'] 
 
-#subjects_list = ['ll180197', 
-#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
-#subjects_list2 = ['lr190095', 'ad190325', 'ag170045']
-#subjects_list3 = ['tr180110', 'ep190335', 'gl180335']
-#subjects_list = ['ih190084', 'cr170417', 'll180197', 'tr180110', 'ep190335', 'gl180335']
 # 
 #                 
 # ALL PAX: 'fm180074', lk160274, empty_room, 
@@ -847,6 +841,8 @@ time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
 #    icosahedron, ``'oct#'`` for a recursively subdivided octahedron,
 #    ``'all'`` for all points, or an integer to use appoximate
 #    distance-based spacing (in mm).
+
+spacing = 'oct6'
 
 
 # ``mindist`` : float

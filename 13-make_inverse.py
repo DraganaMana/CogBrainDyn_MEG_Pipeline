@@ -20,19 +20,19 @@ def run_inverse(subject):
     print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
 
-    extension = '-ave'
+    extension = config.name_ext + '_cleaned-epo-ave'
     fname_ave = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
 
-    extension = '%s-fwd' % (config.spacing)
+    extension = config.name_ext + '%s-fwd' % (config.spacing)
     fname_fwd = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
 
-    extension = '-cov'
+    extension = config.name_ext + '_cov'
     fname_cov = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
 
-    extension = '%s-inv' % (config.spacing)
+    extension = config.name_ext + '%s-inv' % (config.spacing)
     fname_inv = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
 
