@@ -117,7 +117,7 @@ def run_ica(subject, tsss=config.mf_st_duration):
         ica_fname = op.join(meg_subject_dir, ica_fname)
         ica.save(ica_fname)
 
-        if config.plot:
+        if config.plotICA:
             # plot ICA components to html report
             report_fname = \
                 '{0}_{1}_{2}-{3}-ica.html'.format(subject, config.study_name,

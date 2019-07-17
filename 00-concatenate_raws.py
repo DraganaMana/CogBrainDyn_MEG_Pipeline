@@ -12,6 +12,7 @@ from warnings import warn
 
 import config
 
+#%%
 subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 'ch180036', 'ms180425', 
                  'cg190026', 'ih190084', 'cr170417', 'll180197', 'tr180110', 'ep190335', 'gl180335',
                  'lr190095', 'ad190325', 'ag170045'] 
@@ -41,5 +42,37 @@ extension = run + '_raw'
 raw_fname_out = op.join(meg_subject_dir,
                                 config.base_fname.format(**locals()))
 Run_new = mne.concatenate_raws([raw01, raw02])
+
+Run_new.save(raw_fname_out)
+
+
+#%% Concatenate blocks saved in 2 files
+subject = 'll180197'
+run = 'Run02'
+Run01 = subject + '_' + run + '_raw_1.fif'
+Run02 = subject + '_' + run + '_raw_2.fif'
+Run03 = subject + '_' + run + '_raw_3.fif'
+
+Run = subject + '_ScaledTime_' + run + '_raw.fif'
+
+meg_subject_dir = op.join(config.meg_dir, subject)
+
+raw_fname_in1 = op.join(meg_subject_dir, Run01)
+raw_fname_in2 = op.join(meg_subject_dir, Run02)
+raw_fname_in3 = op.join(meg_subject_dir, Run03)
+
+
+
+raw01 = mne.io.read_raw_fif(raw_fname_in1,
+                                  preload=True, verbose='error', allow_maxshield=True)
+
+raw02 = mne.io.read_raw_fif(raw_fname_in2,
+                                  preload=True, verbose='error', allow_maxshield=True)
+
+raw03 = mne.io.read_raw_fif(raw_fname_in3,
+                                  preload=True, verbose='error', allow_maxshield=True)
+
+raw_fname_out = op.join(meg_subject_dir, Run)
+Run_new = mne.concatenate_raws([raw01, raw02, raw03])
 
 Run_new.save(raw_fname_out)

@@ -15,12 +15,14 @@ import numpy as np
 
 
 # ``plot``  : boolean
-#   If True, the scripts will generate plots.
+#   If True, the scripts will generate plots.ad190325
 #   If running the scripts from a notebook or spyder
 #   run %matplotlib qt in the command line to get the plots in extra windows
 
-plot = True
-#plot = False
+#plot = True
+plot = False
+
+plotICA = True
 
 ###############################################################################
 # DIRECTORIES
@@ -69,25 +71,12 @@ name_ext = 'P-int123-scl' # 'P-int123-scl', 'R-int123-scl', 'P-ints'
 #   subjects_list = ['SB01']
 
 # To use all subjects use
-subjects_list = ['hm070076'] 
+subjects_list = ['ll180197'] 
 #subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
 #                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
 #                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045', 
 #                 'pl170230', 'ma190185'] 
 
-# 
-#                 
-# ALL PAX: 'fm180074', lk160274, empty_room, 
-# final pax
-# 'hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 'ms180425', 'ch180036',
-# 'cg190026', 'ih190084', 'cr170417', 'll180197', 'tr180110', 'lr190095', 'ep190335', 'gl180335', 
-# 'ad190325'
-
-#cur_subj = 'lk160274'
-#subject_pilot = 's190320'
-# else for speed and fast test you can use:
-
-#subjects_list = ['SB01']
 
 # ``exclude_subjects`` : list of str
 #   Now you can specify subjects to exclude from the group study:
@@ -110,10 +99,9 @@ exclude_subjects = []
 # The scripts will issue a warning
 # if there are less runs than is expected. If there is only just one file,
 # leave empty!
-
+#
 runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06'] #
-#runs = ['Run05']
-
+#runs = ['Run02']
 
 
 # ``eeg``  : bool
@@ -153,25 +141,10 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 #bads = defaultdict(list)
 #bads['SB01'] = ['MEG1723', 'MEG1722']
 #bads['SB04'] = ['MEG0543', 'MEG2333']
-#bads['SB06'] = ['MEG2632', 'MEG2033']
-
 #
 #    Use the dict(dict) if you have many runs or if noisy sensors are changing
 #    across runs.
 #
-# Example
-# ~~~~~~~
-#
-# Define dict(dict):
-# 
-# >>> def default_bads():
-# >>>     return dict(run01=[], run02=[])
-# >>>
-# >>> bads = defaultdict(default_bads)
-#
-#   and to populate this, do:
-#
-# >>> bads['subject01'] = dict(run01=[12], run02=[7])
 #
 # Good Practice / Advice
 # ~~~~~~~~~~~~~~~~~~~~~~
@@ -181,16 +154,10 @@ base_fname = '{subject}_' + study_name + '_{extension}.fif'
 # the same sensors are noisy across all runs.
 
 
-#def default_bads():
-#     return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[])
-
 def default_bads():
     return dict(Run01=[], Run02=[], Run03=[], Run04=[], Run05=[], Run06=[])
 
 bads = defaultdict(default_bads)
-#bads['s190320'] = ['MEG1732', 'MEG1723', 'MEG1722', 'MEG0213', 'MEG0541', 'MEG1921']
-#bads = dict(fm180074 = ['MEG1732', 'MEG1722', 'MEG0213', 'MEG1512'])
-#bads['fm180074'] = ['MEG1732', 'MEG1722', 'MEG0213', 'MEG1512']
 
 """
 bads['lk160274'] = dict(Run01=['MEG1411', 'MEG0111','MEG0213', 'MEG0133', 'MEG2441', 'MEG1831', 'MEG2031', 'MEG2231', 'MEG2311', 'MEG2341', 'MEG2011', 'MEG2111', 'MEG2021', 'MEG2241', 'MEG1133', 'MEG2321', 'MEG0311', 'MEG1111', 'MEG1141', 'MEG0731', 'MEG1341', 'MEG2141', 'MEG2211', 'MEG2511', 'MEG2541', 'MEG0511', 'MEG2321', 'MEG2041'], 
@@ -206,38 +173,6 @@ bads['fm180074'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'])
 """
-
-
-#bads['hm070076'] = dict(Run01=[213, 1732, 1722, 1933, 633, 2522, 311, 613],
-#    Run02=[213, 1732, 1722, 1933, 633, 2522],
-#    Run03=[213, 1732, 1722, 1933, 633, 2522],
-#    Run04=[213, 1732, 1722, 1933, 633],
-#    Run05=[213, 1732, 1722, 1933],
-#    Run06=[213, 1732, 1722, 1933])
-#
-#bads['fr190151'] = dict(Run01=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
-#    Run02=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
-#    Run03=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
-#    Run04=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
-#    Run05=[213, 1732, 1722, 1723, 1933, 633, 321, 613],
-#    Run06=[213, 1732, 1722, 1723, 1933, 633, 321, 613])
-#
-#bads['at140305'] = dict(Run01=[213, 1732, 1722,1723, 1933, 633],
-#    Run02=[213, 1732, 1722, 1723, 1933, 633, 342],
-#    Run03=[213, 1732, 1722, 1723, 1933, 633, 2512],
-#    Run04=[213, 1732, 1722, 1723, 1933, 633, 2512, 311, 1111, 1112, 1113],
-#    Run05=[213, 1732, 1722, 1723, 1933, 633, 2512, 613])
-#
-#bads['cc150418'] = dict(Run01=[213, 1732, 1722, 1723, 1933, 2123],
-#    Run02=[213, 1732, 1722, 1723, 1933, 633, 2123],
-#    Run04=[213, 1732, 1722, 1723, 1933, 633, 2432],
-#    Run05=[213, 1732, 1722, 1723, 1933, 633, 2632])
-#
-#bads['eb180237'] = dict(Run01=[213, 1732, 1722,1723, 1933, 633, 613, 623, 2511],
-#    Run02=[213, 1732, 1722,1723, 1933, 633, 613, 623, 2511],
-#    Run03=[213, 1732, 1722,1723, 1933, 633, 613, 623, 2511, 1512],
-#    Run04=[213, 1732, 1722,1723, 1933, 633, 613, 623, 2511],
-#    Run05=[213, 1732, 1722,1723, 1933, 633, 613, 623, 2542])
 
 ######################################################
 # Pax 1
@@ -337,8 +272,6 @@ bads['ep190335'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1
     Run05=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG0311', 'MEG0613', 'MEG0623', 'MEG0341'],
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG0311', 'MEG0613', 'MEG0623', 'MEG0341'])
 
-################
-
 bads['gl180335'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG0541', 'MEG0623', 'MEG0922', 'MEG2341', 'MEG0311', 'MEG1422', 'MEG1423'],
     Run02=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG2511', 'MEG2341', 'MEG0922', 'MEG0311', 'MEG1422', 'MEG1423', 'MEG1831'],
     Run03=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG1412', 'MEG0922', 'MEG0311', 'MEG1422', 'MEG1423', 'MEG1831', 'MEG2511'],
@@ -361,7 +294,19 @@ bads['ag170045'] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1
     Run06=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613', 'MEG0633', 'MEG1512', 'MEG1043', 'MEG0311', 'MEG0111'])
 
 
+bads['ma190185'] = dict(Run01=['MEG0213', 'MEG0311', 'MEG1323', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG2132', 'MEG1121'],
+    Run02=['MEG0213', 'MEG0311', 'MEG1323', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG2132', 'MEG1121'],
+    Run03=['MEG0213', 'MEG0311', 'MEG1323', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG2132', 'MEG0522', 'MEG1141'],
+    Run04=['MEG0213', 'MEG0311', 'MEG1323', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG2132'],
+    Run05=['MEG0213', 'MEG0311', 'MEG1323', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG2132', 'MEG0522', 'MEG1021'],
+    Run06=['MEG0213', 'MEG0311', 'MEG1323', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0633', 'MEG2132', 'MEG1011'])
 
+bads['pl170230'] = dict(Run01=['MEG0213', 'MEG0311', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0633', 'MEG2132', 'MEG1523', 'MEG1921'],
+    Run02=['MEG0213', 'MEG0311', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0633', 'MEG2132'],
+    Run03=['MEG0213', 'MEG0311', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0633', 'MEG2132', 'MEG1741'],
+    Run04=['MEG0213', 'MEG0311', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0633', 'MEG2132'],
+    Run05=['MEG0213', 'MEG0311', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0633', 'MEG2132', 'MEG1121'],
+    Run06=['MEG0213', 'MEG0311', 'MEG1512', 'MEG1513', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0633', 'MEG2132', 'MEG1121', 'MEG1921', 'MEG0522'])
 
 """
 bads[''] = dict(Run01=['MEG0213', 'MEG1732', 'MEG1722', 'MEG1723', 'MEG1933', 'MEG0623', 'MEG0613'],
@@ -441,6 +386,47 @@ l_freq = 0.1
 h_freq = 120.
 
 notch = True
+
+###############################################################################
+# RESAMPLING
+# ----------
+# for 01-import_and_filter.py
+#
+# [Good Practice / Advice]
+# If you have acquired data with a very high sampling frequency (e.g. 2 kHz)
+# you will likely want to downsample to lighten up the size of the files you
+# are working with (pragmatics)
+# If you are interested in typical analysis ('MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'up to 120 Hz) you can typically
+# resample your data down to 500 Hz without preventing reliable time-frequency
+# exploration of your data
+
+#
+# ``resample_sfreq``  : a float that specifies at which sampling frequency
+# the data should be resampled. If None then no resampling will be done.
+
+resample_sfreq = 500.  # None
+
+# ``decim`` : integer that says how much to decimate data at the epochs level.
+# It is typically an alternative to the `resample_sfreq` parameter that
+# can be used for resampling raw data. 1 means no decimation.
+#   Decimation is applied in 04-make_epochs.py
+
+decim = 1
+
+
+# Good Practice / Advice
+# ~~~~~~~~~~~~~~~~~~~~~~
+# If you have acquired data with a very high sampling frequency (e.g. 2 kHz)
+# you will likely want to downsample to reduce the size of the files you
+# are working with (pragmatics)
+# Make sure to resample to a frequency that is more than two times 
+# the higher cut off of the frequency band you used for the low-pass filter
+# (i.e. the Nyquist freuquency)
+# If you are interested in typical analysis (up to 120 Hz) you can typically
+# resample your data down to 500 Hz without preventing reliable time-frequency
+# exploration of your data
+
+
 ###############################################################################
 # MAXFILTER PARAMETERS
 # --------------------
@@ -511,47 +497,6 @@ mf_st_duration = None
 # Elekta default = 10s, meaning it acts like a 0.1 Hz highpass filter
 
 mf_st_duration = None # 10 for the noisy data
-
-
-###############################################################################
-# RESAMPLING
-# ----------
-# for 01-import_and_filter.py
-#
-# [Good Practice / Advice]
-# If you have acquired data with a very high sampling frequency (e.g. 2 kHz)
-# you will likely want to downsample to lighten up the size of the files you
-# are working with (pragmatics)
-# If you are interested in typical analysis ('MEG0213', 'MEG1732', 'MEG1722', 'MEG1512'up to 120 Hz) you can typically
-# resample your data down to 500 Hz without preventing reliable time-frequency
-# exploration of your data
-
-#
-# ``resample_sfreq``  : a float that specifies at which sampling frequency
-# the data should be resampled. If None then no resampling will be done.
-
-resample_sfreq = 500.  # None
-
-# ``decim`` : integer that says how much to decimate data at the epochs level.
-# It is typically an alternative to the `resample_sfreq` parameter that
-# can be used for resampling raw data. 1 means no decimation.
-#   Decimation is applied in 04-make_epochs.py
-
-decim = 1
-
-
-# Good Practice / Advice
-# ~~~~~~~~~~~~~~~~~~~~~~
-# If you have acquired data with a very high sampling frequency (e.g. 2 kHz)
-# you will likely want to downsample to reduce the size of the files you
-# are working with (pragmatics)
-# Make sure to resample to a frequency that is more than two times 
-# the higher cut off of the frequency band you used for the low-pass filter
-# (i.e. the Nyquist freuquency)
-# If you are interested in typical analysis (up to 120 Hz) you can typically
-# resample your data down to 500 Hz without preventing reliable time-frequency
-# exploration of your data
-
 
 ###############################################################################
 # AUTOMATIC REJECTION OF ARTIFACTS

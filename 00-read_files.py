@@ -18,10 +18,10 @@ import config
 #                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
 #                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
 
-subject = 'ag170045' #'at140305','hm070076', 'fr190151'
+subject = 'pl170230' #'at140305','hm070076', 'fr190151'
 #subjects_list = ['gl180335'] 
-runs = ['Run02']
-#runs = ['Run04', 'Run05', 'Run06']
+#runs = ['Run02']
+runs = ['Run04', 'Run05', 'Run06']
 #runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
 #runs = ['Run01', 'Run02', 'Run03']
 meg_subject_dir = op.join(config.meg_dir, subject)
@@ -39,7 +39,7 @@ for run in runs:
                                   preload=True, verbose='error')
 #    raw.pick_types('grad')
     # plot raw data
-#    raw.plot(n_channels=50, butterfly=False, group_by='original')
+    raw.plot(n_channels=50, butterfly=False, group_by='original')
     # plot power spectral densitiy
 #    raw.plot_psd(area_mode='range', #tmin=10.0, tmax=100.0,
 #                         fmin=0.3, fmax=100., average=True)
