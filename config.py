@@ -19,8 +19,8 @@ import numpy as np
 #   If running the scripts from a notebook or spyder
 #   run %matplotlib qt in the command line to get the plots in extra windows
 
-#plot = True
-plot = False
+plot = True
+#plot = False
 
 plotICA = True
 
@@ -72,10 +72,10 @@ name_ext = 'R-int123-scl' # 'P-int123-scl', 'R-int123-scl', 'P-ints'
 
 # To use all subjects use
 #subjects_list = ['pl170230', 'ma190185'] 
-#subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
-#                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
-#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045', 
-#                 'pl170230', 'ma190185'] 
+subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
+                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
+                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045', 
+                 'pl170230', 'ma190185'] 
 
 
 # ``exclude_subjects`` : list of str
@@ -698,25 +698,45 @@ ica_decim = 11
 
 
 #subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
-#                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
+#                 'ch180036', 'ms180425', 'cg190026', 'ih190084'] 
+#subjects_list = ['cr170417', 'll180197', 
 #                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045', 
 #                 'pl170230', 'ma190185'] 
 
-#subjects_list = ['ag170045'] 
+#subjects_list = ['pl170230'] 
 
 def default_reject_comps():
     return dict(meg=[], eeg=[])
 
 rejcomps_man = defaultdict(default_reject_comps)
 
-rejcomps_man['ag170045'] = dict(eeg=[], meg=[12, 71, 2, 17])
+#rejcomps_man['hm070076'] = dict(eeg=[], meg=[2, 58, 59, 70])
+#rejcomps_man['fr190151'] = dict(eeg=[], meg=[9, 11, 54, 14, 61, 68]) # lower eog th
+#rejcomps_man['at140305'] = dict(eeg=[], meg=[0, 28, 12, 18])
+#rejcomps_man['cc150418'] = dict(eeg=[], meg=[47, 14]) # lower ecg th
+#rejcomps_man['eb180237'] = dict(eeg=[], meg=[2, 0, 31])
+#rejcomps_man['ld190260'] = dict(eeg=[], meg=[0, 49, 6, 13]) #lower ecg th
+#rejcomps_man['ms180425'] = dict(eeg=[], meg=[3, 1, 26, 41])
+#rejcomps_man['ch180036'] = dict(eeg=[], meg=[0, 1])
+#rejcomps_man['cg190026'] = dict(eeg=[], meg=[14, 18, 60]) #lower ths
+#rejcomps_man['ih190084'] = dict(eeg=[], meg=[6, 24])
+#rejcomps_man['cr170417'] = dict(eeg=[], meg=[12, 35, 54, 55, 0, 65])
+#rejcomps_man['ll180197'] = dict(eeg=[], meg=[16, 0, 1, 7, 41])
+#rejcomps_man['tr180110'] = dict(eeg=[], meg=[61, 64, 71, 0, 25])
+#rejcomps_man['lr190095'] = dict(eeg=[], meg=[2, 41, 0, 6, 10, 71])
+#rejcomps_man['ep190335'] = dict(eeg=[], meg=[9, 0, 1, 19, 30, 32])
+#rejcomps_man['gl180335'] = dict(eeg=[], meg=[10, 0, 1, 2, 3, 4, 15, 63]) #lower eog th
+#rejcomps_man['ad190325'] = dict(eeg=[], meg=[3, 8, 60])
+#rejcomps_man['ag170045'] = dict(eeg=[], meg=[4, 56, 61]) #lower ths
+#rejcomps_man['pl170230'] = dict(eeg=[], meg=[0, 50]) # lower ths
+#rejcomps_man['ma190185'] = dict(eeg=[], meg=[4, 34, 59, 0])
 
 # ``ica_ctps_ecg_threshold``: float
 #    The threshold parameter passed to `find_bads_ecg` method.
 #   If you find that artifact components are not rejected, set it lower. 
 
 ica_ctps_ecg_threshold = 0.1
-ica_eog_threshold = 2.35 # 2.35
+ica_eog_threshold = 2.2 # 2.35
 
 # Good Practice / Advice
 # ~~~~~~~~~~~~~~~~~~~~~~
@@ -782,15 +802,15 @@ decoding_n_splits = 5
 #time_frequency_conditions = ['BPint01', 'BPint02', 'BPint03']
 #time_frequency_conditions = ['BPRint01', 'BPRint02', 'BPRint03']
 # Play s-c-l division
-time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
-                             'BPint02s', 'BPint02c', 'BPint02l',
-                             'BPint03s', 'BPint03c', 'BPint03l']
+#time_frequency_conditions = ['BPint01s', 'BPint01c', 'BPint01l',
+#                             'BPint02s', 'BPint02c', 'BPint02l',
+#                             'BPint03s', 'BPint03c', 'BPint03l']
 
 
 # Replay s-c-l
-#time_frequency_conditions = ['BPRint01s', 'BPRint01c', 'BPRint01l',
-#                             'BPRint02s', 'BPRint02c', 'BPRint02l',
-#                             'BPRint03s', 'BPRint03c', 'BPRint03l']
+time_frequency_conditions = ['BPRint01s', 'BPRint01c', 'BPRint01l',
+                             'BPRint02s', 'BPRint02c', 'BPRint02l',
+                             'BPRint03s', 'BPRint03c', 'BPRint03l']
 
 
 ###############################################################################
