@@ -62,10 +62,10 @@ def apply_ica(subject):
     
     # I do the following because I'm not processing their first blocks
     if subject == 'cg190026':
-        raw_fname_in = op.join('D:\ScaledTime\MEGdata\MEG\cg190026\cg190026_ScaledTime_Run02_sss_raw.fif')
+        raw_fname_in = op.join('/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/MEG/cg190026/cg190026_ScaledTime_Run02_sss_raw.fif')
 #        raw_fname_in = op.join('/media/dm258725/VERBATIM/ScaledTime/MEGdata/MEG/cg190026/cg190026_ScaledTime_Run02_sss_raw.fif')       
     if subject == 'ih190084':
-        raw_fname_in = op.join('D:\ScaledTime\MEGdata\MEG\ih190084\ih190084_ScaledTime_Run02_sss_raw.fif')
+        raw_fname_in = op.join('/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/MEG/ih190084/ih190084_ScaledTime_Run02_sss_raw.fif')
 
     
     raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
@@ -168,7 +168,7 @@ def apply_ica(subject):
 
             eog_average = eog_epochs.average()
 
-            eog_inds, scores = ica.find_bads_eog(eog_epochs, threshold=2.15) # threshold = 2.5
+            eog_inds, scores = ica.find_bads_eog(eog_epochs, threshold=config.ica_eog_threshold) # threshold = 2.5
 
             del eog_epochs
 

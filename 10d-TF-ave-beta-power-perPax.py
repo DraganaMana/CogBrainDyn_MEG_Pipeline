@@ -62,6 +62,8 @@ for c,condition in enumerate(conditions):
         elif ch_type == 'eeg':
             power.pick_types(eeg=True,meg = False)
             
+#        picks = mne.pick_channels(raw.info["ch_names"], ["C3", "Cz", "C4"])
+            
 #        itc =  mne.time_frequency.read_tfrs(op.join(meg_subject_dir, '%s_%s_itc_%s-tfr.h5'
 #                                                    % (config.study_name, nip,
 #                                                       condition.replace(op.sep, ''))))
@@ -76,14 +78,14 @@ for c,condition in enumerate(conditions):
 #            itc.pick_types(eeg=True,meg = False)
             
         ##################
-        power = power.crop(0.5,1)
-        power = power.data
+        power1 = power.crop(0.5,1)
+        power1 = power1.data
             # also I need to check which are the significant channels from the clusters, and
             # only pick them like I picked the freq and times
-        for i, channels in enumerate(power[:,0,0]):
-            for k, time in enumerate(power[i,0,:]):
+        for i, channels in enumerate(power1[:,0,0]):
+            for k, time in enumerate(power1[i,0,:]):
                 m=0
-                for j, freq in enumerate(power[i,:,k]):
+                for j, freq in enumerate(power1[i,:,k]):
                     if j > 10 and j <= 37: # j<=37 10 --> 13Hz; 37 --> 40 Hz
                         power_beta[i,m,k] = freq
                         m += 1
@@ -92,16 +94,18 @@ for c,condition in enumerate(conditions):
         pow_beta_sd.append(np.std(power_beta))
 
 #%% plot, transform, check
+        
+n_pax = 20
 ints = ['1.45s','1.45c','1.45l','2.9s','2.9c','2.9l','5.8s','5.8c','5.8l']
 for p in range(0,len(ints)):
-    for r in range(p*18,(p+1)*18):   
+    for r in range(p*n_pax,(p+1)*n_pax):   
         plt.plot(ints[p], pow_beta[r], 'bo-')
 
 # I want to make the ints list as long as pow_beta in order to do the linear regression
 ints_num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 ints_long = []   
 for i in range(0, len(ints_num)):  
-    for p in range(0,18):
+    for p in range(0,n_pax):
         ints_long.append(ints_num[i])
 #
 #for i, val in enumerate(pow_beta):
@@ -200,9 +204,12 @@ import itertools
 import matplotlib.style as style
 #%matplotlib qt
 
+x = np.array(ints_long).reshape((-1, 1))
+y = np.array(pow_beta)
+
 xl      = np.ndarray.tolist(x) # x from the linear regress is an array, and we get list of lists
 yl      = np.ndarray.tolist(y)
-yl_pred = np.ndarray.tolist(y_pred)
+#yl_pred = np.ndarray.tolist(y_pred)
 xll = list(itertools.chain.from_iterable(xl)) # we have list of lists, and we need a flat list
 
 df1 = pd.DataFrame({'Int123scl': xll, 'betaPow': y})

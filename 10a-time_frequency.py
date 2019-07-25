@@ -23,7 +23,7 @@ n_cycles = freqs / 3.
 
 
 def run_time_frequency(subject):
-    print("processing subject: %s" % subject)
+    print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
     extension = config.name_ext + '_cleaned-epo'
     fname_in = op.join(meg_subject_dir,
@@ -51,6 +51,7 @@ def run_time_frequency(subject):
                              timefreqs=[(.15, 10), (0.6, 20)])
             plt.savefig('%s_%s_%s_%s.png' %(config.study_name, subject,
                                          condition.replace(op.sep, ''), 'TFpercent'))
+            plt.close()
             
             
             
