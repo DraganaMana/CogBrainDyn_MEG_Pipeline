@@ -6,10 +6,10 @@
 Blinks and ECG artifacts are automatically detected and the corresponding ICA
 components are removed from the data.
 This relies on the ICAs computed in 05-run_ica.py
-!! If you manually add components to remove (config.rejcomps_man), 
-make sure you did not re-run the ICA in the meantime. Otherwise (especially if 
-the random state was not set, or you used a different machine, the component 
-order might differ). 
+!! If you manually add components to remove (config.rejcomps_man),
+make sure you did not re-run the ICA in the meantime. Otherwise (especially if
+the random state was not set, or you used a different machine, the component
+order might differ).
 
 """
 
@@ -20,34 +20,55 @@ from mne.parallel import parallel_func
 from mne.preprocessing import read_ica
 from mne.preprocessing import create_eog_epochs, create_ecg_epochs
 from mne.report import Report
+from warnings import warn
 
 import numpy as np
 import config
 
 
-def run_evoked(subject):
+def apply_ica(subject):
     print("Processing subject: %s" % subject)
     meg_subject_dir = op.join(config.meg_dir, subject)
 
     # load epochs to reject ICA components
-    extension = '-int123-epo'
+#    extension = config.name_ext + '-epo'
+    extension = config.name_ext + '-' + config.cond + '-epo'
     fname_in = op.join(meg_subject_dir,
                        config.base_fname.format(**locals()))
+
+    
+#    if not op.exists(fname_in):
+#            warn('Run %s not found for subject %s ' %
+#                 (fname_in, subject))
+#            continue
+    
     epochs = mne.read_epochs(fname_in, preload=True)
 
-    extension = '-int123-cleaned-epo'
+    extension = config.name_ext + '-' + config.cond + '_cleaned-epo'
+    
     fname_out = op.join(meg_subject_dir,
                         config.base_fname.format(**locals()))
 
     print("Input: ", fname_in)
     print("Output: ", fname_out)
+    
+    
 
     # load first run of raw data for ecg /eog epochs
     raw_list = list()
     print("  Loading one run from raw data")
-    extension = config.runs[0] + '_sss_raw'
+    extension = config.runs[0] + '_' + config.name_ext + '_sss_raw'
     raw_fname_in = op.join(meg_subject_dir,
                            config.base_fname.format(**locals()))
+    
+    # I do the following because I'm not processing their first blocks
+    if subject == 'cg190026':
+        raw_fname_in = op.join('D:\ScaledTime\MEGdata\MEG\cg190026\cg190026_ScaledTime_Run02_sss_raw.fif')
+#        raw_fname_in = op.join('/media/dm258725/VERBATIM/ScaledTime/MEGdata/MEG/cg190026/cg190026_ScaledTime_Run02_sss_raw.fif')       
+    if subject == 'ih190084':
+        raw_fname_in = op.join('D:\ScaledTime\MEGdata\MEG\ih190084\ih190084_ScaledTime_Run02_sss_raw.fif')
+
+    
     raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
 
     # run ICA on MEG and EEG
@@ -61,15 +82,16 @@ def run_evoked(subject):
         ch_types = ['meg', 'eeg']
     else:
         ch_types = ['meg']
-    
+
     for ch_type in ch_types:
         print(ch_type)
         picks = all_picks[ch_type]
 
         # Load ICA
         fname_ica = op.join(meg_subject_dir,
-                            '{0}_{1}_{2}-int123-ica.fif'.format(subject, config.study_name,
-                                                         ch_type))
+                            '{0}_{1}_{2}-{3}-{4}-ica.fif'.format(subject,
+                                                         config.study_name,
+                                                         ch_type, config.name_ext, config.cond))
         print('Reading ICA: ' + fname_ica)
         ica = read_ica(fname=fname_ica)
 
@@ -95,37 +117,43 @@ def run_evoked(subject):
 
             ecg_average = ecg_epochs.average()
 
-            # XXX I had to lower the threshold for ctps (default 0.25), otherwise it does not
-            # find any components
-            # check how this behaves on other data
-            ecg_inds, scores = ica.find_bads_ecg(ecg_epochs, method='ctps',
-                                                 threshold=0.1)
+            ecg_inds, scores = \
+                ica.find_bads_ecg(ecg_epochs, method='ctps',
+                                  threshold=config.ica_ctps_ecg_threshold)
             del ecg_epochs
 
-            
-
-            report_name = op.join(meg_subject_dir,
-                                  '{0}_{1}_{2}-reject_ica.html'.format(subject, config.study_name,
-                                                                       ch_type))
-            report = Report(report_name, verbose=False)
+            report_fname = \
+                '{0}_{1}_{2}-{3}-{4}-reject_ica.html'.format(subject,
+                                                     config.study_name,
+                                                     ch_type, config.name_ext, config.cond)
+            report_fname = op.join(meg_subject_dir, report_fname)
+            report = Report(report_fname, verbose=False)
 
             # Plot r score
-            report.add_figs_to_section(ica.plot_scores(scores, exclude=ecg_inds),
-                                       captions=ch_type.upper() + ' - ECG - '
-                                       + 'R scores')
+            report.add_figs_to_section(ica.plot_scores(scores,
+                                                       exclude=ecg_inds,
+                                                       show=config.plot),
+                                       captions=ch_type.upper() + ' - ECG - ' +
+                                       'R scores')
 
             # Plot source time course
-            report.add_figs_to_section(ica.plot_sources(ecg_average, exclude=ecg_inds),
-                                       captions=ch_type.upper() + ' - ECG - '
-                                       + 'Sources time course')
+            report.add_figs_to_section(ica.plot_sources(ecg_average,
+                                                        exclude=ecg_inds,
+                                                        show=config.plot),
+                                       captions=ch_type.upper() + ' - ECG - ' +
+                                       'Sources time course')
 
             # Plot source time course
-            report.add_figs_to_section(ica.plot_overlay(ecg_average, exclude=ecg_inds),
-                                       captions=ch_type.upper() + ' - ECG - '
-                                       + 'Corrections')
+            report.add_figs_to_section(ica.plot_overlay(ecg_average,
+                                                        exclude=ecg_inds,
+                                                        show=config.plot),
+                                       captions=ch_type.upper() + ' - ECG - ' +
+                                       'Corrections')
 
         else:
-            print('no ECG channel!')
+            # XXX : to check when EEG only is processed
+            print('no ECG channel is present. Cannot automate ICAs component '
+                  'detection for EOG!')
 
         # EOG
         pick_eog = mne.pick_types(raw.info, meg=False, eeg=False,
@@ -140,49 +168,52 @@ def run_evoked(subject):
                                            tmax=0.5)
 
             eog_average = eog_epochs.average()
-            eog_inds, scores = ica.find_bads_eog(eog_epochs, threshold=2.5)
-            
+
+            eog_inds, scores = ica.find_bads_eog(eog_epochs, threshold=2.15) # threshold = 2.5
+
             del eog_epochs
 
-            
+            params = dict(exclude=eog_inds, show=config.plot)
+
             # Plot r score
-            report.add_figs_to_section(ica.plot_scores(scores, exclude=eog_inds),
-                                       captions=ch_type.upper() + ' - EOG - '
-                                       + 'R scores')
+            report.add_figs_to_section(ica.plot_scores(scores, **params),
+                                       captions=ch_type.upper() + ' - EOG - ' +
+                                       'R scores')
 
             # Plot source time course
-            report.add_figs_to_section(ica.plot_sources(eog_average, exclude=eog_inds),
-                                       captions=ch_type.upper() + ' - EOG - '
-                                       + 'Sources time course')
+            report.add_figs_to_section(ica.plot_sources(eog_average, **params),
+                                       captions=ch_type.upper() + ' - EOG - ' +
+                                       'Sources time course')
 
             # Plot source time course
-            report.add_figs_to_section(ica.plot_overlay(eog_average, exclude=eog_inds),
-                                       captions=ch_type.upper() + ' - EOG - '
-                                       + 'Corrections')
+            report.add_figs_to_section(ica.plot_overlay(eog_average, **params),
+                                       captions=ch_type.upper() + ' - EOG - ' +
+                                       'Corrections')
 
-            report.save(report_name, overwrite=True, open_browser=False)
-                           
+            report.save(report_fname, overwrite=True, open_browser=False)
 
         else:
-            print('no EOG channel!')
+            print('no EOG channel is present. Cannot automate ICAs component '
+                  'detection for EOG!')
 
         ica_reject = (list(ecg_inds) + list(eog_inds) +
                       list(config.rejcomps_man[subject][ch_type]))
 
         # now reject the components
-        print('Rejecting from ' + ch_type + ': ' + str(ica_reject))
+        print('Rejecting from %s: %s' % (ch_type, ica_reject))
         epochs = ica.apply(epochs, exclude=ica_reject)
 
-        print('Saving epochs')
+        print('Saving cleaned epochs')
         epochs.save(fname_out)
-        
-        report.add_figs_to_section(ica.plot_overlay(raw.copy(), exclude=ica_reject),
-                                       captions=ch_type.upper() +
-                                       ' - ALL(epochs) - ' + 'Corrections')
-        
+
+        fig = ica.plot_overlay(raw, exclude=ica_reject, show=config.plot)
+        report.add_figs_to_section(fig, captions=ch_type.upper() +
+                                   ' - ALL(epochs) - Corrections')
+
         if config.plot:
-                epochs.plot_image(combine='gfp', group_by='type', sigma=2., cmap="YlGnBu_r")
+            epochs.plot_image(combine='gfp', group_by='type', sigma=2.,
+                              cmap="YlGnBu_r", show=config.plot)
 
 
-parallel, run_func, _ = parallel_func(run_evoked, n_jobs=config.N_JOBS)
+parallel, run_func, _ = parallel_func(apply_ica, n_jobs=config.N_JOBS)
 parallel(run_func(subject) for subject in config.subjects_list)

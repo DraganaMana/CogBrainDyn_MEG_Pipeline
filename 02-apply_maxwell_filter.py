@@ -1,9 +1,10 @@
 """
 ===================================
-03. Maxwell filter using MNE-python
+03. Maxwell filter using MNE-Python
 ===================================
-The data are Maxwell filtered using SSS or tSSS (if config.mf_st_duration is not None)
-and movement compensation.
+
+The data are Maxwell filtered using SSS or tSSS (if config.mf_st_duration
+is not None) and movement compensation.
 
 Using tSSS with a short duration can be used as an alternative to highpass
 filtering. For instance, a duration of 10 s acts like a 0.1 Hz highpass.
@@ -23,36 +24,49 @@ from mne.parallel import parallel_func
 
 import config
 
+from warnings import warn
 
 def run_maxwell_filter(subject):
-    print("processing subject: %s" % subject)
+    print("Processing subject: %s" % subject)
 
-    meg_subject_dir = op.join(config.meg_dir, subject)
+    MFmeg_subject_dir = op.join(config.MFmeg_dir, subject)
 
     # To match their processing, transform to the head position of the
     # defined run
-    extension = config.runs[config.mf_reference_run] + '_filt_raw'
-    raw_fname_in = op.join(meg_subject_dir,
-                           config.base_fname.format(**locals()))
+    extension = config.runs[config.mf_reference_run] + '_' + config.name_ext + '_filt_raw'
+    
+    raw_fname_in = op.join(MFmeg_subject_dir,
+                           config.base_fname.format(**locals()))   
+    
+    # I do the following because I'm not processing their first blocks
+    if subject == 'cg190026':
+        raw_fname_in = op.join('/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/Multifracs/cg190026/cg190026_ScaledTime_Run02_MF-block_filt_raw.fif')
+
+    if subject == 'ih190084':
+        raw_fname_in = op.join('/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/Multifracs/ih190084/ih190084_ScaledTime_Run02_MF-block_filt_raw.fif')
+    
     info = mne.io.read_info(raw_fname_in)
     destination = info['dev_head_t']
 
     for run in config.runs:
 
-        extension = run + '_filt_raw'
-        raw_fname_in = op.join(meg_subject_dir,
+        extension = run + '_' + config.name_ext + '_filt_raw'
+        raw_fname_in = op.join(MFmeg_subject_dir,
                                config.base_fname.format(**locals()))
 
-        extension = run + '_sss_raw'
-        raw_fname_out = op.join(meg_subject_dir,
+        extension = run + '_' + config.name_ext + '_sss_raw'
+        raw_fname_out = op.join(MFmeg_subject_dir,
                                 config.base_fname.format(**locals()))
+        
+        if not op.exists(raw_fname_in):
+            warn('Run %s not found for subject %s ' %
+                 (raw_fname_in, subject))
+            continue
 
         print("Input: ", raw_fname_in)
         print("Output: ", raw_fname_out)
 
-
         raw = mne.io.read_raw_fif(raw_fname_in, allow_maxshield=True)
-
 
         if config.mf_st_duration:
             print('    st_duration=%d' % (config.mf_st_duration,))
@@ -68,11 +82,8 @@ def run_maxwell_filter(subject):
         raw_sss.save(raw_fname_out, overwrite=True)
 
         if config.plot:
-
             # plot maxfiltered data
-            figure = raw_sss.plot(
-                n_channels=50, butterfly=True, group_by='position')
-            figure.show()
+            raw_sss.plot(n_channels=50, butterfly=True, group_by='position')
 
 
 parallel, run_func, _ = parallel_func(run_maxwell_filter, n_jobs=config.N_JOBS)

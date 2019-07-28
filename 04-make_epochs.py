@@ -1,3 +1,4 @@
+
 """
 ====================
 06. Construct epochs
@@ -14,6 +15,7 @@ import os.path as op
 from itertools import chain
 import mne
 from mne.parallel import parallel_func
+from warnings import warn
 
 import config
 
@@ -32,41 +34,47 @@ def run_epochs(subject):
     raw_list = list()
     events_list = list()
     print("  Loading raw data")
-
+    
+    
+    
     for run in config.runs:
-        extension = run + '_sss_raw'
+        extension = run + '_' + config.name_ext + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir,
                                config.base_fname.format(**locals()))
-        eve_fname = op.splitext(raw_fname_in)[0] + '-int123-eve.fif'
+        eve_fname = op.splitext(raw_fname_in)[0] + '_' + config.name_ext + '-eve.fif'
         print("Input: ", raw_fname_in, eve_fname)
-
+        
+        if not op.exists(raw_fname_in):
+            warn('Run %s not found for subject %s ' %
+                 (raw_fname_in, subject))
+            continue
+        
         raw = mne.io.read_raw_fif(raw_fname_in, preload=True)
-
+        
+#        #############################
+#        evefolder = '3-3-events'
+#        raw_fname_in = op.join(meg_subject_dir, evefolder,
+#                               config.base_fname.format(**locals()))
+#        eve_fname = op.splitext(raw_fname_in)[0] + '_events_int1_short-eve.fif'
+#        ############################
         events = mne.read_events(eve_fname)
         events_list.append(events)
 
-        # XXX mark bads from any run – is it a problem for ICA
-        # if we just exclude the bads shared by all runs ?
-        if run:
-            bads = set(chain(*config.bads[subject].values()))
-        else:
-            bads = config.bads[subject]
-
-        raw.info['bads'] = bads
-        print("added bads: ", raw.info['bads'])
 
         raw_list.append(raw)
 
     print('  Concatenating runs')
     raw, events = mne.concatenate_raws(raw_list, events_list=events_list)
-    
+
     if config.eeg:
         raw.set_eeg_reference(projection=True)
-    
+
     del raw_list
 
     picks = mne.pick_types(raw.info, meg=True, eeg=config.eeg, stim=True,
                            eog=True, exclude=())
+#    picks = mne.pick_types(raw.info, meg='mag', eog=True)
+    
 
     # Construct metadata from the epochs
     # Add here if you need to attach a pandas dataframe as metadata
@@ -79,9 +87,12 @@ def run_epochs(subject):
                         proj=True, picks=picks, baseline=config.baseline,
                         preload=False, decim=config.decim,
                         reject=config.reject)
+#                        reject = {'mag': 4e-12})
+    
+#    epochs.drop_channels(['EOG061'])
 
     print('  Writing epochs to disk')
-    extension = '-int123-epo'
+    extension = config.name_ext + '-' + config.cond + '-epo'
     epochs_fname = op.join(meg_subject_dir,
                            config.base_fname.format(**locals()))
     print("Output: ", epochs_fname)
@@ -89,7 +100,8 @@ def run_epochs(subject):
 
     if config.plot:
         epochs.plot()
-        epochs.plot_image(combine='gfp', group_by='type', sigma=2., cmap="YlGnBu_r")
+        epochs.plot_image(combine='gfp', group_by='type', sigma=2.,
+                          cmap="YlGnBu_r")
 
 # Here we use fewer N_JOBS to prevent potential memory problems
 parallel, run_func, _ = parallel_func(run_epochs, n_jobs=N_JOBS)
