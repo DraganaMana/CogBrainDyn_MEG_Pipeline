@@ -47,7 +47,6 @@ def run_ica(subject, tsss=config.mf_st_duration):
         events = mne.read_events(eve_fname)
         events_list.append(events)
 
-
         raw_list.append(raw)
 
     print('  Concatenating runs')

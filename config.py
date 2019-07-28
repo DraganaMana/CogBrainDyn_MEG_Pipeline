@@ -123,7 +123,7 @@ exclude_subjects = []
 runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06'] #
 #runs = ['Run03']
 
-
+PR = ['Play', 'Replay']
 
 # ``eeg``  : bool
 #    If true use the EEG channels

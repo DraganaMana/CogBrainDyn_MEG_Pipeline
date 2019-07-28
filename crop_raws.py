@@ -35,8 +35,8 @@ for subject in subjects_list:
         
         meg_subject_dir = op.join(meg_dir, subject)
 
-        # Read the raw file
-        extension = run + '_raw'
+        # Read the .fif file from script 02-
+        extension = run + '_' + name_ext + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir, base_fname.format(**locals()))
         raw = mne.io.read_raw_fif(raw_fname_in,
                                   allow_maxshield=True,
@@ -105,21 +105,21 @@ for subject in subjects_list:
         
         play3 = mne.io.Raw.crop(mne.io.Raw.copy(raw), tmin=eves[6][0]/freq, tmax=eves[7][0]/freq)
         replay3 = mne.io.Raw.crop(mne.io.Raw.copy(raw), tmin=eves[7][0]/freq, tmax=eves[8][0]/freq)
-#        
+        
         # Save the Plays and Replays of the 3 intervals in .fif files
-        play1_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Play_int1_raw.fif')
+        play1_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Play_int1_sss_raw.fif')
         play1.save(play1_fname_out)
-        replay1_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Replay_int1_raw.fif')
+        replay1_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Replay_int1_sss_raw.fif')
         replay1.save(replay1_fname_out)
 
-        play2_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Play_int2_raw.fif')
+        play2_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Play_int2_sss_raw.fif')
         play2.save(play2_fname_out)
-        replay2_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Replay_int2_raw.fif')
+        replay2_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Replay_int2_sss_raw.fif')
         replay2.save(replay2_fname_out)
         
-        play3_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Play_int3_raw.fif')
+        play3_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Play_int3_sss_raw.fif')
         play3.save(play3_fname_out)
-        replay3_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Replay_int3_raw.fif')
+        replay3_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Replay_int3_sss_raw.fif')
         replay3.save(replay3_fname_out)
 
 
