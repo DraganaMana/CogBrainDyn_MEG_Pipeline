@@ -25,7 +25,9 @@ name_ext = 'MF-block'
 base_fname = '{subject}_' + study_name + '_{extension}.fif'
 
 # Directory where the .fif files are
-meg_dir = '....'
+meg_dir = 'D:/ScaledTime/MEGdata/MEG/'
+
+#study_path = 
 
 
 for subject in subjects_list:
@@ -37,61 +39,65 @@ for subject in subjects_list:
 
         # Read the .fif file from script 02-
         extension = run + '_' + name_ext + '_sss_raw'
+#        extension = run + '_sss_raw'
         raw_fname_in = op.join(meg_subject_dir, base_fname.format(**locals()))
         raw = mne.io.read_raw_fif(raw_fname_in,
                                   allow_maxshield=True,
                                   preload=True, verbose='error')
         
         eve_fname = op.join(meg_subject_dir, subject+'_ScaledTime_' + run + '_' + name_ext + '_sss_raw-eve.fif')
+#        eve_fname = op.join(meg_subject_dir, subject+'_ScaledTime_' + run + '_sss_raw-eve.fif')
         events = mne.read_events(eve_fname)
         
 #        freq = raw.info['sfreq'] # Acquizition frequency
         freq=2000
 
         
-        eves = np.array(np.zeros((12,3)), np.int64)
+        eves_rev = np.array(np.zeros((12,3)), np.int64)
         i = 0
         k = 0
-        for nrows in range(len(events)):
-            if (events[nrows][2]==1):
-                eves[i][0] = events[nrows][0]
-                eves[i][1] = events[nrows][1]
-                eves[i][2] = events[nrows][2]
+        j = 0
+        m = 0
+        events_rev = events[::-1]
+        for nrows in range(len(events_rev)):
+            if (events_rev[nrows][2]==1):
+                eves_rev[i][0] = events_rev[nrows][0]
+                eves_rev[i][1] = events_rev[nrows][1]
+                eves_rev[i][2] = 1
                 i += 1
-            if (events[nrows][2]==21):
+            if (events_rev[nrows][2]==21):
                 k += 1
-                if k == 15:
-                    eves[i][0] = events[nrows][0]
-                    eves[i][1] = events[nrows][0]
-                    eves[i][2] = 1
+                if k == 1:
+                    eves_rev[i][0] = events_rev[nrows][0]
+                    eves_rev[i][1] = events_rev[nrows][0]
+                    eves_rev[i][2] = 11
                     i += 1
-                    k = 0
-            if (events[nrows][2]==3):
-                eves[i][0] = events[nrows][0]
-                eves[i][1] = events[nrows][1]
-                eves[i][2] = 2
+            if (events_rev[nrows][2]==3):
+                eves_rev[i][0] = events_rev[nrows][0]
+                eves_rev[i][1] = events_rev[nrows][1]
+                eves_rev[i][2] = 2
                 i += 1
-            if (events[nrows][2]==41):
-                k += 1
-                if k == 15:
-                    eves[i][0] = events[nrows][0]
-                    eves[i][1] = events[nrows][0]
-                    eves[i][2] = 2
+            if (events_rev[nrows][2]==41):
+                j += 1
+                if j == 1:
+                    eves_rev[i][0] = events_rev[nrows][0]
+                    eves_rev[i][1] = events_rev[nrows][0]
+                    eves_rev[i][2] = 22
                     i += 1
-                    k=0
-            if (events[nrows][2]==5):
-                eves[i][0] = events[nrows][0]
-                eves[i][1] = events[nrows][1]
-                eves[i][2] = 3
+            if (events_rev[nrows][2]==5):
+                eves_rev[i][0] = events_rev[nrows][0]
+                eves_rev[i][1] = events_rev[nrows][1]
+                eves_rev[i][2] = 3
                 i += 1
-            if (events[nrows][2]==61):
-                k += 1
-                if k == 15:
-                    eves[i][0] = events[nrows][0]
-                    eves[i][1] = events[nrows][0]
-                    eves[i][2] = 3
+            if (events_rev[nrows][2]==61):
+                m += 1
+                if m == 1:
+                    eves_rev[i][0] = events_rev[nrows][0]
+                    eves_rev[i][1] = events_rev[nrows][0]
+                    eves_rev[i][2] = 33
                     i += 1
-                    k = 0
+                    
+        eves = eves_rev[::-1]
 
         # Deletes the triggers for the Training start and keeps only the triggers for the Play and Replay
         eves = np.delete(eves, (8, 4, 0), axis=0) # 0, 4, 8
@@ -108,19 +114,19 @@ for subject in subjects_list:
         
         # Save the Plays and Replays of the 3 intervals in .fif files
         play1_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Play_int1_sss_raw.fif')
-        play1.save(play1_fname_out)
+        play1.save(play1_fname_out, overwrite = True)
         replay1_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Replay_int1_sss_raw.fif')
-        replay1.save(replay1_fname_out)
+        replay1.save(replay1_fname_out, overwrite = True)
 
         play2_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Play_int2_sss_raw.fif')
-        play2.save(play2_fname_out)
+        play2.save(play2_fname_out, overwrite = True)
         replay2_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Replay_int2_sss_raw.fif')
-        replay2.save(replay2_fname_out)
+        replay2.save(replay2_fname_out, overwrite = True)
         
         play3_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Play_int3_sss_raw.fif')
-        play3.save(play3_fname_out)
+        play3.save(play3_fname_out, overwrite = True)
         replay3_fname_out = op.join(meg_subject_dir, subject + '_ScaledTime_' + run + '_Replay_int3_sss_raw.fif')
-        replay3.save(replay3_fname_out)
+        replay3.save(replay3_fname_out, overwrite = True)
 
 
 """
