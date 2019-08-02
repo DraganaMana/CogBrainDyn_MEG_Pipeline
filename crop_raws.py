@@ -70,7 +70,7 @@ for subject in subjects_list:
                 if k == 1:
                     eves_rev[i][0] = events_rev[nrows][0]
                     eves_rev[i][1] = events_rev[nrows][0]
-                    eves_rev[i][2] = 11
+                    eves_rev[i][2] = 1
                     i += 1
             if (events_rev[nrows][2]==3):
                 eves_rev[i][0] = events_rev[nrows][0]
@@ -82,7 +82,7 @@ for subject in subjects_list:
                 if j == 1:
                     eves_rev[i][0] = events_rev[nrows][0]
                     eves_rev[i][1] = events_rev[nrows][0]
-                    eves_rev[i][2] = 22
+                    eves_rev[i][2] = 2
                     i += 1
             if (events_rev[nrows][2]==5):
                 eves_rev[i][0] = events_rev[nrows][0]
@@ -94,7 +94,7 @@ for subject in subjects_list:
                 if m == 1:
                     eves_rev[i][0] = events_rev[nrows][0]
                     eves_rev[i][1] = events_rev[nrows][0]
-                    eves_rev[i][2] = 33
+                    eves_rev[i][2] = 3
                     i += 1
                     
         eves = eves_rev[::-1]
