@@ -24,7 +24,7 @@ RSs = ['RS01', 'RS02']
 study_name = 'ScaledTime'
 
 # Directory where the .fif files are
-meg_dir = 'D:/ScaledTime/MEGdata/MEG/'
+meg_dir = '...'
 
 stim_channel = 'STI101' 
 min_event_duration = 0.0001
