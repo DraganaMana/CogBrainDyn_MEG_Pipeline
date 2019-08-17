@@ -38,8 +38,8 @@ events = mne.read_events(eve_fname)
 # select the time interval around the events
 tmin, tmax = -0.5, 1.25
 # select the channels (phase_channel, amplitude_channel)
-#ixs = (8, 10)
-ixs = 10
+#ixs = (8, 10) (phase channel, amplitude channel)
+ixs = (8, 10)
 
 # create the input array for Comodulogram.fit
 #low_sig, high_sig, mask = raw_to_mask(raw, ixs=ixs, events=events, tmin=tmin, tmax=tmax)
@@ -234,7 +234,7 @@ for r, cont in enumerate(contrast_list):
                         vmin=None, vmax=None)
                     
                     """
-                   
+                    
                     # Locked on alpha phase
                     estimator = PeakLocking(fs=fs, low_fq = 10., low_fq_width = low_fq_width, t_plot = 0.3)
                     estimator.fit(channel_signal)

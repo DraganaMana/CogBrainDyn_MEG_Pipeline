@@ -35,12 +35,12 @@ plotICA = True
 # ~~~~~~~
 # study_path = '../MNE-sample-data/'
 
-study_path = '/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/'
+#study_path = '/neurospin/meg/meg_tmp/ScaledTime_Dragana_2019/'
 
 # 'C:/Users/Dragana/Documents/MEG/MEG_pilot/Test_01/'
 
 #study_path = '/media/dm258725/VERBATIM/ScaledTime/MEGdata/' 
-#study_path = 'D:/ScaledTime/MEGdata/'
+study_path = 'D:/ScaledTime/MEGdata/'
 
 # ``subjects_dir`` : str
 #   The ``subjects_dir`` contains the MRI files for all subjects.
@@ -62,7 +62,7 @@ meg_dir = os.path.join(study_path, 'MEG')
 #   This is the name of your experiment.
 study_name = 'ScaledTime'
 
-name_ext = 'R-int123-scl' # 'P-int123-scl', 'R-int123-scl', 'P-ints'
+name_ext = 'P-int123-scl' # 'P-int123-scl', 'R-int123-scl', 'P-ints'
 
 # ``subjects_list`` : list of str
 #   To define the list of participants, we use a list with all the anonymized
@@ -71,11 +71,11 @@ name_ext = 'R-int123-scl' # 'P-int123-scl', 'R-int123-scl', 'P-ints'
 #   subjects_list = ['SB01']
 
 # To use all subjects use
-#subjects_list = ['pl170230', 'ma190185'] 
-subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
-                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
-                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045', 
-                 'pl170230', 'ma190185'] 
+subjects_list = ['pl170230'] #, 'ma190185'] 
+#subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
+#                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
+#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045', 
+#                 'pl170230', 'ma190185'] 
 
 
 # ``exclude_subjects`` : list of str
