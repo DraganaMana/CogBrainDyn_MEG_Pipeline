@@ -99,8 +99,9 @@ for subject in config.subjects_list:
     mask[:,(times>tmin) & (times <tmax)] = 1
         
     for chan, signif_ch in enumerate(chan_mask):
-        print(chan, signif_ch)
         if signif_ch == 1:
+            print(chan, signif_ch)
+            print(channel_names[chan])
             
             channel_signal = sig[:, chan, :] # signal of the given channel
             
@@ -118,3 +119,4 @@ for subject in config.subjects_list:
             fig.savefig(comod_dir + save_name)
             dataname = comod_dir + save_name + '.npy'
             np.save(dataname, estimator)
+            plt.close('all')

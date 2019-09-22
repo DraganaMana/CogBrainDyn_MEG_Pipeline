@@ -16,7 +16,9 @@ import config
 
 #subjects_list = ['hm070076', 'fr190151', 'at140305', 'cc150418', 'eb180237', 'ld190260', 
 #                 'ch180036', 'ms180425', 'cg190026', 'ih190084', 'cr170417', 'll180197', 
-#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045'] 
+#                 'tr180110', 'ep190335', 'gl180335', 'lr190095', 'ad190325', 'ag170045', 
+#                 'pl170230', 'ma190185'] 
+#subjects_list = ['hm070076']
 
 subject = 'pl170230' #'at140305','hm070076', 'fr190151'
 #subjects_list = ['gl180335'] 
@@ -40,6 +42,27 @@ for run in runs:
 #    raw.pick_types('grad')
     # plot raw data
     raw.plot(n_channels=50, butterfly=False, group_by='original')
+    # plot power spectral densitiy
+#    raw.plot_psd(area_mode='range', #tmin=10.0, tmax=100.0,
+#                         fmin=0.3, fmax=100., average=True)
+    
+#%%
+# Read raw files from MEG room - Resting State
+
+
+#subjects_list = 
+subjects_list = ['ma190185']
+
+for subject in subjects_list:
+    meg_subject_dir = op.join(config.meg_dir, subject)
+    raw_MEG = op.join(meg_subject_dir, 'RS02.fif')
+    
+    raw = mne.io.read_raw_fif(raw_MEG,
+                                  allow_maxshield=config.allow_maxshield,
+                                  preload=True, verbose='error')
+#    raw.pick_types('grad')
+    # plot raw data
+    raw.plot(n_channels=40, butterfly=False, group_by='original')
     # plot power spectral densitiy
 #    raw.plot_psd(area_mode='range', #tmin=10.0, tmax=100.0,
 #                         fmin=0.3, fmax=100., average=True)
