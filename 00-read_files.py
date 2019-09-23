@@ -22,8 +22,8 @@ import config
 
 subject = 'pl170230' #'at140305','hm070076', 'fr190151'
 #subjects_list = ['gl180335'] 
-#runs = ['Run02']
-runs = ['Run04', 'Run05', 'Run06']
+runs = ['Run02']
+#runs = ['Run04', 'Run05', 'Run06']
 #runs = ['Run01', 'Run02', 'Run03', 'Run04', 'Run05', 'Run06']
 #runs = ['Run01', 'Run02', 'Run03']
 meg_subject_dir = op.join(config.meg_dir, subject)

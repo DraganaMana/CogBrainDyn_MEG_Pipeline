@@ -36,7 +36,10 @@ def run_time_frequency(subject):
         these_epochs = epochs[condition]
         
         i=1
-        for single_epoch in these_epochs:
+        for j in range(len(these_epochs)):
+        #        for single_epoch in these_epochs:
+
+            single_epoch = these_epochs[j]
             power, itc = mne.time_frequency.tfr_morlet(
                 single_epoch, freqs=freqs, return_itc=True, n_cycles=n_cycles, n_jobs=5)
     
@@ -44,17 +47,17 @@ def run_time_frequency(subject):
                 op.join(meg_subject_dir, '%s_%s_power_%s_epoch-TF%s-tfr.h5'
                         % (config.study_name, subject,
                            condition.replace(op.sep, ''), str(i))), overwrite=True)
-            itc.save(
-                op.join(meg_subject_dir, '%s_%s_itc_%s_epoch-%s-TFtfr.h5'
-                        % (config.study_name, subject,
-                           condition.replace(op.sep, ''), str(i))), overwrite=True)
+#            itc.save(
+#                op.join(meg_subject_dir, '%s_%s_itc_%s_epoch-%s-TFtfr.h5'
+#                        % (config.study_name, subject,
+#                           condition.replace(op.sep, ''), str(i))), overwrite=True)
             i=i+1
-    
+#    
 #            if config.plot:
 #                power.plot_joint(baseline=(-0.3, -0.1), mode='percent', tmin=-0.5, tmax=1.25,
 #                                 timefreqs=[(.15, 10), (0.6, 20)])
-#                plt.savefig('%s_%s_%s_%s.png' %(config.study_name, subject,
-#                                             condition.replace(op.sep, ''), 'TFpercent'))
+##                plt.savefig('%s_%s_%s_%s.png' %(config.study_name, subject,
+##                                             condition.replace(op.sep, ''), 'TFpercent'))
 #                plt.close()
         
 
